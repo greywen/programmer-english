@@ -4,6 +4,6 @@ client/dist
 client/package-lock.json
 services/node_modules
 services/dist
-services/config/default.json
+services/config/*
 services/package-lock.json
 services/template
