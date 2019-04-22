@@ -1,0 +1,180 @@
+.page {
+    background-color: #efeff4;
+}
+
+.page-animate {
+    margin-top: 5px !important;
+    transition: all 1 ease-out;
+}
+
+.page-content {
+    color: #000;
+    padding-left:87px;
+    padding-right:87px;
+    margin-top:75px;
+}
+
+.navigation-bar {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 750rpx;
+    color: #000;
+    background-color: #efeff4;
+    z-index: 99;
+    text-align: center;
+    transition: 300ms;
+}
+  
+.tools {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 70px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color:#000;
+}
+
+.icon-tools{
+    display: inline-block;
+    font-family: 'iconfont' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: middle;
+    font-size: 40px;
+    padding-left:55px;
+    padding-top:10px;
+}
+
+.tools-icon {
+    vertical-align: middle;
+    font-size: 48px;
+    padding-right: 5px;
+}
+
+.user-info {
+    padding-top:85px;
+    padding-bottom:8px;
+    width: 100%;
+}
+
+.user-info-animate {
+    margin-top: 65px;
+    transition: all 1s ease-out;
+}
+
+.word-card {
+    //position:absolute;
+    overflow: hidden;
+    left: 0;
+    right: 0;
+    width: 750px;
+    height: 100%;
+    
+}
+
+.word-card .card {
+    width: 580px;
+    transition:All 0.4s ease-out;
+    -webkit-transition:All 0.4s ease-out;
+    -moz-transition:All 0.4s ease-out;
+    -o-transition:All 0.4s ease-out;
+}
+
+.card {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    // background-color: #fff;
+    // box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    // border-radius: .25rem;
+    color: rgba(0,0,0, 0.87);
+}
+
+.card-header {
+    padding:40rpx 10rpx 0 0;
+    position:relative;
+}
+
+.card-header-icon {
+    z-index:9;
+    float: right;
+}
+
+.card-header-icon .icomoonfont {
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+    color:#fff;
+}
+
+.card-body {
+    flex-direction:row;
+    position:relative;
+    padding: 80px 0px 20px 0px;
+    color:#b2b2b2
+}
+
+.card-word-english {
+    font-weight: 500;
+    text-transform:capitalize;
+    display: inline;
+    font-size: 13pt;
+    color: #111;
+}
+
+.card-word-chinese {
+    padding:2px 0 0 0px; 
+    font-size: 11pt;
+    color: #b2b2b2;
+}
+
+.card-word-phonetic {
+    font-weight: normal;
+    font-size: 11pt;
+    padding-left:2px;
+    color: #b2b2b2;
+}
+
+.card-content {
+    padding:20px 0 0 0px;
+}
+
+.sentence-chinese {
+    padding-top: 10px;
+    font-size: 12pt;
+}
+
+.card-footer {
+    position: relative;
+    float: right;
+}
+
+.card-tools {
+    display: flex;
+    padding-top: 10px;
+}
+
+.card-tools view {
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+    text-align: center;
+    line-height: 100px;
+}
+
+.recommend {
+    color: #0099fa;
+    font-size: 10pt;
+    text-align: right;
+    display: block;
+}

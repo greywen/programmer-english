@@ -1,0 +1,63 @@
+.circle {
+    margin: 0 auto;
+    width: 60rpx;
+    height: 60rpx;
+    text-align: center;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+}
+
+.circle-anmiate {
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 50%;
+    width: 50rpx;
+    height: 50rpx;
+    background-repeat: no-repeat;
+    background-color: #555;
+    animation: loading 1.9s infinite;
+    -webkit-animation: loading 1.9s infinite;
+}
+
+@-webkit-keyframes loading {
+    0% {
+        transform: scale(1);
+    }
+
+    55% {
+        transform: scale(1.4);
+        background-color: #111;
+    }
+}
+
+.page-loading {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0);
+}
+
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 47.5%;
+    z-index: 1000;
+}
+
+.circle .avatar {
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+    overflow: hidden;
+    display:inline-block;
+}
+
+.circle-anmiate .avatar {
+    width: 50rpx;
+    height: 50rpx;
+    border-radius: 50%;
+    overflow: hidden;
+    display:inline-block;
+}

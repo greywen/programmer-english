@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2015",
+        "experimentalDecorators": true,
+        "outDir": "./dist",
+        "baseUrl": "."
+    },
+    "include": [
+        "./src/**/*",
+        "./index.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

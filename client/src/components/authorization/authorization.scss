@@ -1,0 +1,14 @@
+button {    
+    padding-left: 0;
+    padding-right: 0;
+    line-height:1;
+    background: #efeff4;
+}
+
+button::after {
+    border: none;
+}
+
+button:hover {
+    background: #efeff4;
+}

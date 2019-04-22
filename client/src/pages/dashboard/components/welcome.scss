@@ -1,0 +1,17 @@
+.user .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 0rpx solid #1a1a1a;
+    overflow: hidden;
+    display:inline-block;
+}
+
+.user .name {
+    padding: 60px 0px 20px 0px;
+    font-size: 16pt;
+}
+
+.user .welcome {
+    font-size: 12pt;
+}

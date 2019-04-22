@@ -1,0 +1,49 @@
+.navigation-bar{
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 750rpx;
+    color: #ffffff;
+    z-index: 99;
+    text-align: center;
+    transition: 300ms;
+  }
+  
+  .tools{
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 70rpx;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color:#fff;
+  }
+
+  .icon-tools{
+    display: inline-block;
+    font-family: 'iconfont' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: middle;
+    font-size: 44rpx;
+    padding-left:50rpx;
+    padding-top:10rpx;
+  }
+
+  .tools-icon {
+    vertical-align: middle;
+    font-size: 60rpx;
+    padding-right: 5px;
+  }
+  
+  .title{
+    font-weight: bold;
+  }
