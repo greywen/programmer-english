@@ -18,6 +18,8 @@
 
 ### 文件夹结构
 # service
+
+```
 ├─.vscode
     ├─launch.json
 ├─config
@@ -44,8 +46,11 @@
 ├─index.ts                  // 启动入口
 ├─package.json              // 
 ├─tsconfig.json             // tsconfig.json
+```
 
 # client
+
+```
 ├─config                    // taro生成
 ├─dist                      // 打包结果
 ├─lib                       // taro生成
@@ -73,3 +78,4 @@
 ├─package.json              // 
 ├─project.config.json       // taro生成 项目配置
 ├─tsconfig.json             // taro生成
+```
