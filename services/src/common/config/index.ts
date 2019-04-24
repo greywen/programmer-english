@@ -1,4 +1,12 @@
 import config = require("config");
+var path = require('path');
+
+//日志根目录
+var baseLogPath = path.resolve(__dirname, '../logs')
+//错误日志输出完整路径
+var errorLogPath = baseLogPath + "/errors/";
+//响应日志输出完整路径
+var responseLogPath = baseLogPath + "/responses/";
 
 interface IConfig {
     wechat: { appId: string, appSecret: string },
@@ -27,23 +35,23 @@ export default <IConfig>{
             "rule-console": { "type": "console" },
             errorLogger: {
                 "type": "dateFile",
-                "filename": "../logs/errors/",
+                "filename": errorLogPath,
                 "pattern": "yyyy-MM-dd.log",
                 "alwaysIncludePattern": true,
                 "encoding": "utf-8",
                 "maxLogSize": 1000,
                 "numBackups": 3,
-                "path": "./"
+                "path": baseLogPath
             },
             resLogger: {
                 "type": "dateFile",
-                "filename": "../logs/errors/",
+                "filename": responseLogPath,
                 "pattern": "yyyy-MM-dd.log",
                 "alwaysIncludePattern": true,
                 "encoding": "utf-8",
                 "maxLogSize": 1000,
                 "numBackups": 3,
-                "path": "./"
+                "path": baseLogPath
             },
         },
         //供外部调用的名称和对应设置定义
@@ -53,6 +61,6 @@ export default <IConfig>{
             "errorLogger": { "appenders": ["errorLogger"], "level": "error" },
             "http": { "appenders": ["resLogger"], "level": "info" }
         },
-        baseLogPath: "./"
+        baseLogPath: baseLogPath
     }
 }
