@@ -15,6 +15,7 @@ function withLogin() {
                         // Taro.reLaunch({ url: "../login/login" });
                         return;
                     };
+                    this.props.authorizationStore.update();
                     super.componentWillMount();
                 }
             }

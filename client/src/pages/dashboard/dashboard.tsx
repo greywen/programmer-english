@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View, Text, ScrollView } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx'
 
 import "./dashboard.scss"
@@ -71,6 +71,7 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
 
                 <DashboardLoading loading={loading} authorizationStore={this.props.authorizationStore}></DashboardLoading>
 
+
                 <View className="page-content" style={{ display: loading ? "none" : "block" }}>
                     <CTransition visible={true}>
                         <Welcome />
@@ -78,9 +79,9 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
 
                     {
                         dashboardData ?
-                            <View className="word-card">
-                                <View className="card">
-                                    <View className="card-header card-header-icon">
+                            <View className="sentence-content">
+                                <View className="content">
+                                    <View className="header header-icon">
                                         <CTransition visible={true}>
                                             <Authorization authorizationStore={this.props.authorizationStore}>
                                                 <View onClick={this.onCollectWord}>
@@ -94,33 +95,34 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                                         </CTransition>
                                     </View>
 
-                                    <View className="card-body">
-                                        <View className="card-content">
-                                            <CTransition visible={true}>
-                                                <View>
-                                                    {dashboardData.word.map((word, index) => {
-                                                        return <View className='flex-wrp' style='flex-direction:column; padding-bottom:10rpx;' key={index}>
-                                                            <View className='flex-item'>
-                                                                <View className="card-word-english" onClick={() => { readingText(word.english) }}>{word.english}
-                                                                    <Text className="card-word-phonetic">{"  " + word.phonetic}</Text>
-                                                                </View>
-                                                            </View>
-                                                            <View className='flex-item'>
-                                                                <View className="card-word-chinese">{word.chinese}</View>
+                                    <View className="content-body">
+                                        <CTransition visible={true}>
+                                            <View>
+                                                {dashboardData.word.map((word, index) => {
+                                                    return <View className='flex-wrp' style='flex-direction:column; padding-bottom:10rpx;' key={index}>
+                                                        <View className='flex-item'>
+                                                            <View className="word-english" onClick={() => { readingText(word.english) }}>{word.english}
+                                                                <Text className="word-phonetic">{"  " + word.phonetic}</Text>
                                                             </View>
                                                         </View>
-                                                    })}
-                                                </View>
-                                            </CTransition>
-                                            <CTransition visible={true}>
-                                                <View className='flex-wrp' style='flex-direction:column;margin-top:10px;'>
-                                                    <View className='flex-item sentence-english' onClick={() => { readingText(dashboardData.english) }}>
-                                                        <HighlightWord sentence={dashboardData.english} words={dashboardData.keyWords.split(",")}></HighlightWord>
+                                                        <View className='flex-item'>
+                                                            <View className="word-chinese">{word.chinese}</View>
+                                                        </View>
                                                     </View>
-                                                    <View className='flex-item sentence-chinese'>{dashboardData.chinese}</View>
+                                                })}
+                                            </View>
+                                        </CTransition>
+                                        <CTransition visible={true}>
+                                            <View className='flex-wrp' style='flex-direction:column;margin-top:10px;'>
+                                                <View className='flex-item sentence-english' onClick={() => { readingText(dashboardData.english) }}>
+                                                    <HighlightWord sentence={dashboardData.english} words={dashboardData.keyWords.split(",")}></HighlightWord>
                                                 </View>
-                                            </CTransition>
-                                        </View>
+                                                <ScrollView className='flex-item sentence-chinese'>
+                                                    {dashboardData.chinese}
+                                                </ScrollView>
+                                                {/* <View className='flex-item sentence-chinese'>{dashboardData.chinese}</View> */}
+                                            </View>
+                                        </CTransition>
                                     </View>
                                 </View>
                             </View> :

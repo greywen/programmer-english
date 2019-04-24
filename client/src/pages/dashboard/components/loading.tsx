@@ -44,7 +44,7 @@ export default class DashboardLoading extends Component<DashboardLoadingProps, D
         return (
             <View className="loading">
                 <View animation={moveAnimate} className={loading ? "circle-anmiate" : "circle"}>
-                    <View className='flex-wrp' style='flex-direction:column;'>
+                    <View className='flex-wrp' style='flex-direction:row;'>
                         <View className='flex-item flex-item-V'>
                             <Authorization authorizationStore={this.props.authorizationStore}>
                                 <OpenData className="avatar" lang="zh_CN" type='userAvatarUrl' />

@@ -7,14 +7,14 @@ export default class Welcome extends Component {
 
     render() {
         return (
-            <View className="user">
+            <View className="welcome">
                 <View className='flex-wrp' style='flex-direction:column;'>
                     <View className='flex-item flex-item-V'>
-                        <View className="name text-ellipsis">
+                        <View className="username text-ellipsis">
                             Hi, <OpenData lang="zh_CN" type="userNickName" />.
-                            <View className="welcome">
+                            {/* <View className="welcome">
                                 欢迎回来.
-                            </View>
+                            </View> */}
                         </View>
                     </View>
                 </View>

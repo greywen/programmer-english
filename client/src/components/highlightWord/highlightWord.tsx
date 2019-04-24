@@ -18,7 +18,7 @@ export default class HighlightWord extends Component<HighlightWordProps, Highlig
 
     componentWillMount() {
         const { sentence, words, distinct } = this.props;
-        let _distinct = distinct === undefined || distinct ? true : false
+        let _distinct = distinct == undefined || distinct ? true : false
 
         let _words = words;
         let _sentence = sentence.split(" ").map(word => {
