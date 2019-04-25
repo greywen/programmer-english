@@ -6,6 +6,7 @@ import * as koaBody from "koa-body";
 import { Route } from "./router/Route";
 import { RedisService } from "./utils/redisHelper";
 import config from "./common/config";
+import logger from "./utils/logger";
 
 const app = new Koa();
 const router = new Route(app);
@@ -19,6 +20,15 @@ app.use(koaBody({
 }))
 
 app.use(Json());
+
+app.use(async (ctx, next) => {
+    try {
+        logger.response(ctx);
+        await next();
+    } catch (error) {
+        logger.requestError(ctx, error);
+    }
+});
 
 router.registerRouters(`${__dirname}/controllers`, config.jwt);
 

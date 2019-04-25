@@ -2,7 +2,7 @@ import config = require("config");
 var path = require('path');
 
 //日志根目录
-var baseLogPath = path.resolve(__dirname, '../logs')
+var baseLogPath = path.resolve(__dirname, '../../../logs')
 //错误日志输出完整路径
 var errorLogPath = baseLogPath + "/errors/";
 //响应日志输出完整路径

@@ -4,6 +4,7 @@ import { prefix, router } from "../router";
 import userService from "../services/user.service";
 import { getBaiduApiTokenAsync } from "../utils/baiduApiUtils";
 import { redis } from "../app";
+import logger from "../utils/logger";
 
 @prefix("/user")
 class UserController {
@@ -23,7 +24,7 @@ class UserController {
         }
 
         loginResult ? loginResult.apiAccessToken = apiToken.access_token : loginResult = { apiAccessToken: apiToken.access_token };
-
+        
         ctx.body = loginResult;
     }
 }
