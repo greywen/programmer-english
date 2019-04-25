@@ -2,7 +2,7 @@
 
 ### service环境准备
 ```
-1.安装redis http://www.runoob.com/redis/redis-install.html
+1.安装redis [http://www.runoob.com/redis/redis-install.html](http://www.runoob.com/redis/redis-install.html)
 2.yarn || npm i
 3.npm run wacth
 4.vs code启动node调试 / node index
