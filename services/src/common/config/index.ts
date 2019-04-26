@@ -1,4 +1,4 @@
-import config = require("config");
+const config = require("config");
 var path = require('path');
 
 //日志根目录
@@ -64,3 +64,17 @@ export default <IConfig>{
         baseLogPath: baseLogPath
     }
 }
+
+
+import logger from "../../utils/logger";
+
+logger.error(`
+HOSTNAME: ${config.util.getEnv('HOSTNAME')} 
+NODE_CONFIG_ENV: ${config.util.getEnv('NODE_CONFIG_ENV')} 
+NODE_APP_INSTANCE: ${config.util.getEnv('NODE_APP_INSTANCE')}
+NODE_CONFIG_DIR: ${config.util.getEnv('NODE_CONFIG_DIR')}
+NODE_CONFIG: ${config.util.getEnv('NODE_CONFIG')}
+NODE_ENV: ${config.util.getEnv('NODE_ENV')}
+ALLOW_CONFIG_MUTATIONS: ${config.util.getEnv('ALLOW_CONFIG_MUTATIONS')}
+SUPPRESS_NO_CONFIG_WARNING: ${config.util.getEnv('SUPPRESS_NO_CONFIG_WARNING')}
+`)
