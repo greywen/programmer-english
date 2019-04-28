@@ -79,3 +79,7 @@
 ├─project.config.json       // taro生成 项目配置
 ├─tsconfig.json             // taro生成
 ```
+
+```
+test
+```
