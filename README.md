@@ -12,7 +12,7 @@
 ```
 1.yarn || npm i
 2.npm run dev:weapp
-3.使用微信开发者工具打开dist文件夹 ()
+3.使用微信开发者工具打开dist文件夹
 ```
 
 
