@@ -81,4 +81,5 @@
 ```
 
 ```
+test jenkins auto build hook
 ```
