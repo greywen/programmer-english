@@ -5,7 +5,6 @@ import { getWechatJSCodeSession } from "../utils/wechatHelper";
 import { userRepository, userLoginLogRepository } from "../repository";
 import { UserModel } from "../model/user";
 import { generateTokenAsync } from "../utils/jwtHelper";
-import { now } from "../utils/dateUtils";
 import config from "../common/config";
 
 export class UserService {
@@ -32,12 +31,11 @@ export class UserService {
     }
 
     async createUserAsync(userModel: UserModel): Promise<number> {
-        userModel.createTime = now();
         return await userRepository.insertAsync(userModel);
     }
 
     async createUserLoginLog(userId: number): Promise<void> {
-        await userLoginLogRepository.insertAsync({ userId: userId, loginTime: now() })
+        await userLoginLogRepository.insertAsync({ userId: userId })
     }
 }
 

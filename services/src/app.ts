@@ -27,6 +27,8 @@ app.use(async (ctx, next) => {
         await next();
     } catch (error) {
         logger.requestError(ctx, error);
+        ctx.status = error["status"] || 500;
+        ctx.body = { message: error["message"] || "服务器错误" };
     }
 });
 

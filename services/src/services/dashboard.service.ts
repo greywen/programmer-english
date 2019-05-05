@@ -1,8 +1,8 @@
 import { userCollectionRepository, userHistoryRepository, sentenceRepository, wordRepository } from "../repository";
 import { CreateCollectModel, CreateUserHistoryModel } from "../model/word";
 import { WordModel } from "../model/word/word.model";
-import { now } from "../utils/dateUtils";
 import { DashboardResultModel } from "../model/sentence";
+import { NotFoundException } from "../common/exception";
 
 export class DashboardService {
 
@@ -32,8 +32,7 @@ export class DashboardService {
     private async verifySentenceAnsyc(sentenceId: number): Promise<WordModel> {
         let sentence = await sentenceRepository.getByIdAsync(sentenceId);
         if (!sentence) {
-            // to do: sentence not found.
-            throw "sentence not found.";
+            throw new NotFoundException("Sentence not found");
         }
         return sentence;
     }
@@ -45,13 +44,13 @@ export class DashboardService {
             await userCollectionRepository.deleteAsync({ id: collectWord.id });
             return 0;
         }
-        return await userCollectionRepository.insertAsync({ sentenceId: model.sentenceId, userId: model.userId, createTime: now() });
+        return await userCollectionRepository.insertAsync({ sentenceId: model.sentenceId, userId: model.userId });
     }
 
     private async createHistoryAsync(model: CreateUserHistoryModel): Promise<void> {
         let history = await userHistoryRepository.getFirstOrDefaultAsync({ userId: model.userId, sentenceId: model.sentenceId });
         if (!history) {
-            await userHistoryRepository.insertAsync({ userId: model.userId, sentenceId: model.sentenceId, createTime: now() });
+            await userHistoryRepository.insertAsync({ userId: model.userId, sentenceId: model.sentenceId });
         }
     }
 }

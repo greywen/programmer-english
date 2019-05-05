@@ -102,7 +102,7 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                                                     return <View className='flex-wrp' style='flex-direction:column; padding-bottom:10rpx;' key={index}>
                                                         <View className='flex-item'>
                                                             <View className="word-english" onClick={() => { readingText(word.english) }}>{word.english}
-                                                                <Text className="word-phonetic">{"  " + word.phonetic}</Text>
+                                                                <Text className="word-phonetic">{` ${word.phonetic}`}</Text>
                                                             </View>
                                                         </View>
                                                         <View className='flex-item'>

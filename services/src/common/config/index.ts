@@ -61,7 +61,8 @@ export default <IConfig>{
             "errorLogger": { "appenders": ["errorLogger"], "level": "error" },
             "http": { "appenders": ["resLogger"], "level": "info" }
         },
-        baseLogPath: baseLogPath
+        baseLogPath: baseLogPath,
+        disableClustering: true
     }
 }
 
