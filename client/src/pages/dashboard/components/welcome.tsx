@@ -12,9 +12,10 @@ export default class Welcome extends Component {
                     <View className='flex-item flex-item-V'>
                         <View className="username text-ellipsis">
                             Hi, <OpenData lang="zh_CN" type="userNickName" />.
-                            {/* <View className="welcome">
-                                欢迎回来.
-                            </View> */}
+                            <View className="welcome">
+                                {/* 欢迎回来. */}
+                                只要不懒几乎每天更新哦.
+                            </View>
                         </View>
                     </View>
                 </View>

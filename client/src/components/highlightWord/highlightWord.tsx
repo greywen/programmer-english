@@ -42,7 +42,8 @@ export default class HighlightWord extends Component<HighlightWordProps, Highlig
             <View style={{ wordBreak: "break-all" }}>
                 {
                     sentence && sentence.map((word, index) => {
-                        return <Text key={index} style={{ color: word.isShow ? color || "#ed4630" : "" }}>{` ${word.value}`}</Text>
+                        return word.isShow ? <Text key={index} style={{ color: color || "#000", fontWeight: 800 }}>{` ${word.value} `}</Text> :
+                            <Text>{` ${word.value} `}</Text>
                     })
                 }
             </View >

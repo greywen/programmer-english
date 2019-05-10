@@ -23,11 +23,42 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      "pages/dashboard/dashboard"
+      "pages/word/word",
+      "pages/dashboard/dashboard",
+      "pages/document/document",
+      "pages/me/me"
     ],
+    tabBar: {
+      // color:"#f8f8f8",
+      selectedColor: "#3271fd",
+      color: "#b1b1b1",
+      backgroundColor: "#f8f8f8",
+      list: [
+        {
+          pagePath: "pages/dashboard/dashboard", text: "推荐",
+          selectedIconPath: "./assets/images/compass-selected.png",
+          iconPath: "./assets/images/compass.png"
+        },
+        {
+          pagePath: "pages/word/word", text: "技术词汇",
+          selectedIconPath: "./assets/images/file-word-selected.png",
+          iconPath: "./assets/images/file-word.png"
+        },
+        {
+          pagePath: "pages/document/document", text: "文档阅读",
+          selectedIconPath: "./assets/images/read-selected.png",
+          iconPath: "./assets/images/read.png"
+        },
+        {
+          pagePath: "pages/me/me", text: "我的",
+          selectedIconPath: "./assets/images/user-selected.png",
+          iconPath: "./assets/images/user.png"
+        }
+      ]
+    },
     requiredBackgroundModes: ["audio"],
     window: {
-      disableScroll: true,
+      disableScroll: false,
       navigationBarTextStyle: "white",
       navigationStyle: "custom"
     }

@@ -3,13 +3,15 @@ import { View, Text } from '@tarojs/components';
 
 import '../../assets/icons.scss'
 import './navigationBar.scss'
+import CTransition from '../transition/cTransition';
 
 interface NavigationBarProps {
     background?: string,
     color?: string,
     title?: string,
     showBack?: boolean,
-    backUrl?: string
+    backUrl?: string,
+    scrollTop?: number
 }
 
 interface NavigationBarState {
@@ -47,27 +49,36 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
     }
 
     render() {
-        const { background, color, title, showBack } = this.props;
-
+        const { background, color, title, showBack, scrollTop } = this.props;
         return (
-            <View className="navigation-bar" style={{
-                paddingTop: this.state.paddingTop + "px",
-                height: this.state.height + "px",
-                lineHeight: this.state.height + "px",
-                background: background || "#efeff4",
-                color: color || "#000"
-            }}>
-                <View className="tools" style={{
+            <View>
+                <View className="navigation-bar" style={{
                     paddingTop: this.state.paddingTop + "px",
                     height: this.state.height + "px",
-                    lineHeight: this.state.height + "px"
+                    lineHeight: this.state.height + "px",
+                    background: background || "#f5f4f9",
+                    color: color || "#000"
                 }}>
-                    <View className="icon-tools">
-                        {showBack ? <Text className="icomoonfont icon-arrowleft" onClick={this.onClickBack.bind(this)}></Text> : ""}
+                    <View className="tools" style={{
+                        paddingTop: this.state.paddingTop + "px",
+                        height: this.state.height + "px",
+                        lineHeight: this.state.height + "px"
+                    }}>
+                        <View className="icon-tools">
+                            {showBack ? <Text className="icomoonfont icon-arrowleft" onClick={this.onClickBack.bind(this)}></Text> : ""}
+                        </View>
                     </View>
-                </View>
-                <View className="title">{title ? title : ""}</View>
-            </View >
+                    <View className="title">{title && scrollTop && scrollTop > 50 ? title : ""}</View>
+                </View >
+                {!scrollTop || scrollTop < 50 ?
+                    // <CTransition visible={true} name="fadeDown" duration={500} transform="5">
+                    <View style={{ marginTop: this.state.height + "px", }} className="page-header">
+                        <View className="header-title">{title}</View>
+                    </View>
+                    // </CTransition>
+                    : null
+                }
+            </View>
         )
     }
 }

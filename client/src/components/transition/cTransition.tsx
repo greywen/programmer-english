@@ -11,6 +11,7 @@ interface CTransitionProps {
     visible: boolean,
     name?: string,
     duration?: number,
+    transform?: string,
     onTransitionEnd?: () => void
 }
 
@@ -24,7 +25,7 @@ export default class CTransition extends Component<CTransitionProps, CTransition
         if (this.props.visible) {
             this.setState({
                 display: true,
-                type: TransitionType.Enter,
+                type: TransitionType.Enter
             })
         } else {
             this.setState({
@@ -49,12 +50,12 @@ export default class CTransition extends Component<CTransitionProps, CTransition
     }
 
     render() {
-        const { name, duration } = this.props;
+        const { name, duration, transform } = this.props;
         let _name = name || "fadeUp", _duration = duration || 1500;
 
         const { type, display } = this.state;
-        
-        const animationName = `c-transition__${_name}${type}`;
+
+        const animationName = `c-transition__${_name}${type}${transform}`;
         const animationDuration = `${_duration}ms`;
 
         return (

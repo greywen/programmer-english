@@ -3,8 +3,6 @@ import { View, Text, ScrollView } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx'
 
 import "./dashboard.scss"
-
-import Welcome from "./components/welcome";
 import withLogin from "../../common/decorator/withLogin";
 import { IDashboardDataModel } from "../../models/dashiboard";
 import { readingText } from "../../utils/baiduUtils";
@@ -12,11 +10,9 @@ import NavigationBar from '../../components/navigationBar/navigationBar';
 import Authorization from '../../components/authorization/authorization';
 import HighlightWord from '../../components/highlightWord/highlightWord';
 import CTransition from '../../components/transition/cTransition';
-
-import DashboardLoading from './components/loading';
-
 interface DashboardState {
-    loading: boolean
+    loading: boolean,
+    scrollTop: number
 }
 
 interface DashboardProps {
@@ -39,7 +35,8 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
     constructor() {
         super()
         this.state = {
-            loading: true
+            loading: true,
+            scrollTop: 0
         }
     }
 
@@ -60,35 +57,43 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
         await collectAsync();
     }
 
+    onPageScroll = (e) => {
+        this.setState({
+            scrollTop: e.scrollTop
+        })
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { loading } = this.state;
+        const { loading, scrollTop } = this.state;
         const { dashboardStore: { dashboardData } } = this.props;
 
         return (
             <View className="page" style={{ height: windowHeight + "px" }}>
-                <NavigationBar></NavigationBar>
+                <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
 
-                <DashboardLoading loading={loading} authorizationStore={this.props.authorizationStore}></DashboardLoading>
-
+                {/* <View className="page-header">
+                    <View>
+                        <DashboardLoading loading={loading} authorizationStore={this.props.authorizationStore}></DashboardLoading>
+                    </View>
+                </View> */}
 
                 <View className="page-content" style={{ display: loading ? "none" : "block" }}>
-                    <CTransition visible={true}>
+                    {/* <CTransition visible={true}>
                         <Welcome />
-                    </CTransition>
-
+                    </CTransition> */}
                     {
                         dashboardData ?
                             <View className="sentence-content">
                                 <View className="content">
                                     <View className="header header-icon">
-                                        <CTransition visible={true}>
+                                        <CTransition visible={true} transform="30">
                                             <Authorization authorizationStore={this.props.authorizationStore}>
                                                 <View onClick={this.onCollectWord}>
                                                     {
                                                         dashboardData && dashboardData.collectionId ?
-                                                            <Text style={{ color: "#ed4630" }} className="icomoonfont icon-heart-fill"></Text> :
-                                                            <Text style={{ color: "#ed4630" }} className="icomoonfont icon-heart"></Text>
+                                                            <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart-fill"></Text> :
+                                                            <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart"></Text>
                                                     }
                                                 </View>
                                             </Authorization>
@@ -96,7 +101,7 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                                     </View>
 
                                     <View className="content-body">
-                                        <CTransition visible={true}>
+                                        <CTransition visible={true} transform="30">
                                             <View>
                                                 {dashboardData.word.map((word, index) => {
                                                     return <View className='flex-wrp' style='flex-direction:column; padding-bottom:10rpx;' key={index}>
@@ -112,7 +117,7 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                                                 })}
                                             </View>
                                         </CTransition>
-                                        <CTransition visible={true}>
+                                        <CTransition visible={true} transform="30">
                                             <View className='flex-wrp' style='flex-direction:column;margin-top:10px;'>
                                                 <View className='flex-item sentence-english' onClick={() => { readingText(dashboardData.english) }}>
                                                     <HighlightWord sentence={dashboardData.english} words={dashboardData.keyWords.split(",")}></HighlightWord>
@@ -120,7 +125,6 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                                                 <ScrollView className='flex-item sentence-chinese'>
                                                     {dashboardData.chinese}
                                                 </ScrollView>
-                                                {/* <View className='flex-item sentence-chinese'>{dashboardData.chinese}</View> */}
                                             </View>
                                         </CTransition>
                                     </View>

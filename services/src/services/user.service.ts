@@ -18,6 +18,7 @@ export class UserService {
                     user = loginModel.wechatUserInfo;
                     user.wxOpenId = jsCodeSession.openid;
                     user.id = await this.createUserAsync(user);
+                    await this.createUserLoginLog(user.id);
                     return { sessionKey: jsCodeSession.session_key, token: await generateTokenAsync(user), expireTime: moment().add(config.jwt.expired, "day").toString() };
                 }
                 return null;

@@ -1,12 +1,11 @@
 .page {
-    background-color: #efeff4;
+    background-color: #fff;
 }
 
 .page-content {
     color: #000;
     padding-left:87px;
     padding-right:87px;
-    margin-top:75px;
 }
 
 .navigation-bar {
@@ -15,7 +14,7 @@
     top: 0;
     width: 750rpx;
     color: #000;
-    background-color: #efeff4;
+    background-color: #fff;
     z-index: 99;
     text-align: center;
     transition: 300ms;
@@ -50,7 +49,6 @@
     flex-direction:row;
     position:relative;
     padding: 80px 0px 20px 0px;
-    color:#b2b2b2;
 }
 
 .word-english {
@@ -58,27 +56,37 @@
     text-transform:capitalize;
     display: inline;
     font-size: 13pt;
-    color: #111;
+    color: #333;
 }
 
 .word-chinese {
     padding:2px 0 0 0px; 
     font-size: 11pt;
-    color: #b2b2b2;
+    color: #888;
 }
 
 .word-phonetic {
     font-weight: normal;
     font-size: 11pt;
     padding-left:2px;
-    color: #b2b2b2;
+    color: #888;
 }
 
 .sentence-english {
     font-size: 13pt;
+    color: #333;
 }
 
 .sentence-chinese {
     padding-top: 10px;
     font-size: 12pt;
+    color: #888;
+}
+
+.avatar-static {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display:inline-block;
 }

@@ -1,15 +1,17 @@
-.navigation-bar{
-    position: relative;
-    left: 0;
-    top: 0;
+.navigation-bar {
     width: 750rpx;
     color: #ffffff;
     z-index: 99;
     text-align: center;
     transition: 300ms;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
   }
   
-  .tools{
+  .tools {
     position: absolute;
     left: 0;
     top: 0;
@@ -20,10 +22,9 @@
     color:#fff;
   }
 
-  .icon-tools{
+  .icon-tools {
     display: inline-block;
     font-family: 'iconfont' !important;
-    speak: none;
     font-style: normal;
     font-weight: bold;
     font-variant: normal;
@@ -46,4 +47,20 @@
   
   .title{
     font-weight: bold;
+  }
+
+  .page-header {
+    position: relative;
+    padding-top: 80px;
+    height: 100px;
+    flex-direction: row;
+    display: flex;
+    padding-left:85px;
+    padding-right:87px;
+    background-color: #f5f4f9;
+}
+
+  .header-title {
+    font-size: 25pt;
+    font-weight: 500;
   }

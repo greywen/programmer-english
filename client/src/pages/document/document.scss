@@ -1,0 +1,37 @@
+.menu {
+    flex-direction: column;
+    display: flex;
+    
+}
+
+.menu-item {
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+    border-radius:5px;
+    background-color:rgba(0, 0, 0, .01);
+    border-bottom: 1px solid #b2b2b2;
+    padding-left:5px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.menu-item-icon {
+    height: 115px;
+    width: 200px;
+    padding-left:85px;
+    padding-right:87px;
+}
+
+.menu-item-icon image {
+    height: 115px;
+    width: 200px;
+    border-radius:10px;
+}
+
+.menu-item-text {
+    padding-left: 80px;
+    height: 115px;
+    line-height: 115px;
+    text-align: center;
+}
