@@ -23,13 +23,19 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      "pages/word/word",
-      "pages/dashboard/dashboard",
+      "pages/me/me",
       "pages/document/document",
-      "pages/me/me"
+      "pages/word/word",
+      "pages/word/word.list",
+      "pages/word/word.detail",
+      "pages/dashboard/dashboard",
+
+      //me
+      "pages/me/feedback",
+      "pages/me/about",
+      "pages/me/bug"
     ],
     tabBar: {
-      // color:"#f8f8f8",
       selectedColor: "#3271fd",
       color: "#b1b1b1",
       backgroundColor: "#f8f8f8",
@@ -58,7 +64,6 @@ class App extends Component {
     },
     requiredBackgroundModes: ["audio"],
     window: {
-      disableScroll: false,
       navigationBarTextStyle: "white",
       navigationStyle: "custom"
     }

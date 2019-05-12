@@ -1,35 +1,21 @@
 import Taro, { Component } from "@tarojs/taro";
-import "./word.scss"
+import "./word.detail.scss"
 import { View, Text, Navigator } from "@tarojs/components";
 
 import { NavigationBar } from "../../components";
+import { NavigatorOpenType } from "../../common/enums";
 
-interface WordState {
-    scrollTop: number
-}
-
-export default class Word extends Component<{}, WordState> {
+export default class WordDetail extends Component<{}, {}> {
 
     constructor() {
         super()
-        this.state = {
-            scrollTop: 0
-        }
     }
-
-    onPageScroll = (e) => {
-        this.setState({
-            scrollTop: e.scrollTop
-        })
-    }
-
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { scrollTop } = this.state;
 
-        return <View className="page" style={{ height: windowHeight - 45 + "px" }}>
-            <NavigationBar title="技术词汇" scrollTop={scrollTop}></NavigationBar>
+        return <View className="page" style={{ minHeight: windowHeight + "px" }}>
+            <NavigationBar title="单词详情" hidePageTitle={true} backUrl="./word.list" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <View className="page-content">
                 <View className="page-nav">
                     <View>
@@ -62,7 +48,6 @@ export default class Word extends Component<{}, WordState> {
                                 Pigment dyeing, due to its simple technique, energy conservation, easy to color matching and its own style, is loved by customers.
                             </View>
                         </View>
-                        <View className="next-item"><Navigator url="">下一个词汇</Navigator></View>
                         <View className="page-help">
                             <Navigator url="">单词有问题?</Navigator>
                         </View>

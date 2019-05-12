@@ -36,9 +36,10 @@ export async function translate(text: string, type: TranslateType): Promise<ITra
                 if (!err && response.statusCode == 200) {
                     let $ = cheerio.load(body);
                     let english = $("#headword h1").text();
-                    let phonetic = $(".hd_prUS").text().replace("美", "");
+                    let phoneticUs = $(".hd_prUS").text();
+                    let phoneticEn = $(".hd_pr").text();
                     let chinese = $("ul li .web").next().text();
-                    resolve({ english: english, phonetic: phonetic, chinese: chinese });
+                    resolve({ english: english, chinese: chinese });
                 }
             })
         }

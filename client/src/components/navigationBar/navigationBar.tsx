@@ -3,15 +3,16 @@ import { View, Text } from '@tarojs/components';
 
 import '../../assets/icons.scss'
 import './navigationBar.scss'
-import CTransition from '../transition/cTransition';
+import { NavigatorOpenType } from '../../common/enums';
 
 interface NavigationBarProps {
     background?: string,
     color?: string,
     title?: string,
-    showBack?: boolean,
+    openType?: NavigatorOpenType,
     backUrl?: string,
     scrollTop?: number
+    hidePageTitle?: boolean
 }
 
 interface NavigationBarState {
@@ -43,13 +44,21 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
     }
 
     onClickBack = () => {
-        Taro.redirectTo({
-            url: this.props.backUrl || ""
-        })
+        const { openType, backUrl } = this.props;
+        let _openType = openType || NavigatorOpenType.redirect, _ops = { url: backUrl || "" }
+        if (_openType === NavigatorOpenType.redirect) {
+            Taro.redirectTo(_ops);
+        } else if (_openType === NavigatorOpenType.switchTab) {
+            Taro.switchTab(_ops);
+        } else if (_openType === NavigatorOpenType.navigate) {
+            Taro.navigateTo(_ops);
+        } else if (_openType === NavigatorOpenType.navigateBack) {
+            Taro.navigateBack();
+        }
     }
 
     render() {
-        const { background, color, title, showBack, scrollTop } = this.props;
+        const { background, color, title, backUrl, scrollTop, hidePageTitle } = this.props;
         return (
             <View>
                 <View className="navigation-bar" style={{
@@ -65,19 +74,18 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
                         lineHeight: this.state.height + "px"
                     }}>
                         <View className="icon-tools">
-                            {showBack ? <Text className="icomoonfont icon-arrowleft" onClick={this.onClickBack.bind(this)}></Text> : ""}
+                            {!!backUrl ? <Text style="color:#3271fd;" className="icomoonfont icon-arrowleft" onClick={this.onClickBack.bind(this)}></Text> : ""}
                         </View>
                     </View>
-                    <View className="title">{title && scrollTop && scrollTop > 50 ? title : ""}</View>
+                    <View className="title">{(title && scrollTop && scrollTop > 50) || hidePageTitle ? title : ""}</View>
                 </View >
-                {!scrollTop || scrollTop < 50 ?
-                    // <CTransition visible={true} name="fadeDown" duration={500} transform="5">
-                    <View style={{ marginTop: this.state.height + "px", }} className="page-header">
-                        <View className="header-title">{title}</View>
+
+                {
+                    hidePageTitle ? "" : <View style={{ marginTop: this.state.height + "px", }} className="page-header">
+                        <View className="header-title">{scrollTop === 0 || scrollTop && scrollTop < 50 ? title : ""}</View>
                     </View>
-                    // </CTransition>
-                    : null
                 }
+
             </View>
         )
     }

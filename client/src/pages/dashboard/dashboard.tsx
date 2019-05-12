@@ -103,8 +103,8 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                                     <View className="content-body">
                                         <CTransition visible={true} transform="30">
                                             <View>
-                                                {dashboardData.word.map((word, index) => {
-                                                    return <View className='flex-wrp' style='flex-direction:column; padding-bottom:10rpx;' key={index}>
+                                                {dashboardData.word.map(word => {
+                                                    return <View className='flex-wrp' style='flex-direction:column; padding-bottom:10rpx;'>
                                                         <View className='flex-item'>
                                                             <View className="word-english" onClick={() => { readingText(word.english) }}>{word.english}
                                                                 <Text className="word-phonetic">{` ${word.phonetic}`}</Text>

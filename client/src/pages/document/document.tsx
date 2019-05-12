@@ -17,7 +17,6 @@ export default class Document extends Component<{}, DocumentState> {
     }
 
     onPageScroll = (e) => {
-        console.log(e.scrollTop);
         this.setState({
             scrollTop: e.scrollTop
         })
@@ -27,39 +26,54 @@ export default class Document extends Component<{}, DocumentState> {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;
 
-        return <View className="page" style={{ height: windowHeight - 255 + "px", backgroundColor: "#f5f4f9" }}>
+        return <View className="page" style={{ minHeight: windowHeight + "px", backgroundColor: "#f8f8f8" }}>
             <NavigationBar title="文档阅读" scrollTop={scrollTop}></NavigationBar>
 
-            <View className="menu">
+            <View className="article">
                 <Navigator url="">
-                    <View className="menu-item">
-                        <View className="menu-item-icon">
+                    <View className="article-item">
+                        <View className="article-item-icon">
                             <Image src="../../assets/images/nodejs.jpg" />
                         </View>
-                        <View className="menu-item-text">Nodejs</View>
+                        <View>
+                            <View className="article-item-title">08期翻译|Simplify your JavaScript .map(),.reduce(),and .filter()</View>
+                        </View>
                     </View>
                 </Navigator>
 
-                <View className="menu-item">
-                    <View className="menu-item-icon">
-                        <Image src="../../assets/images/javascript.png" />
+                <Navigator url="">
+                    <View className="article-item">
+                        <View className="article-item-icon">
+                            <Image src="../../assets/images/javascript.png" />
+                        </View>
+                        <View>
+                            <View className="article-item-title">08期翻译|Simplify your JavaScript .map(),.reduce(),and .filter()</View>
+                        </View>
                     </View>
-                    <View className="menu-item-text">Javascript</View>
-                </View>
+                </Navigator>
 
-                <View className="menu-item">
-                    <View className="menu-item-icon">
-                        <Image src="../../assets/images/aspnetcore.png" />
+                <Navigator url="">
+                    <View className="article-item">
+                        <View className="article-item-icon">
+                            <Image src="../../assets/images/aspnetcore.png" />
+                        </View>
+                        <View>
+                            <View className="article-item-title">08期翻译|Simplify your JavaScript .map(),.reduce(),and .filter() .foreach .for .fuck .view .haha . map .reduce</View>
+                        </View>
                     </View>
-                    <View className="menu-item-text">ASP.NET</View>
-                </View>
+                </Navigator>
 
-                <View className="menu-item">
-                    <View className="menu-item-icon">
-                        <Image src="../../assets/images/python.png" />
+                <Navigator url="">
+                    <View className="article-item">
+                        <View className="article-item-icon">
+                            <Image src="../../assets/images/python.png" />
+                        </View>
+                        <View>
+                            <View className="article-item-title">08期翻译|Simplify your JavaScript .map(),.reduce(),and .filter()</View>
+                        </View>
                     </View>
-                    <View className="menu-item-text">Python</View>
-                </View>
+                </Navigator>
+
             </View>
         </View>
     }
