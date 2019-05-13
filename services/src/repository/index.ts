@@ -5,6 +5,9 @@ import userCollectionRepository from "./userCollection.repository";
 import userHistoryRepository from "./userHistory.repository";
 import sentenceWordRepository from "./sentenceWord.repository";
 import sentenceRepository from "./sentence.repository";
+import userFeedbackRepository from "./userFeedback.repository";
+import userQuestionRepository from "./userQuestion.repository";
+import userQuestionAnswerRepository from "./userQuestionAnswer.repository";
 
 export {
     userRepository,
@@ -13,5 +16,8 @@ export {
     userCollectionRepository,
     userHistoryRepository,
     sentenceWordRepository,
-    sentenceRepository
+    sentenceRepository,
+    userFeedbackRepository,
+    userQuestionRepository,
+    userQuestionAnswerRepository,
 }

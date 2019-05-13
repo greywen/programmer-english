@@ -2,10 +2,13 @@ import * as moment from "moment";
 
 import { LoginModel, LoginResultModel } from "../model/user/login.model";
 import { getWechatJSCodeSession } from "../utils/wechatHelper";
-import { userRepository, userLoginLogRepository } from "../repository";
-import { UserModel } from "../model/user";
+import { userRepository, userLoginLogRepository, userFeedbackRepository } from "../repository";
+import { UserModel, UserFeedbackModel } from "../model/user";
 import { generateTokenAsync } from "../utils/jwtHelper";
 import config from "../common/config";
+import { FeedbackType } from "../common/enums";
+import { FeedbackTypeArray } from "../common/constant";
+import { BadRequestException } from "../common/exception";
 
 export class UserService {
     async login(loginModel: LoginModel): Promise<LoginResultModel> {
@@ -37,6 +40,21 @@ export class UserService {
 
     async createUserLoginLog(userId: number): Promise<void> {
         await userLoginLogRepository.insertAsync({ userId: userId })
+    }
+
+    async createFeedbackAsync(feedback: UserFeedbackModel): Promise<number> {
+        let canCreateFeedback = await this.checkUserCreateFeedbackUpperLimitByTodayAsync(feedback.userId);
+        if (!canCreateFeedback) {
+            throw new BadRequestException("Create failed.");
+        }
+        feedback.type = FeedbackTypeArray.indexOf(feedback.type) > -1 ? feedback.type : FeedbackType.Feedback;
+        return await userFeedbackRepository.insertAsync(feedback);
+    }
+
+    async checkUserCreateFeedbackUpperLimitByTodayAsync(userId: number): Promise<boolean> {
+        let feedbackList = await userFeedbackRepository.getUserFeedbackByTodayAsync(userId);
+        let upperLimit = 10;
+        return feedbackList.length < upperLimit;
     }
 }
 

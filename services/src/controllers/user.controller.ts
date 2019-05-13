@@ -4,7 +4,8 @@ import { prefix, router } from "../router";
 import userService from "../services/user.service";
 import { getBaiduApiTokenAsync } from "../utils/baiduApiUtils";
 import { redis } from "../app";
-import logger from "../utils/logger";
+import { CustomKoaContextModel } from "../model/common.model";
+import { UserFeedbackModel } from "../model/user";
 
 @prefix("/user")
 class UserController {
@@ -24,7 +25,19 @@ class UserController {
         }
 
         loginResult ? loginResult.apiAccessToken = apiToken.access_token : loginResult = { apiAccessToken: apiToken.access_token };
-        
+
         ctx.body = loginResult;
+    }
+
+    @router({
+        method: "post",
+        path: "/createFeedback",
+        unless: false
+    })
+    // @required()
+    async createFeedback(ctx: CustomKoaContextModel) {
+        let feedback = <UserFeedbackModel>ctx.request["body"];
+        feedback.userId = ctx.user.id;
+        ctx.body = await userService.createFeedbackAsync(feedback);
     }
 }
