@@ -1,4 +1,4 @@
-import { prefix, router, required } from "../router";
+import { prefix, router, required, authorize } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
 import userQuestionService from "../services/userQuestion.service";
 import { CreateUserQuestionAnswerModel } from "../model/userQuestion";
@@ -8,7 +8,7 @@ class UserQuestionController {
     @router({
         method: "get",
         path: "/getQuestion",
-        unless: false
+        unless: true
     })
     async createFeedback(ctx: CustomKoaContextModel) {
         ctx.body = await userQuestionService.getUserQuestionAsync();
@@ -20,6 +20,7 @@ class UserQuestionController {
         unless: false
     })
     // @required()
+    @authorize
     async CreateQuertionAswer(ctx: CustomKoaContextModel) {
         let createModel = <CreateUserQuestionAnswerModel>ctx.request["body"];
         createModel.userId = ctx.user.id;

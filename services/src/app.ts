@@ -26,9 +26,15 @@ app.use(async (ctx, next) => {
         logger.response(ctx);
         await next();
     } catch (error) {
+        console.log(error);
         logger.requestError(ctx, error);
-        ctx.status = error["status"] || 500;
-        ctx.body = { message: error["message"] || "服务器错误" };
+        if (error["message"] === "Authentication Error") {
+            ctx.status = 401;
+            ctx.body = { message: "用户未授权" };
+        } else {
+            ctx.status = error["status"] || 500;
+            ctx.body = { message: error["message"] || "服务器错误" };
+        }
     }
 });
 

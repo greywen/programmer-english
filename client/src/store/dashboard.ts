@@ -1,14 +1,20 @@
 import { observable } from 'mobx'
 
 import { get, post } from '../utils/request';
-import { IDashboardDataModel } from '../models/dashiboard';
+import { IDashboardDataModel, IQuestionDataModel } from '../models/dashiboard';
 
-class Dashboard {
+class DashboardStore {
     @observable
     dashboardData: IDashboardDataModel;
+    @observable
+    question: IQuestionDataModel;
 
     getSentenceAsync = async () => {
         this.dashboardData = await get("sentence/get");
+    }
+
+    getQuestionAsync = async () => {
+        this.question = await get("question/getQuestion");
     }
 
     collectAsync = async () => {
@@ -20,6 +26,8 @@ class Dashboard {
         let params = { sentenceId: this.dashboardData.id };
         await post("sentence/createhistory", params);
     }
+
+
 }
 
-export default new Dashboard()
+export default new DashboardStore()

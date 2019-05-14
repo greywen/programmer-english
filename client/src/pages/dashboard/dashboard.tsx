@@ -4,23 +4,24 @@ import { observer, inject } from '@tarojs/mobx'
 
 import "./dashboard.scss"
 import withLogin from "../../common/decorator/withLogin";
-import { IDashboardDataModel } from "../../models/dashiboard";
+import { IDashboardDataModel, IQuestionDataModel } from "../../models/dashiboard";
 import { readingText } from "../../utils/baiduUtils";
 import NavigationBar from '../../components/navigationBar/navigationBar';
 import Authorization from '../../components/authorization/authorization';
 import HighlightWord from '../../components/highlightWord/highlightWord';
 import CTransition from '../../components/transition/cTransition';
+import { HtmlParse } from '../../components/htmlParse/htmlParse';
 interface DashboardState {
-    loading: boolean,
     scrollTop: number
 }
 
 interface DashboardProps {
     dashboardStore: {
-        dashboardData: IDashboardDataModel,
+        question: IQuestionDataModel,
         getSentenceAsync: () => {},
         collectAsync: () => {},
-        createHistoryAsync: () => {}
+        createHistoryAsync: () => {},
+        getQuestionAsync: () => {}
     },
     authorizationStore: {
         isAuthorized: boolean,
@@ -35,21 +36,13 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
     constructor() {
         super()
         this.state = {
-            loading: true,
             scrollTop: 0
         }
     }
 
     async componentWillMount() {
-        const { getSentenceAsync } = this.props.dashboardStore;
-        await getSentenceAsync();
-        this.showDashboardLoding();
-    }
-
-    showDashboardLoding = () => {
-        setTimeout(() => {
-            this.setState({ loading: false });
-        }, 1000)
+        const { getQuestionAsync } = this.props.dashboardStore;
+        await getQuestionAsync();
     }
 
     onCollectWord = async () => {
@@ -65,24 +58,15 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { loading, scrollTop } = this.state;
-        const { dashboardStore: { dashboardData } } = this.props;
-
+        const { scrollTop } = this.state;
+        const { dashboardStore: { question } } = this.props;
         return (
             <View className="page" style={{ height: windowHeight + "px" }}>
                 <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
 
-                {/* <View className="page-header">
-                    <View>
-                        <DashboardLoading loading={loading} authorizationStore={this.props.authorizationStore}></DashboardLoading>
-                    </View>
-                </View> */}
-
-                <View className="page-content" style={{ display: loading ? "none" : "block" }}>
-                    {/* <CTransition visible={true}>
-                        <Welcome />
-                    </CTransition> */}
-                    {
+                <View className="page-content">
+                    {question ? <HtmlParse data={question.describe}></HtmlParse> : null}
+                    {/* {
                         dashboardData ?
                             <View className="sentence-content">
                                 <View className="content">
@@ -131,7 +115,7 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                                 </View>
                             </View> :
                             null
-                    }
+                    } */}
                 </View >
             </View >
         )

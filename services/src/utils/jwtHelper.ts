@@ -2,6 +2,7 @@ import * as jsonwebtoken from "jsonwebtoken";
 
 import { UserModel } from "../model/user";
 import config from "../common/config";
+import { UnauthorizedException } from "../common/exception";
 
 export async function generateTokenAsync(user: UserModel) {
     let expiredTimestamp = 24 * 60 * 60 * config.jwt.expired;
@@ -18,7 +19,7 @@ export async function verifyTokenAsync(token: string): Promise<UserModel> {
         let verify = <IAuthResultModel>await jsonwebtoken.verify(token, config.jwt.secret);
         return verify.user;
     } catch (e) {
-        throw e;
+        throw new UnauthorizedException("授权失败.");
     }
 }
 

@@ -23,12 +23,12 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      "pages/dashboard/dashboard",
       "pages/me/me",
       "pages/document/document",
       "pages/word/word",
       "pages/word/word.list",
       "pages/word/word.detail",
-      "pages/dashboard/dashboard",
 
       //me
       "pages/me/feedback",

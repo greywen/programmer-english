@@ -1,33 +1,49 @@
 
 export interface WordModel {
     id?: number,
-    chinese?: string,
-    english?: string,
-    phonetic?: string
-}
-
-export interface WordListModel extends WordModel {
-    sentences: string | any,
-    isCollection: boolean
-}
-
-export interface SentenceModel {
-    chinese: string,
     english: string,
-}
-
-export interface SentenceWordModel {
-    id?: number,
-    wordId?: number,
-    sentenceId?: number
+    chinese: string,
+    phoneticUS?: string,
+    phoneticEN?: string,
+    collocation?: string,
+    createTime?: string,
+    collectionId?: number
 }
 
 export interface CreateCollectModel {
     userId: number,
-    sentenceId: number
+    wordId: number
 }
 
 export interface CreateUserHistoryModel {
     userId: number,
-    sentenceId: number
+    wordId: number
+}
+
+export interface WordQueryModel {
+    userId: number,
+    wordId?: number,
+    next: boolean
+}
+
+export interface WordSentencesModel {
+    id: number,
+    english: string,
+    chinese: string,
+    keyWords: string,
+    languageType: number,
+    excerptFrom: number,
+    createTime: string
+}
+
+export interface WordResultModel {
+    id: number,
+    english: string,
+    chinese: string,
+    phoneticUS?: string,
+    phoneticEN?: string,
+    collocation?: string,
+    createTime?: string,
+    collectionId?: number,
+    sentences: WordSentencesModel[]
 }
