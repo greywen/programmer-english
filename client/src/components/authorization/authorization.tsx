@@ -38,7 +38,7 @@ export default class Authorization extends Component<AuthorizationProps, {}> {
             <View>
                 {isAuthorized ?
                     <View>{this.props.children}</View> :
-                    <Button openType="getUserInfo" onGetUserInfo={this.onGetUserInfo}>
+                    <Button style="background:#fff" openType="getUserInfo" onGetUserInfo={this.onGetUserInfo}>
                         {this.props.children}
                     </Button>
                 }

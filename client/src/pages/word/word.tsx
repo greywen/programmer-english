@@ -5,6 +5,7 @@ import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar, Authorization } from "../../components";
 import { IWordDataModel } from "../../models/word";
+import { readingText } from "../../utils/baiduUtils";
 
 interface WordState {
     scrollTop: number
@@ -53,6 +54,10 @@ export default class Word extends Component<WordProps, WordState> {
         await getNextWordAsync();
     }
 
+    isNullReturnEmpty(val) {
+        return val ? val : ""
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;
@@ -74,21 +79,25 @@ export default class Word extends Component<WordProps, WordState> {
                 </View>
                 <View className="flex-custom">
                     <View className="flex-custom-item">
-                        <View className="flex-custom-item-word">
+                        <View className="flex-custom-item-word" onClick={() => { readingText(word.english) }}>
                             {word.english}
                         </View>
                         <View className="flex-custom-item-title">读音释义</View>
                         <View className="flex-custom-item-phonetic">
-                            <View>{word.phoneticEN}</View>
-                            <View>{word.phoneticUS}</View>
+                            <View>{this.isNullReturnEmpty(word.phoneticEN)}</View>
+                            <View onClick={() => { readingText(word.english) }}>
+                                {this.isNullReturnEmpty(word.phoneticUS)}<Text className="icomoonfont icon-sound"></Text>
+                            </View>
                         </View>
                         <View className="flex-custom-item-cn">
                             <View>{word.chinese}</View>
                         </View>
-                        <View className="flex-custom-item-title">搭配</View>
-                        <View className="flex-custom-item-collocation">
-                            {word.collocation}
-                        </View>
+                        {
+                            word.collocation ? <View>
+                                <View className="flex-custom-item-title">搭配</View>
+                                <View className="flex-custom-item-collocation">{word.collocation}</View>
+                            </View> : null
+                        }
                         <View className="flex-custom-item-title">例句<Navigator url="">(推荐?)</Navigator></View>
                         <View className="flex-custom-item-sentences">
                             {
@@ -97,7 +106,7 @@ export default class Word extends Component<WordProps, WordState> {
                                         <View className="flex-custom-sentence-cn">
                                             {sentence.chinese}
                                         </View>
-                                        <View className="flex-custom-sentence-en">
+                                        <View className="flex-custom-sentence-en" onClick={() => { readingText(sentence.english) }}>
                                             {sentence.english}
                                         </View>
                                     </View>
@@ -108,11 +117,11 @@ export default class Word extends Component<WordProps, WordState> {
                         <Authorization authorizationStore={this.props.authorizationStore}>
                             <View className="next-item" onClick={this.onGetNextWord}>下一个词汇</View>
                         </Authorization>
-                        <View className="page-help">
-                            <Authorization authorizationStore={this.props.authorizationStore}>
+                        <Authorization authorizationStore={this.props.authorizationStore}>
+                            <View className="page-help">
                                 <Navigator url="">单词有问题?</Navigator>
-                            </Authorization>
-                        </View>
+                            </View>
+                        </Authorization>
                     </View>
                 </View>
             </View> : null
