@@ -5,3 +5,9 @@ export enum NavigatorOpenType {
     reLaunch = 4, // 关闭所有页面，打开到应用内的某个页面
     navigateBack = 5 // 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages 获取当前的页面栈，决定需要返回几层。
 }
+
+export enum FeedbackType {
+    Feedback = 1, // 意见反馈
+    Word = 2, // 单词反馈
+    Bug = 3 // bug反馈
+}
