@@ -1,6 +1,6 @@
 import * as Koa from "koa";
 
-import { prefix, router } from "../router";
+import { prefix, router, authorize } from "../router";
 import userService from "../services/user.service";
 import { getBaiduApiTokenAsync } from "../utils/baiduApiUtils";
 import { redis } from "../app";
@@ -35,6 +35,7 @@ class UserController {
         unless: false
     })
     // @required()
+    @authorize
     async createFeedback(ctx: CustomKoaContextModel) {
         let feedback = <UserFeedbackModel>ctx.request["body"];
         feedback.userId = ctx.user.id;

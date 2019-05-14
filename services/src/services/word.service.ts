@@ -1,5 +1,5 @@
 import { wordRepository, userHistoryRepository, userCollectionRepository } from "../repository";
-import { WordResultModel, WordQueryModel, WordModel, CreateCollectModel, CreateUserHistoryModel } from "../model/word/word.model";
+import { WordResultModel, WordQueryModel, WordModel, CreateCollectModel, CreateUserHistoryModel, WordListQueryModel, WordListModel } from "../model/word/word.model";
 import { NotFoundException } from "../common/exception";
 
 export class WordService {
@@ -45,6 +45,10 @@ export class WordService {
         if (!history) {
             await userHistoryRepository.insertAsync({ userId: model.userId, wordId: model.wordId });
         }
+    }
+
+    async getWordListAsync(queryModel: WordListQueryModel): Promise<WordListModel[]> {
+        return await wordRepository.getWordListAsync(queryModel);
     }
 }
 

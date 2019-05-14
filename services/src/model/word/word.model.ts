@@ -47,3 +47,16 @@ export interface WordResultModel {
     collectionId?: number,
     sentences: WordSentencesModel[]
 }
+
+export interface WordListModel {
+    id: number,
+    english: string,
+    chinese: string,
+    createTime: string
+}
+
+export interface WordListQueryModel {
+    userId: number,
+    page: number,
+    pageSize: number
+}

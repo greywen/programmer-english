@@ -1,32 +1,12 @@
 import { BaseRepository } from "./base.repository";
-import { WordQueryModel, WordSentencesModel, WordModel } from "../model/word/word.model";
+import { WordQueryModel, WordSentencesModel, WordModel, WordListModel, WordListQueryModel } from "../model/word/word.model";
 import { WordEntity } from "./entity/word.entity";
 
 class WordRepository extends BaseRepository<WordEntity> {
-    // async getWordList(userId: number, wordId: number): Promise<WordListModel[]> {
-    //     return await this.sqlmap.queryAsync(`
-    //         SELECT
-    //             w.*, ws.sentences,
-    //             if(ISNULL(uc.wordId),FALSE,TRUE) AS isCollection
-    //         FROM
-    //             data_word w
-    //         LEFT JOIN (
-    //             SELECT
-    //                 ws.wordId,
-    //                 GROUP_CONCAT(chinese, ',', english) sentences
-    //             FROM
-    //                 data_Sentence s
-    //             LEFT JOIN word_Sentence ws ON ws.sentenceId = s.id
-    //             GROUP BY
-    //                 ws.wordId
-    //         ) ws ON ws.wordId = w.id
-    //         LEFT JOIN user_Collection uc ON uc.userId = ?
-    //         AND uc.wordId = w.id
-    //         WHERE
-    //             w.id > ?
-    //         ORDER BY w.id
-    //         LIMIT 0,5;`, [userId, wordId]);
-    // }
+    async getWordListAsync(queryModel: WordListQueryModel): Promise<WordListModel[]> {
+        let sql = `select dw.id,dw.english,dw.chinese,dw.createTime from user_collection uc left join data_word dw on dw.id = uc.wordId where uc.userId = ? limit ?,?;`;
+        return await this.sqlmap.queryAsync(sql, [queryModel.userId, queryModel.page, queryModel.pageSize]);
+    }
 
     async getWordSentencesAsync(wordId: number): Promise<WordSentencesModel[]> {
         let sql = `select id, english, chinese, keyWords, languageType, excerptFrom, createTime from data_sentence where id in (select sentenceId from sentence_word where wordId = ?);`

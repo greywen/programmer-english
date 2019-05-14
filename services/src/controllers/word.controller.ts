@@ -3,6 +3,7 @@ import { CustomKoaContextModel } from "../model/common.model";
 import wordService from "../services/word.service";
 import { CreateCollectModel } from "../model/word";
 import { getUserId } from "../utils/jwtHelper";
+import { WordListQueryModel } from "src/model/word/word.model";
 
 @prefix("/word")
 class WordController {
@@ -43,5 +44,17 @@ class WordController {
         let params = <CreateCollectModel>ctx.request.body;
         params.userId = ctx.user.id;
         ctx.body = await wordService.collectWordAsync(params);
+    }
+
+    @router({
+        method: "get",
+        path: "/getWordList",
+        unless: false
+    })
+    @authorize
+    async getWordList(ctx: CustomKoaContextModel) {
+        let queryModel = <WordListQueryModel>ctx.query;
+        queryModel.userId = ctx.user.id;
+        ctx.body = await wordService.getWordListAsync(queryModel);
     }
 }
