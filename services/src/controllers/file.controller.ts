@@ -2,28 +2,27 @@ import { prefix, router, authorize } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
 import * as fs from "fs";
 import * as path from "path";
-import logger from "../utils/logger";
+import config from "../common/config";
+import fileService from "../services/file.service";
+import { AttachmentType } from "../common/enums";
 
 @prefix("/file")
 class FileController {
     @router({
         method: "post",
         path: "/upload",
-        unless: true
+        unless: false
     })
     @authorize
     async fileUpload(ctx: CustomKoaContextModel) {
-        console.log(ctx);
         const file = ctx.request.files["file"];
-        logger.info(file.name);
-        let reader = fs.createReadStream(file.path),
-            fileName = `${file.name.split(".")[0]}_${new Date().getTime()}.${file.name.split(".")[1]}`,
-            targetPath = path.join(__dirname, "./files") + `/${fileName}`;
-        const upStream = fs.createWriteStream(targetPath);
-        reader.pipe(upStream);
+        let fileId = await fileService.createFileAsync({ uesrId: ctx.user.id, fileName: file.name, contentType: file.type, attachmentType: AttachmentType.UserQuestion });
         ctx.body = {
-            code: 200,
-            data: targetPath
+            statusCode: 200,
+            data: {
+                fileId: fileId,
+                fileName: file.name
+            }
         }
     }
 }

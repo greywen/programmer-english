@@ -12,7 +12,11 @@ class WordStore {
     }
 
     getNextWordAsync = async () => {
-        this.word = await get("word/getNextWord");
+        let _word = await get("word/getNextWord");;
+        if (_word) {
+            this.word = _word;
+        }
+        return _word;
     }
 
     collectWordAsync = async () => {

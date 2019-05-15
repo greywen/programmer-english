@@ -2,7 +2,6 @@ import * as Koa from "koa";
 import * as cors from "koa2-cors";
 import * as Json from "koa-json";
 import * as koaBody from "koa-body";
-const path = require('path');
 
 import { Route } from "./router/Route";
 import { RedisService } from "./utils/redisHelper";
@@ -14,15 +13,16 @@ const router = new Route(app);
 const redis = new RedisService();
 
 app.use(koaBody({
+    json: true,
     multipart: true,
     formidable: {
-        uploadDir: path.join(__dirname, "files/upload/"),
+        uploadDir: `config.file.fileUploadPath\\${new Date().getFullYear()}`,
+        keepExtensions: true,
         maxFileSize: 10 * 1024 * 1024,
-        keepExtensions: true
     }
-}))
+}));
 
-app.use(Json());
+router.registerRouters(`${__dirname}/controllers`, config.jwt);
 
 app.use(async (ctx, next) => {
     try {
@@ -39,8 +39,6 @@ app.use(async (ctx, next) => {
         }
     }
 });
-
-router.registerRouters(`${__dirname}/controllers`, config.jwt);
 
 app.use(cors({
     origin: function (ctx: Koa.Context) {

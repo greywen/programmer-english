@@ -6,6 +6,7 @@ import { observer, inject } from '@tarojs/mobx'
 import { NavigationBar, Authorization } from "../../components";
 import { IWordDataModel } from "../../models/word";
 import { readingText } from "../../utils/baiduUtils";
+import { showMessage } from "../../utils/wechatUtils";
 
 interface WordState {
     scrollTop: number
@@ -51,7 +52,9 @@ export default class Word extends Component<WordProps, WordState> {
 
     onGetNextWord = async () => {
         const { getNextWordAsync } = this.props.wordStore;
-        await getNextWordAsync();
+        if (!await getNextWordAsync()) {
+            showMessage("更多词汇还在路上...");
+        }
     }
 
     isNullReturnEmpty(val) {
@@ -106,7 +109,7 @@ export default class Word extends Component<WordProps, WordState> {
                                         <View className="flex-custom-sentence-cn">
                                             {sentence.chinese}
                                         </View>
-                                        <View className="flex-custom-sentence-en" onClick={() => { readingText(sentence.english) }}>
+                                        <View className="flex-custom-sentence-en">
                                             {sentence.english}
                                         </View>
                                     </View>

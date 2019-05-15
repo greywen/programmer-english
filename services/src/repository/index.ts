@@ -8,6 +8,7 @@ import sentenceRepository from "./sentence.repository";
 import userFeedbackRepository from "./userFeedback.repository";
 import userQuestionRepository from "./userQuestion.repository";
 import userQuestionAnswerRepository from "./userQuestionAnswer.repository";
+import userAttachmentRepository from "./userAttachment.repository";
 
 export {
     userRepository,
@@ -20,4 +21,5 @@ export {
     userFeedbackRepository,
     userQuestionRepository,
     userQuestionAnswerRepository,
+    userAttachmentRepository
 }

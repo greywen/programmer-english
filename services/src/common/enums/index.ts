@@ -13,3 +13,7 @@ export enum FeedbackType {
     Word = 2,
     Bug = 3
 }
+
+export enum AttachmentType {
+    UserQuestion = 1
+}

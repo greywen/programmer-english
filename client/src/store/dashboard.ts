@@ -1,33 +1,21 @@
 import { observable } from 'mobx'
 
 import { get, post } from '../utils/request';
-import { IDashboardDataModel, IQuestionDataModel } from '../models/dashiboard';
+import { IQuestionDataModel, IQuestionAnswerModel } from '../models/dashiboard';
 
 class DashboardStore {
     @observable
-    dashboardData: IDashboardDataModel;
+    userAnswer: IQuestionAnswerModel;
     @observable
     question: IQuestionDataModel;
-
-    getSentenceAsync = async () => {
-        this.dashboardData = await get("sentence/get");
-    }
 
     getQuestionAsync = async () => {
         this.question = await get("question/getQuestion");
     }
 
-    collectAsync = async () => {
-        let params = { sentenceId: this.dashboardData.id };
-        this.dashboardData.collectionId = await post("sentence/collect", params);
+    createAnswerAsync = async (createModel: IQuestionAnswerModel): Promise<number> => {
+        return await post("question/createAswer", createModel);
     }
-
-    createHistoryAsync = async () => {
-        let params = { sentenceId: this.dashboardData.id };
-        await post("sentence/createhistory", params);
-    }
-
-
 }
 
 export default new DashboardStore()

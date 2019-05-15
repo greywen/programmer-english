@@ -16,6 +16,7 @@ interface IConfig {
     redis: { host: string, port: number, auth_pass: string, db: number },
     email: { smtp: { host: string, port: number, secure: boolean, auth: { user: string, pass: string } }, managerEmail: string },
     baidu: { clientId: string, clientSecret: string, translateAppId: string, translateKey: string },
+    file: { fileUploadPath: string }
     log: any,
     baseLogPath: string
 }
@@ -28,6 +29,7 @@ export default <IConfig>{
     redis: config.get("redis"),
     email: config.get("email"),
     baidu: config.get("baidu"),
+    file: config.get("file"),
     log: {
         //日志格式等设置
         appenders:

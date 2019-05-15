@@ -15,10 +15,10 @@ function uploadFile(file: string) {
   return Taro.uploadFile({
     url: config.baseUrl + "file/upload",
     filePath: file,
-    name: `${new Date().getTime()}`,
-    formData: {
-      token: "Bearer " + getToken()
-    }
+    name: "file",
+    header: {
+      "Authorization": "Bearer " + getToken()
+    },
   })
 }
 

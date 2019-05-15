@@ -14,7 +14,7 @@ class WordRepository extends BaseRepository<WordEntity> {
     }
 
     async getWordAsync(queryModel: WordQueryModel): Promise<WordModel> {
-        let data = await this.sqlmap.dQueryAsync("getWord", [queryModel]);
+        let data = await this.sqlmap.dQueryAsync("getWord", queryModel);
         return data[0];
     }
 }
