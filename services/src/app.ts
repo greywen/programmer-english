@@ -2,6 +2,7 @@ import * as Koa from "koa";
 import * as cors from "koa2-cors";
 import * as Json from "koa-json";
 import * as koaBody from "koa-body";
+const path = require('path');
 
 import { Route } from "./router/Route";
 import { RedisService } from "./utils/redisHelper";
@@ -15,7 +16,9 @@ const redis = new RedisService();
 app.use(koaBody({
     multipart: true,
     formidable: {
-        maxFileSize: 400 * 1024 * 1024
+        uploadDir: path.join(__dirname, "files/upload/"),
+        maxFileSize: 10 * 1024 * 1024,
+        keepExtensions: true
     }
 }))
 
@@ -26,7 +29,6 @@ app.use(async (ctx, next) => {
         logger.response(ctx);
         await next();
     } catch (error) {
-        console.log(error);
         logger.requestError(ctx, error);
         if (error["message"] === "Authentication Error") {
             ctx.status = 401;

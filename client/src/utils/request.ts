@@ -11,6 +11,17 @@ function get(url: string, data?: object) {
   return request({ method: "GET", url: url, data: data });
 }
 
+function uploadFile(file: string) {
+  return Taro.uploadFile({
+    url: config.baseUrl + "file/upload",
+    filePath: file,
+    name: `${new Date().getTime()}`,
+    formData: {
+      token: "Bearer " + getToken()
+    }
+  })
+}
+
 function request(options: RequestOptions) {
   if (!config.noConsole) {
     console.log(`${new Date().toLocaleString()}[M=${options.url}]P=${JSON.stringify(options.data)}`);
@@ -47,5 +58,6 @@ interface RequestOptions {
 
 export {
   post,
-  get
+  get,
+  uploadFile
 }

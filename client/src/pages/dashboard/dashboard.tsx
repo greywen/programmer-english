@@ -1,5 +1,5 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, ScrollView } from '@tarojs/components';
+import Taro, { Component, request } from '@tarojs/taro';
+import { View, } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx'
 
 import "./dashboard.scss"
@@ -11,6 +11,8 @@ import Authorization from '../../components/authorization/authorization';
 import HighlightWord from '../../components/highlightWord/highlightWord';
 import CTransition from '../../components/transition/cTransition';
 import { HtmlParse } from '../../components/htmlParse/htmlParse';
+import { uploadFile } from '../../utils/request';
+
 interface DashboardState {
     scrollTop: number
 }
@@ -56,6 +58,18 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
         })
     }
 
+    onChooseImage = () => {
+        Taro.chooseImage({
+            count: 1,
+            sizeType: ['original', 'compressed'],
+            sourceType: ['album', 'camera']
+        }).then(async (res) => {
+            let file = res.tempFilePaths[0];
+            let data = await uploadFile(file);
+            debugger
+        });
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;
@@ -65,6 +79,7 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                 <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
 
                 <View className="page-content">
+                    <View onClick={this.onChooseImage}>UploadFile</View>
                     {question ? <HtmlParse data={question.describe}></HtmlParse> : null}
                     {/* {
                         dashboardData ?
