@@ -1,3 +1,7 @@
+textarea {
+    width: 450px !important;
+}
+
 .page-content {
     
 }
@@ -13,12 +17,12 @@
 .file-list {
     flex-direction: column;
     display: flex;
-    padding:10px 0px 10px 0px;
+    padding:20px 0px 20px 87px;
 }
 
 .file-list view {
     padding:10px 0px 10px 0px;
-    width: 300px;
+    width: 450px;
     white-space:nowrap;
 	text-overflow:ellipsis;
 	-o-text-overflow:ellipsis;
@@ -26,8 +30,8 @@
 }
 
 .file-list-del {
-    color:red;
-    padding-left: 20px;
+    color:#3271fd;
+    padding-right: 20px;
 }
 
 .form-content {

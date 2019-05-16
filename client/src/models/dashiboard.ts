@@ -9,5 +9,5 @@ export interface IQuestionDataModel {
 export interface IQuestionAnswerModel {
     questionId: number,
     answer: string,
-    contact: string,
+    contact: string
 }

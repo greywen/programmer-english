@@ -25,7 +25,7 @@ export class WordService {
     private async verifyWordAnsyc(wordId: number): Promise<WordModel> {
         let word = await wordRepository.getByIdAsync(wordId);
         if (!word) {
-            throw new NotFoundException("Word not found");
+            // throw new NotFoundException("Word not found");
         }
         return word;
     }

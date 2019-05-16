@@ -6,5 +6,5 @@ export interface UserAttachmentCreateModel {
     contentType?: string,
     filePath?: string,
     refId?: string,
-    uesrId: number
+    userId: number
 }

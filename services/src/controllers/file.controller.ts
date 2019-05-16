@@ -16,13 +16,7 @@ class FileController {
     @authorize
     async fileUpload(ctx: CustomKoaContextModel) {
         const file = ctx.request.files["file"];
-        let fileId = await fileService.createFileAsync({ uesrId: ctx.user.id, fileName: file.name, contentType: file.type, attachmentType: AttachmentType.UserQuestion });
-        ctx.body = {
-            statusCode: 200,
-            data: {
-                fileId: fileId,
-                fileName: file.name
-            }
-        }
+        await fileService.createFileAsync({ userId: ctx.user.id, fileName: file.name, filePath: `${file.path}\\${file.name}`, contentType: file.type, attachmentType: AttachmentType.UserQuestion });
+        ctx.body = file.name
     }
 }

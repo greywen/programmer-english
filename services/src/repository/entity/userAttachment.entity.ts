@@ -6,6 +6,6 @@ export interface UserAttachmentEntity extends BaseEntity {
     contentType?: string,
     filePath?: string,
     refId?: string,
-    uesrId: number,
+    userId: number,
     createTime?: string
 }

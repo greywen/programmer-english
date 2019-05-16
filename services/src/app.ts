@@ -16,11 +16,13 @@ app.use(koaBody({
     json: true,
     multipart: true,
     formidable: {
-        uploadDir: `config.file.fileUploadPath\\${new Date().getFullYear()}`,
+        uploadDir: config.file.fileUploadPath,
         keepExtensions: true,
         maxFileSize: 10 * 1024 * 1024,
     }
 }));
+
+app.use(Json())
 
 router.registerRouters(`${__dirname}/controllers`, config.jwt);
 
@@ -29,6 +31,7 @@ app.use(async (ctx, next) => {
         logger.response(ctx);
         await next();
     } catch (error) {
+        debugger
         logger.requestError(ctx, error);
         if (error["message"] === "Authentication Error") {
             ctx.status = 401;

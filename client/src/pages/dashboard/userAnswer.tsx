@@ -1,18 +1,19 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./userAnswer.scss"
-import { View, Input, Text, Button } from "@tarojs/components";
+import { View, Input, Text, Button, Textarea } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
 import { IQuestionAnswerModel } from "../../models/dashiboard";
 import { uploadFile } from "../../utils/request";
+import { showMessage } from "../../utils/wechatUtils";
 
 interface UserAnswerState {
     questionId: number,
     answer: string,
     contact: string,
-    files: { fileId: number, fileName: string }[]
+    files: string[]
 }
 
 interface UserAnswerProps {
@@ -33,7 +34,7 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
     constructor() {
         super()
         this.state = {
-            questionId: 0,
+            questionId: 1,
             answer: "",
             contact: "",
             files: []
@@ -43,31 +44,38 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
     onChooseImage = () => {
         Taro.chooseImage({
             count: 1,
-            sizeType: ['original', 'compressed'],
+            sizeType: ['compressed'],
             sourceType: ['album', 'camera']
         }).then(async (res) => {
             let file = res.tempFilePaths[0];
             let uploadFileResult = await uploadFile(file);
-            // let _files = this.state.files;
-            // _files.concat(uploadFileResult);
-            // this.setState({
-            //     files: _files
-            // })
+            let _files = this.state.files;
+            _files.push(uploadFileResult.data);
+            this.setState({
+                files: _files
+            })
         })
     }
 
-    onDeleteFile = (fileId: number) => {
-
+    onDeleteFile = (fileName: string) => {
+        let _files = this.state.files.filter(x => { return x != fileName });
+        this.setState({
+            files: _files
+        });
     }
 
     onSubmit = () => {
         let { answer, questionId, contact } = this.state;
+        if (answer.trim().length === 0) {
+            showMessage("翻译分析必填");
+            return;
+        }
         this.props.dashboardStore.createAnswerAsync({ answer: answer, questionId: questionId, contact: contact });
     }
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { answer, contact } = this.state;
+        const { answer, contact, files } = this.state;
 
         return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
             <NavigationBar title="翻译分析" scrollTop={0} backUrl="./dashboard" openType={NavigatorOpenType.navigateBack}></NavigationBar>
@@ -75,23 +83,14 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
 
                 <View className="upload-file">
                     <View onClick={this.onChooseImage}><Button className="submit-button" size='mini' plain type="primary">从相册上传图片</Button></View>
-                    <View className="file-list">
-                        <View>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.png<Text className="file-list-del">x</Text></View>
-                        <View>xxxxxxxxxxx.png<Text className="file-list-del">x</Text></View>
-                        <View>xxxxxxxxxxx.png<Text className="file-list-del">x</Text></View>
-                        {/* {
-                            this.state.files.map(file => {
-                                return <View onClick={() => { this.onDeleteFile(file.fileId) }}>{file.fileName}</View>
-                            })
-                        } */}
-                    </View>
                 </View>
 
                 <View className="form-content">
                     <View className="form-item">
                         <View className="form-title">翻译分析</View>
                         <View className="form-input">
-                            <Input placeholder="必填" value={answer} onInput={(e) => { this.setState({ answer: e.target["value"] }) }}></Input>
+                            {/* <Input placeholder="必填" value={answer} onInput={(e) => { this.setState({ answer: e.target["value"] }) }}></Input> */}
+                            <Textarea maxlength={500} autoHeight placeholder="必填" value={answer} onInput={(e) => { this.setState({ answer: e.target["value"] }) }}></Textarea>
                         </View>
                     </View>
                     <View className="form-item">
@@ -103,6 +102,14 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
                     <View className="form-submit-item">
                         <View className="form-submit" onClick={this.onSubmit}><Button className="submit-button" size='mini' plain type="primary">完成</Button></View>
                     </View>
+                </View>
+
+                <View className="file-list">
+                    {
+                        files.map(file => {
+                            return <View onClick={() => { this.onDeleteFile(file) }}><Text className="file-list-del icomoonfont icon-close-circle"></Text>{file}</View>
+                        })
+                    }
                 </View>
             </View>
         </View >
