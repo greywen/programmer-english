@@ -56,11 +56,9 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                 <PageLoading loading={loading}></PageLoading>
                 <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
                 <View className="page-content">
-
-                    <Button size='mini' plain type="primary">完成</Button>
-                    <View><Navigator url="./userAnswer">提交答案</Navigator></View>
                     {question ? <HtmlParse data={question.describe}></HtmlParse> : null}
-                </View >
+                    <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
+                </View>
             </View >
         )
     }

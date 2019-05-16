@@ -39,7 +39,7 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
             describe: "",
             contact: ""
         });
-        showSuccess("感谢你的反馈");
+        showSuccess("反馈成功");
     }
 
     render() {

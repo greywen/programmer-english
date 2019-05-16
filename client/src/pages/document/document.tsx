@@ -29,7 +29,9 @@ export default class Document extends Component<{}, DocumentState> {
         return <View className="page" style={{ minHeight: windowHeight + "px", backgroundColor: "#f8f8f8" }}>
             <NavigationBar title="文档阅读" scrollTop={scrollTop}></NavigationBar>
 
-            <View className="article">
+            <View></View>
+
+            {/* <View className="article">
                 <Navigator url="">
                     <View className="article-item">
                         <View className="article-item-icon">
@@ -74,7 +76,7 @@ export default class Document extends Component<{}, DocumentState> {
                     </View>
                 </Navigator>
 
-            </View>
+            </View> */}
         </View>
     }
 }

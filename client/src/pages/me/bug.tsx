@@ -39,7 +39,7 @@ export default class Bug extends Component<BugProps, BugState> {
             describe: "",
             contact: ""
         });
-        showSuccess("感谢你的反馈");
+        showSuccess("反馈成功");
     }
 
     render() {

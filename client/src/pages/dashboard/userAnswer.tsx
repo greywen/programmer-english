@@ -33,8 +33,12 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
 
     constructor() {
         super()
+        this.initStat(this.$router.params.questionId);
+    }
+
+    initStat = (questionId: number) => {
         this.state = {
-            questionId: 1,
+            questionId: questionId,
             answer: "",
             contact: "",
             files: []
@@ -71,6 +75,7 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
             return;
         }
         this.props.dashboardStore.createAnswerAsync({ answer: answer, questionId: questionId, contact: contact });
+        this.initStat(questionId);
     }
 
     render() {

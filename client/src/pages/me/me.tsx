@@ -3,6 +3,7 @@ import "./me.scss"
 import { View, OpenData, Navigator, Text } from "@tarojs/components";
 
 import { NavigationBar } from "../../components";
+import { showMessage } from "../../utils/wechatUtils";
 
 interface MeState {
     scrollTop: number
@@ -21,6 +22,10 @@ export default class Me extends Component<{}, MeState> {
         this.setState({
             scrollTop: e.scrollTop
         })
+    }
+
+    onShowNotOpen = () => {
+        showMessage("功能暂未开放");
     }
 
     render() {
@@ -61,7 +66,7 @@ export default class Me extends Component<{}, MeState> {
                 </View>
 
                 <View className="flex-custom-border-top">
-                    <Navigator url="" className="flex-custom-row">
+                    <Navigator url="" onClick={this.onShowNotOpen} className="flex-custom-row">
                         <View className="flex-custom-text">设置</View>
                         <View className="flex-custom-icon">></View>
                     </Navigator>
