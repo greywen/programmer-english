@@ -18,7 +18,7 @@ function uploadFile(file: string) {
     name: "file",
     header: {
       "Authorization": "Bearer " + getToken()
-    },
+    }
   })
 }
 

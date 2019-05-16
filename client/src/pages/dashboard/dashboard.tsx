@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Navigator } from '@tarojs/components';
+import { View, Navigator, Button } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx'
 
 import "./dashboard.scss"
@@ -7,7 +7,7 @@ import withLogin from "../../common/decorator/withLogin";
 import { IQuestionDataModel } from "../../models/dashiboard";
 import NavigationBar from '../../components/navigationBar/navigationBar';
 import { HtmlParse } from '../../components/htmlParse/htmlParse';
-import { uploadFile } from '../../utils/request';
+import PageLoading from '../../components/pageLoading/pageLoading';
 
 interface DashboardState {
     scrollTop: number
@@ -15,6 +15,7 @@ interface DashboardState {
 
 interface DashboardProps {
     dashboardStore: {
+        loading: boolean,
         question: IQuestionDataModel,
         getQuestionAsync: () => {}
     },
@@ -49,13 +50,14 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;
-        const { dashboardStore: { question } } = this.props;
+        const { dashboardStore: { question, loading } } = this.props;
         return (
-            <View className="page" style={{ height: windowHeight + "px" }
-            }>
+            <View className="page" style={{ height: windowHeight + "px" }}>
+                <PageLoading loading={loading}></PageLoading>
                 <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
-
                 <View className="page-content">
+
+                    <Button size='mini' plain type="primary">完成</Button>
                     <View><Navigator url="./userAnswer">提交答案</Navigator></View>
                     {question ? <HtmlParse data={question.describe}></HtmlParse> : null}
                 </View >

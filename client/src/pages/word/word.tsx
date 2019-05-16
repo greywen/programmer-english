@@ -7,6 +7,7 @@ import { NavigationBar, Authorization } from "../../components";
 import { IWordDataModel } from "../../models/word";
 import { readingText } from "../../utils/baiduUtils";
 import { showMessage } from "../../utils/wechatUtils";
+import PageLoading from "../../components/pageLoading/pageLoading";
 
 interface WordState {
     scrollTop: number
@@ -14,6 +15,7 @@ interface WordState {
 
 interface WordProps {
     wordStore: {
+        loading: boolean,
         word: IWordDataModel,
         getWordAsync: () => {},
         getNextWordAsync: () => {},
@@ -64,9 +66,10 @@ export default class Word extends Component<WordProps, WordState> {
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;
-        const { wordStore: { word } } = this.props;
+        const { wordStore: { word, loading } } = this.props;
 
         return <View className="page" style={{ height: windowHeight - 45 + "px" }}>
+            <PageLoading loading={loading}></PageLoading>
             <NavigationBar title="技术词汇" scrollTop={scrollTop}></NavigationBar>
             {word ? <View className="page-content">
                 <View className="page-nav">

@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./userAnswer.scss"
-import { View, Input, Text } from "@tarojs/components";
+import { View, Input, Text, Button } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar } from "../../components";
@@ -74,7 +74,7 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
             <View className="page-content">
 
                 <View className="upload-file">
-                    <View onClick={this.onChooseImage}>从相册上传图片</View>
+                    <View onClick={this.onChooseImage}><Button className="submit-button" size='mini' plain type="primary">从相册上传图片</Button></View>
                     <View className="file-list">
                         <View>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.png<Text className="file-list-del">x</Text></View>
                         <View>xxxxxxxxxxx.png<Text className="file-list-del">x</Text></View>
@@ -101,7 +101,7 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
                         </View>
                     </View>
                     <View className="form-submit-item">
-                        <View className="form-submit" onClick={this.onSubmit}>完成</View>
+                        <View className="form-submit" onClick={this.onSubmit}><Button className="submit-button" size='mini' plain type="primary">完成</Button></View>
                     </View>
                 </View>
             </View>
