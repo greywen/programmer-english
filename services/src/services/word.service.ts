@@ -33,7 +33,7 @@ export class WordService {
 
     async collectWordAsync(model: CreateCollectModel): Promise<number> {
         await this.verifyWordAnsyc(model.wordId);
-        let collectWord = await userCollectionRepository.getFirstOrDefaultAsync({ userId: model.userId });
+        let collectWord = await userCollectionRepository.getFirstOrDefaultAsync({ wordId: model.wordId, userId: model.userId });
         if (collectWord) {
             await userCollectionRepository.deleteAsync({ id: collectWord.id });
             return 0;
@@ -63,6 +63,16 @@ export class WordService {
 
     async getUserCollectionWordAsync(userId: number) {
         return await userCollectionRepository.getUserLastCollectionWordAsync(userId);
+    }
+
+    async getWordDetailAsync(queryModel: WordQueryModel) {
+        let _word = await wordRepository.getByIdAsync(queryModel.wordId);
+        if (!_word) {
+            // 
+        }
+        let wordSentences = await wordRepository.getWordSentencesAsync(_word.id);
+        let word = await wordRepository.getWordAsync(queryModel);
+        return <WordResultModel>{ ...word, sentences: wordSentences };
     }
 }
 

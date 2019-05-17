@@ -11,8 +11,11 @@ import { IWordListDataModel } from "../../models/word";
 interface WordListProps {
     wordStore: {
         loading: boolean,
+        showLoadMore: boolean,
         wordList: IWordListDataModel[],
-        getWordListAsync: () => {}
+        reset: () => {},
+        getWordListAsync: () => {},
+        getMoreWordAsync: () => {}
     }
 }
 @inject("wordStore")
@@ -28,9 +31,13 @@ export default class WordList extends Component<WordListProps, {}> {
         await getWordListAsync();
     }
 
+    onLoadMoreWordAsync() {
+        this.props.wordStore.getMoreWordAsync();
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { wordStore: { loading, wordList } } = this.props;
+        const { wordStore: { loading, showLoadMore, wordList } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="单词列表" hidePageTitle={true} backUrl="../me/me" openType={NavigatorOpenType.switchTab}></NavigationBar>
@@ -39,7 +46,7 @@ export default class WordList extends Component<WordListProps, {}> {
                 <View className="word-list">
                     {
                         wordList && wordList.map(word => {
-                            return <Navigator url={`./word.detail?wordId=${word.id}`}>
+                            return <Navigator key={word.id} url={`./word.detail?wordId=${word.id}`}>
                                 <View className="border-bottom">
                                     <View className="list-item">
                                         <View className="list-item-text">{word.english}</View>
@@ -55,7 +62,9 @@ export default class WordList extends Component<WordListProps, {}> {
 
                 </View>
                 <View className="footer">
-                    点击加载更多
+                    {
+                        showLoadMore ? <View onClick={this.onLoadMoreWordAsync}>点击加载更多</View> : null
+                    }
                 </View>
             </View>
         </View>

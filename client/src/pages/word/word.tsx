@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./word.scss"
 import { View, Text, Navigator } from "@tarojs/components";
-import { observer, inject } from '@tarojs/mobx'
+import { observer, inject } from '@tarojs/mobx';
 
 import { NavigationBar, Authorization } from "../../components";
 import { IWordDataModel } from "../../models/word";
@@ -26,6 +26,7 @@ interface WordProps {
         update: () => {}
     }
 }
+
 @inject("wordStore", "authorizationStore")
 @observer
 export default class Word extends Component<WordProps, WordState> {

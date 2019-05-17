@@ -1,59 +1,107 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./word.detail.scss"
 import { View, Text, Navigator } from "@tarojs/components";
+import { observer, inject } from '@tarojs/mobx';
 
 import { NavigationBar } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
+import { IWordDataModel } from "../../models/word";
+import PageLoading from "../../components/pageLoading/pageLoading";
+import { readingText } from "../../utils/baiduUtils";
 
-export default class WordDetail extends Component<{}, {}> {
+interface WordDetailProps {
+    wordStore: {
+        loading: boolean,
+        wordDetail: IWordDataModel,
+        getWordDetailAsync: (wordId: number) => {}
+        collectDetailWordAsync: () => {}
+    }
+}
+
+@inject("wordStore")
+@observer
+export default class WordDetail extends Component<WordDetailProps, {}> {
 
     constructor() {
         super()
     }
 
+    async componentDidMount() {
+        let wordId = this.$router.params["wordId"];
+        await this.props.wordStore.getWordDetailAsync(wordId);
+    }
+
+
+    onCollectWord = async () => {
+        const { collectDetailWordAsync } = this.props.wordStore;
+        await collectDetailWordAsync();
+    }
+
+    isNullReturnEmpty(val) {
+        return val ? val : ""
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
+        const { wordStore: { loading, wordDetail } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="单词详情" hidePageTitle={true} backUrl="./word.list" openType={NavigatorOpenType.navigateBack}></NavigationBar>
-            <View className="page-content">
+            <PageLoading loading={loading}></PageLoading>
+            {wordDetail ? <View className="page-content">
                 <View className="page-nav">
-                    <View>
-                        <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart nav-icon"></Text>
+                    <View onClick={this.onCollectWord}>
+                        {
+                            wordDetail && wordDetail.collectionId ?
+                                <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart-fill nav-icon"></Text> :
+                                <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart nav-icon"></Text>
+                        }
                     </View>
                 </View>
                 <View className="flex-custom">
                     <View className="flex-custom-item">
-                        <View className="flex-custom-item-word">
-                            conservation
+                        <View className="flex-custom-item-word" onClick={() => { readingText(wordDetail.english) }}>
+                            {wordDetail.english}
                         </View>
                         <View className="flex-custom-item-title">读音释义</View>
                         <View className="flex-custom-item-phonetic">
-                            <View>英 [.kɒnsə(r)'veɪʃ(ə)n]</View>
-                            <View>美 [.kɑnsər'veɪʃ(ə)n]</View>
+                            <View>{this.isNullReturnEmpty(wordDetail.phoneticEN)}</View>
+                            <View onClick={() => { readingText(wordDetail.english) }}>
+                                {this.isNullReturnEmpty(wordDetail.phoneticUS)}<Text className="icomoonfont icon-sound"></Text>
+                            </View>
                         </View>
                         <View className="flex-custom-item-cn">
-                            <View>保护；保存；</View>
+                            <View>{wordDetail.chinese}</View>
                         </View>
-                        <View className="flex-custom-item-title">搭配</View>
-                        <View className="flex-custom-item-collocation">
-                            start project,study project,implement project,project image,design project
-                        </View>
+                        {
+                            wordDetail.collocation ? <View>
+                                <View className="flex-custom-item-title">搭配</View>
+                                <View className="flex-custom-item-collocation">{wordDetail.collocation}</View>
+                            </View> : null
+                        }
                         <View className="flex-custom-item-title">例句<Navigator url="">(推荐?)</Navigator></View>
                         <View className="flex-custom-item-sentences">
-                            <View className="flex-custom-sentence-cn">
-                                涂料染色具有工艺简单、节约能源、拼色方便、风格独特等优点而备受消费者的喜爱。
-                            </View>
-                            <View className="flex-custom-sentence-en">
-                                Pigment dyeing, due to its simple technique, energy conservation, easy to color matching and its own style, is loved by customers.
-                            </View>
+                            {
+                                wordDetail.sentences.map(sentence => {
+                                    return <View key={sentence.english}>
+                                        <View className="flex-custom-sentence-cn">
+                                            {sentence.chinese}
+                                        </View>
+                                        <View className="flex-custom-sentence-en">
+                                            {sentence.english}
+                                        </View>
+                                    </View>
+                                })
+                            }
+
                         </View>
                         <View className="page-help">
                             <Navigator url="">单词有问题?</Navigator>
                         </View>
                     </View>
                 </View>
-            </View>
+            </View> : null
+            }
         </View>
     }
 }

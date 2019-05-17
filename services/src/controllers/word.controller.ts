@@ -67,4 +67,19 @@ class WordController {
     async getDisplayWord(ctx: CustomKoaContextModel) {
         ctx.body = await wordService.getUserCollectionWordAsync(ctx.user.id);
     }
+
+    @router({
+        method: "get",
+        path: "/getWordDetail",
+        unless: false
+    })
+    @authorize
+    async getWordDetailAsync(ctx: CustomKoaContextModel) {
+        let wordId = ctx.query["wordId"];
+        if (!wordId) {
+            ctx.body = {};
+            return;
+        }
+        ctx.body = await wordService.getWordDetailAsync({ wordId: wordId, userId: ctx.user.id, next: false });
+    }
 }
