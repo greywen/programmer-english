@@ -57,4 +57,14 @@ class WordController {
         queryModel.userId = ctx.user.id;
         ctx.body = await wordService.getWordListAsync(queryModel);
     }
+
+    @router({
+        method: "get",
+        path: "/getDisplayWord",
+        unless: false
+    })
+    @authorize
+    async getDisplayWord(ctx: CustomKoaContextModel) {
+        ctx.body = await wordService.getUserCollectionWordAsync(ctx.user.id);
+    }
 }

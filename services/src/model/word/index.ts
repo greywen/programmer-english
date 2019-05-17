@@ -1,8 +1,9 @@
 import {
-    CreateCollectModel, CreateUserHistoryModel
+    CreateCollectModel, CreateUserHistoryModel, DisplayWordResultModel
 } from "./word.model";
 
 export {
     CreateCollectModel,
-    CreateUserHistoryModel
+    CreateUserHistoryModel,
+    DisplayWordResultModel
 }

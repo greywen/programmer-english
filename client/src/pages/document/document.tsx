@@ -29,7 +29,10 @@ export default class Document extends Component<{}, DocumentState> {
         return <View className="page" style={{ minHeight: windowHeight + "px", backgroundColor: "#f8f8f8" }}>
             <NavigationBar title="文档阅读" scrollTop={scrollTop}></NavigationBar>
 
-            <View></View>
+            <View className="update">
+                <View className="await">稍等一下</View>
+                <View>我们正在更新</View>
+            </View>
 
             {/* <View className="article">
                 <Navigator url="">

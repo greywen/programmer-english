@@ -4,8 +4,7 @@ import { WordEntity } from "./entity/word.entity";
 
 class WordRepository extends BaseRepository<WordEntity> {
     async getWordListAsync(queryModel: WordListQueryModel): Promise<WordListModel[]> {
-        let sql = `select dw.id,dw.english,dw.chinese,dw.createTime from user_collection uc left join data_word dw on dw.id = uc.wordId where uc.userId = ? limit ?,?;`;
-        return await this.sqlmap.queryAsync(sql, [queryModel.userId, queryModel.page, queryModel.pageSize]);
+        return await this.sqlmap.dQueryAsync("getWordList", queryModel);
     }
 
     async getWordSentencesAsync(wordId: number): Promise<WordSentencesModel[]> {

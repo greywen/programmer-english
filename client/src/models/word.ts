@@ -10,6 +10,25 @@ export interface IWordDataModel {
     sentences: ISentenceWordModel[],
 }
 
+export interface IDisplayWordDataModel {
+    wordId: number,
+    collectionId: number,
+    english: string,
+    chinese: string,
+}
+
+export interface IWordListDataModel {
+    id: number,
+    english: string,
+    chinese: string,
+    createTime: string
+}
+
+export interface IWordListQueryModel {
+    page: number,
+    pageSize: number
+}
+
 interface ISentenceWordModel {
     id: number,
     english: string,

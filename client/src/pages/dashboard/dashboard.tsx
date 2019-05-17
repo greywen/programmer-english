@@ -53,8 +53,8 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
         const { dashboardStore: { question, loading } } = this.props;
         return (
             <View className="page" style={{ height: windowHeight + "px" }}>
-                <PageLoading loading={loading}></PageLoading>
                 <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
+                <PageLoading loading={loading}></PageLoading>
                 <View className="page-content">
                     {question ? <HtmlParse data={question.describe}></HtmlParse> : null}
                     <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>

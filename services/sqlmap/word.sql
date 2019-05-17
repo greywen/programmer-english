@@ -6,3 +6,9 @@ where 1 = 1
 #if (@next) { and dw.id > @wordId }
 #if (!@next) { and dw.id = @wordId }
 limit 1;
+
+#select getWordList:
+select dw.id,dw.english,dw.chinese,dw.createTime 
+from user_collection uc left join data_word dw on dw.id = uc.wordId 
+where uc.userId = @userId 
+limit @page,@pageSize;

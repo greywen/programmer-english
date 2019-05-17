@@ -69,8 +69,8 @@ export default class Word extends Component<WordProps, WordState> {
         const { wordStore: { word, loading } } = this.props;
 
         return <View className="page" style={{ height: windowHeight - 45 + "px" }}>
-            <PageLoading loading={loading}></PageLoading>
             <NavigationBar title="技术词汇" scrollTop={scrollTop}></NavigationBar>
+            <PageLoading loading={loading}></PageLoading>
             {word ? <View className="page-content">
                 <View className="page-nav">
                     <Authorization authorizationStore={this.props.authorizationStore}>

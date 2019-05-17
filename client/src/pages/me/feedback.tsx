@@ -6,7 +6,7 @@ import { observer, inject } from '@tarojs/mobx'
 import { NavigationBar } from "../../components";
 import { NavigatorOpenType, FeedbackType } from "../../common/enums";
 import { IFeedbackModel } from "../../models/user";
-import { showSuccess } from "../../utils/wechatUtils";
+import { showSuccess, showMessage } from "../../utils/wechatUtils";
 
 interface FeedbackState {
     type: FeedbackType,
@@ -34,7 +34,13 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
     }
 
     async onFeedback() {
-        this.props.feedbackStore.createFeedbackAsync({ describe: this.state.describe, contact: this.state.contact, type: this.state.type });
+        let { describe, contact } = this.state;
+        if (describe.trim().length === 0) {
+            showMessage("反馈建议必填");
+            return;
+        }
+
+        this.props.feedbackStore.createFeedbackAsync({ describe: describe, contact: contact, type: this.state.type });
         this.setState({
             describe: "",
             contact: ""

@@ -60,3 +60,10 @@ export interface WordListQueryModel {
     page: number,
     pageSize: number
 }
+
+export interface DisplayWordResultModel {
+    wordId: number,
+    collectionId: number,
+    english: string,
+    chinese: string
+}
