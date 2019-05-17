@@ -33,12 +33,8 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
 
     constructor() {
         super()
-        this.initStat(this.$router.params.questionId);
-    }
-
-    initStat = (questionId: number) => {
         this.state = {
-            questionId: questionId,
+            questionId: this.$router.params["questionId"],
             answer: "",
             contact: "",
             files: []
@@ -75,7 +71,12 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
             return;
         }
         this.props.dashboardStore.createAnswerAsync({ answer: answer, questionId: questionId, contact: contact });
-        this.initStat(questionId);
+        this.setState({
+            answer: "",
+            contact: "",
+            files: []
+        })
+        showMessage("提交成功");
     }
 
     render() {
