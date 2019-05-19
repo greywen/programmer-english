@@ -16,6 +16,11 @@ class WordStore extends BaseStore {
     @observable
     wordDetail: IWordDataModel;
 
+    reset = () => {
+        this.wordList = [];
+        this.wordListQuery.page = 0;
+    }
+
     getWordAsync = async () => {
         this.loading = true;
         this.word = await get("word/getWord");

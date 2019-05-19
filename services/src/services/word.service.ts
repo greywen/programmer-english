@@ -2,6 +2,7 @@ import { wordRepository, userHistoryRepository, userCollectionRepository } from 
 import { WordResultModel, WordQueryModel, WordModel, CreateCollectModel, CreateUserHistoryModel, WordListQueryModel, WordListModel } from "../model/word/word.model";
 import { NotFoundException } from "../common/exception";
 import { parseNumber } from "../utils/common";
+import { UserHistoryType } from "../common/enums";
 
 export class WordService {
     async getWordAsync(queryModel: WordQueryModel): Promise<WordResultModel> {
@@ -13,7 +14,7 @@ export class WordService {
             return null;
         }
         let wordSentences = await wordRepository.getWordSentencesAsync(word.id);
-        await this.createUserWordHistoryAsync({ wordId: word.id, userId: queryModel.userId });
+        await this.createUserWordHistoryAsync({ refId: word.id, userId: queryModel.userId });
         return <WordResultModel>{ ...word, sentences: wordSentences };
     }
 
@@ -42,9 +43,9 @@ export class WordService {
     }
 
     private async createUserWordHistoryAsync(model: CreateUserHistoryModel): Promise<void> {
-        let history = await userHistoryRepository.getFirstOrDefaultAsync({ userId: model.userId, wordId: model.wordId });
+        let history = await userHistoryRepository.getFirstOrDefaultAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Word });
         if (!history) {
-            await userHistoryRepository.insertAsync({ userId: model.userId, wordId: model.wordId });
+            await userHistoryRepository.insertAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Word });
         }
     }
 

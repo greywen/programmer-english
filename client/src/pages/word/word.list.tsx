@@ -27,7 +27,8 @@ export default class WordList extends Component<WordListProps, {}> {
     }
 
     async componentDidMount() {
-        const { getWordListAsync } = this.props.wordStore;
+        const { reset, getWordListAsync } = this.props.wordStore;
+        reset();
         await getWordListAsync();
     }
 

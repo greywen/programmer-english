@@ -26,7 +26,8 @@ class App extends Component {
       "pages/dashboard/dashboard",
       "pages/dashboard/userAnswer",
       "pages/me/me",
-      "pages/document/document",
+      "pages/article/article",
+      "pages/article/article.detail",
       "pages/word/word",
       "pages/word/word.list",
       "pages/word/word.detail",
@@ -52,7 +53,7 @@ class App extends Component {
           iconPath: "./assets/images/file-word.png"
         },
         {
-          pagePath: "pages/document/document", text: "文档阅读",
+          pagePath: "pages/article/article", text: "文档阅读",
           selectedIconPath: "./assets/images/read-selected.png",
           iconPath: "./assets/images/read.png"
         },

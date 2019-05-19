@@ -1,8 +1,5 @@
 import { prefix, router, authorize } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
-import * as fs from "fs";
-import * as path from "path";
-import config from "../common/config";
 import fileService from "../services/file.service";
 import { AttachmentType } from "../common/enums";
 

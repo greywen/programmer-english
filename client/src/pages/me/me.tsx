@@ -104,12 +104,12 @@ export default class Me extends Component<MeProps, MeState> {
 
                 </View>
 
-                <View className="flex-custom-border-top">
+                {/* <View className="flex-custom-border-top">
                     <Navigator url="" onClick={this.onShowNotOpen} className="flex-custom-row">
                         <View className="flex-custom-text">设置</View>
                         <View className="flex-custom-icon">></View>
                     </Navigator>
-                </View>
+                </View> */}
 
                 <View className="flex-custom-border-top">
                     <Navigator url="./feedback" className="flex-custom-row">

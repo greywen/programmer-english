@@ -3,7 +3,7 @@ import { UserHistoryEntity } from "./entity/userHistory.entity";
 
 class UserHistoryRepository extends BaseRepository<UserHistoryEntity> {
     async getUserLastHistoryWordIdAsync(userId: number): Promise<number> {
-        let data = await this.sqlmap.queryAsync(`select max(wordId) as wordId from user_history where userid = ?;`, [userId]);
+        let data = await this.sqlmap.queryAsync(`select max(refId) as wordId from user_history where userid = ? and historyType = 1;`, [userId]);
         return data[0].wordId;
     }
 }

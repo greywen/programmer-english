@@ -17,7 +17,7 @@ export interface CreateCollectModel {
 
 export interface CreateUserHistoryModel {
     userId: number,
-    wordId: number
+    refId: number
 }
 
 export interface WordQueryModel {
