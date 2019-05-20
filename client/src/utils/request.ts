@@ -3,14 +3,6 @@ import config from '../common/config';
 import { getToken } from './loginUtils';
 import { showError } from './wechatUtils';
 
-function post(url: string, data?: object) {
-  return request({ method: "POST", url: url, data: data });
-}
-
-function get(url: string, data?: object) {
-  return request({ method: "GET", url: url, data: data });
-}
-
 function uploadFile(file: string) {
   return Taro.uploadFile({
     url: config.baseUrl + "file/upload",
@@ -44,7 +36,7 @@ function request(options: RequestOptions) {
       return data;
     }
     else {
-      showError(res.data["message"]);
+      showError(res.data["message"] || "服务器错误请稍后再试");
       throw new Error(`网络请求错误，状态码${statusCode}`);
     }
   })
@@ -57,7 +49,6 @@ interface RequestOptions {
 }
 
 export {
-  post,
-  get,
+  request,
   uploadFile
 }

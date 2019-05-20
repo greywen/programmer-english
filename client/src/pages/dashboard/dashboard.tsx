@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Navigator, Button } from '@tarojs/components';
+import { View, Navigator } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx'
 
 import "./dashboard.scss"
@@ -8,6 +8,7 @@ import { IQuestionDataModel } from "../../models/dashiboard";
 import NavigationBar from '../../components/navigationBar/navigationBar';
 import { HtmlParse } from '../../components/htmlParse/htmlParse';
 import PageLoading from '../../components/pageLoading/pageLoading';
+import { Authorization } from '../../components';
 
 interface DashboardState {
     scrollTop: number
@@ -57,7 +58,9 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                 <PageLoading loading={loading}></PageLoading>
                 <View className="page-content">
                     {question ? <HtmlParse data={question.describe}></HtmlParse> : null}
-                    <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
+                    <Authorization authorizationStore={this.props.authorizationStore}>
+                        <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
+                    </Authorization>
                 </View>
             </View >
         )

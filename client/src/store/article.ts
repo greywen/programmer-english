@@ -1,6 +1,5 @@
 import { observable } from 'mobx'
 
-import { get } from '../utils/request';
 import { BaseStore } from './base.store';
 import { ArticleListDataModel, ArticleDetailDataModel } from '../models/article';
 
@@ -16,7 +15,7 @@ class ArticleStore extends BaseStore {
 
     getArticleListAsync = async () => {
         this.loading = true;
-        let _articleList = await get("article/getArticleList", this.articleListQuery);
+        let _articleList = await this.get("article/getArticleList", this.articleListQuery);
         this.showLoadMore = _articleList && _articleList.length > 20;
         if (this.showLoadMore) {
             _articleList.pop(1);
@@ -33,7 +32,7 @@ class ArticleStore extends BaseStore {
 
     getArticleDetailAsync = async (articleId: number) => {
         this.loading = true;
-        this.articleDetail = await get("article/getArticleDetail", { articleId: articleId });
+        this.articleDetail = await this.get("article/getArticleDetail", { articleId: articleId });
         this.loading = false;
     }
 }

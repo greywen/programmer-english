@@ -1,6 +1,5 @@
 import { observable } from 'mobx'
 
-import { get, post } from '../utils/request';
 import { IQuestionDataModel, IQuestionAnswerModel } from '../models/dashiboard';
 import { BaseStore } from './base.store';
 
@@ -11,13 +10,11 @@ class DashboardStore extends BaseStore {
     question: IQuestionDataModel;
 
     getQuestionAsync = async () => {
-        this.loading = true;
-        this.question = await get("question/getQuestion");
-        this.loading = false;
+        this.question = await this.get("question/getQuestion");
     }
 
     createAnswerAsync = async (createModel: IQuestionAnswerModel): Promise<number> => {
-        return await post("question/createAswer", createModel);
+        return await this.post("question/createAswer", createModel);
     }
 }
 

@@ -1,6 +1,5 @@
 import { observable } from 'mobx'
 
-import { get, post } from '../utils/request';
 import { IWordDataModel, IWordListDataModel, IWordListQueryModel } from '../models/word';
 import { BaseStore } from './base.store';
 
@@ -23,13 +22,13 @@ class WordStore extends BaseStore {
 
     getWordAsync = async () => {
         this.loading = true;
-        this.word = await get("word/getWord");
+        this.word = await this.get("word/getWord");
         this.loading = false;
     }
 
     getNextWordAsync = async () => {
         this.loading = true;
-        let _word = await get("word/getNextWord");
+        let _word = await this.get("word/getNextWord");
         if (_word) {
             this.word = _word;
         }
@@ -39,17 +38,17 @@ class WordStore extends BaseStore {
 
     collectWordAsync = async () => {
         let params = { wordId: this.word.id };
-        this.word.collectionId = await post("word/collectWord", params);
+        this.word.collectionId = await this.post("word/collectWord", params);
     }
 
     collectDetailWordAsync = async () => {
         let params = { wordId: this.wordDetail.id };
-        this.wordDetail.collectionId = await post("word/collectWord", params);
+        this.wordDetail.collectionId = await this.post("word/collectWord", params);
     }
 
     getWordListAsync = async () => {
         this.loading = true;
-        let _wordList = await get("word/getWordList", this.wordListQuery);
+        let _wordList = await this.get("word/getWordList", this.wordListQuery);
         this.showLoadMore = _wordList && _wordList.length > 20;
         if (this.showLoadMore) {
             _wordList.pop(1);
@@ -65,7 +64,7 @@ class WordStore extends BaseStore {
 
     getWordDetailAsync = async (wordId: number) => {
         this.loading = true;
-        this.wordDetail = await get("word/getWordDetail", { wordId: wordId });
+        this.wordDetail = await this.get("word/getWordDetail", { wordId: wordId });
         this.loading = false;
     }
 }
