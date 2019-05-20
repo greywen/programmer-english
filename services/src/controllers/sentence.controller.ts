@@ -1,4 +1,6 @@
 import { prefix, router, authorize, cache } from "../router";
+import * as Koa from "koa";
+
 import { CreateCollectModel } from "../model/word";
 import { CustomKoaContextModel } from "../model/common.model";
 import { translate } from "../utils/translate";
@@ -41,10 +43,9 @@ class SentenceController {
     // @router({
     //     method: "post",
     //     path: "/translate",
-    //     unless: false
+    //     unless: true
     // })
-    // @authorize
-    // async translate(ctx: CustomKoaContextModel) {
+    // async translate(ctx: Koa.Context) {
     //     let { text, type } = ctx.request.body;
     //     ctx.body = await translate(text, type);
     // }

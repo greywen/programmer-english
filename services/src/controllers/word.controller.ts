@@ -4,6 +4,7 @@ import wordService from "../services/word.service";
 import { CreateCollectModel } from "../model/word";
 import { getUserId } from "../utils/jwtHelper";
 import { WordListQueryModel } from "src/model/word/word.model";
+import { translate } from "../utils/translate";
 
 @prefix("/word")
 class WordController {
@@ -81,5 +82,15 @@ class WordController {
             return;
         }
         ctx.body = await wordService.getWordDetailAsync({ wordId: wordId, userId: ctx.user.id, next: false });
+    }
+
+    @router({
+        method: "post",
+        path: "/translate",
+        unless: true
+    })
+    async translate(ctx: CustomKoaContextModel) {
+        let { text, type } = ctx.request.body;
+        ctx.body = await translate(text, type);
     }
 }
