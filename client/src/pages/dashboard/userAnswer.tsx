@@ -8,6 +8,7 @@ import { NavigatorOpenType } from "../../common/enums";
 import { IQuestionAnswerModel } from "../../models/dashiboard";
 import { uploadFile } from "../../utils/request";
 import { showMessage } from "../../utils/wechatUtils";
+import Loading from "../../components/loading/loading";
 
 interface UserAnswerState {
     questionId: number,
@@ -110,6 +111,7 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
                     </View>
                 </View>
 
+                <Loading loading={true} fullScreen={true}></Loading>
                 <View className="file-list">
                     {
                         files.map(file => {

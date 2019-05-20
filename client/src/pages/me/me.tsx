@@ -6,7 +6,7 @@ import { observer, inject } from '@tarojs/mobx'
 import { NavigationBar, Authorization } from "../../components";
 import { showMessage } from "../../utils/wechatUtils";
 import { IDisplayWordDataModel } from "../../models/word";
-import PageLoading from "../../components/pageLoading/pageLoading";
+import Loading from "../../components/loading/loading";
 import { isAuthorized } from "../../utils/loginUtils";
 
 interface MeState {
@@ -86,7 +86,7 @@ export default class Me extends Component<MeProps, MeState> {
                             <View className="flex-custom-text">我的词汇</View>
                             <View className="flex-custom-searchall">查看全部</View>
                         </Navigator>
-                        <PageLoading loading={loading}></PageLoading>
+                        <Loading loading={loading}></Loading>
                         {
                             word ? <View className="flex-custom-content">
                                 <View className="flex-custom-box">

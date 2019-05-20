@@ -6,7 +6,7 @@ import { observer, inject } from '@tarojs/mobx';
 import { NavigationBar } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
 import { IWordDataModel } from "../../models/word";
-import PageLoading from "../../components/pageLoading/pageLoading";
+import Loading from "../../components/loading/loading";
 import { readingText } from "../../utils/baiduUtils";
 
 interface WordDetailProps {
@@ -47,7 +47,7 @@ export default class WordDetail extends Component<WordDetailProps, {}> {
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="单词详情" hidePageTitle={true} backUrl="./word.list" openType={NavigatorOpenType.navigateBack}></NavigationBar>
-            <PageLoading loading={loading}></PageLoading>
+            <Loading loading={loading}></Loading>
             {wordDetail ? <View className="page-content">
                 <View className="page-nav">
                     <View onClick={this.onCollectWord}>

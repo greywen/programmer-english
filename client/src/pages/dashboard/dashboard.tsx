@@ -7,7 +7,7 @@ import withLogin from "../../common/decorator/withLogin";
 import { IQuestionDataModel } from "../../models/dashiboard";
 import NavigationBar from '../../components/navigationBar/navigationBar';
 import { HtmlParse } from '../../components/htmlParse/htmlParse';
-import PageLoading from '../../components/pageLoading/pageLoading';
+import Loading from '../../components/loading/loading';
 import { Authorization } from '../../components';
 
 interface DashboardState {
@@ -55,7 +55,7 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
         return (
             <View className="page" style={{ height: windowHeight + "px" }}>
                 <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
-                <PageLoading loading={loading}></PageLoading>
+                <Loading loading={loading}></Loading>
                 <View className="page-content">
                     {question ? <HtmlParse data={question.describe}></HtmlParse> : null}
                     <Authorization authorizationStore={this.props.authorizationStore}>

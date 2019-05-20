@@ -5,7 +5,7 @@ import { observer, inject } from '@tarojs/mobx';
 
 import { NavigationBar } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
-import PageLoading from "../../components/pageLoading/pageLoading";
+import Loading from "../../components/loading/loading";
 import { ArticleDetailDataModel } from "../../models/article";
 import { HtmlParse } from "../../components/htmlParse/htmlParse";
 
@@ -36,7 +36,7 @@ export default class ArticleDetail extends Component<ArticleDetailProps, {}> {
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="文章详情" hidePageTitle={true} backUrl="./article" openType={NavigatorOpenType.navigateBack}></NavigationBar>
-            <PageLoading loading={loading}></PageLoading>
+            <Loading loading={loading}></Loading>
             <View className="page-content">
                 {articleDetail ? <HtmlParse data={articleDetail.describe}></HtmlParse> : null}
             </View>

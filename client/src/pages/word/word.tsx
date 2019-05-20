@@ -7,7 +7,7 @@ import { NavigationBar, Authorization } from "../../components";
 import { IWordDataModel } from "../../models/word";
 import { readingText } from "../../utils/baiduUtils";
 import { showMessage } from "../../utils/wechatUtils";
-import PageLoading from "../../components/pageLoading/pageLoading";
+import Loading from "../../components/loading/loading";
 
 interface WordState {
     scrollTop: number
@@ -71,7 +71,7 @@ export default class Word extends Component<WordProps, WordState> {
 
         return <View className="page" style={{ height: windowHeight - 45 + "px" }}>
             <NavigationBar title="技术词汇" scrollTop={scrollTop}></NavigationBar>
-            <PageLoading loading={loading}></PageLoading>
+            <Loading loading={loading}></Loading>
             {word ? <View className="page-content">
                 <View className="page-nav">
                     <Authorization authorizationStore={this.props.authorizationStore}>
