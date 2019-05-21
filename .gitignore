@@ -3,6 +3,7 @@ client/node_modules
 client/dist
 client/src/common/config/index.ts
 client/package-lock.json
+client/yarn.lock
 services/node_modules
 services/dist
 services/config/*

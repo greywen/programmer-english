@@ -12,7 +12,7 @@ export class HtmlParse extends Component<HtmlParseProps, {}> {
     componentDidMount() {
         console.log('this', this.props);
         let _WxParse = WxParse as any;
-        _WxParse.wxParse('article', 'html', this.props.data || "", this.$scope, 5);
+        _WxParse.wxParse('article', 'html', this.props.data || "", this.$scope, 10);
     }
 
     render() {

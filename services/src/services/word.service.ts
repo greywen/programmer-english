@@ -5,7 +5,7 @@ import { parseNumber } from "../utils/common";
 import { UserHistoryType } from "../common/enums";
 
 export class WordService {
-    async getWordAsync(queryModel: WordQueryModel): Promise<WordResultModel> {
+    async getWordAsync(queryModel: WordQueryModel) {
         let lastHistoryWordId = await userHistoryRepository.getUserLastHistoryWordIdAsync(queryModel.userId);
         queryModel.wordId = !!lastHistoryWordId ? lastHistoryWordId : 1;
         let word = await wordRepository.getWordAsync(queryModel);
@@ -24,10 +24,10 @@ export class WordService {
         return <WordResultModel>{ ...word, sentences: wordSentences };
     }
 
-    private async verifyWordAnsyc(wordId: number): Promise<WordModel> {
+    private async verifyWordAnsyc(wordId: number) {
         let word = await wordRepository.getByIdAsync(wordId);
         if (!word) {
-            // throw new NotFoundException("Word not found");
+            return NotFoundException("Word is not found.")
         }
         return word;
     }
@@ -69,7 +69,7 @@ export class WordService {
     async getWordDetailAsync(queryModel: WordQueryModel) {
         let _word = await wordRepository.getByIdAsync(queryModel.wordId);
         if (!_word) {
-            // 
+            return NotFoundException("Word is not found.")
         }
         let wordSentences = await wordRepository.getWordSentencesAsync(_word.id);
         let word = await wordRepository.getWordAsync(queryModel);

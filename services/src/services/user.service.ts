@@ -42,10 +42,10 @@ export class UserService {
         await userLoginLogRepository.insertAsync({ userId: userId })
     }
 
-    async createFeedbackAsync(feedback: UserFeedbackModel): Promise<number> {
+    async createFeedbackAsync(feedback: UserFeedbackModel) {
         let canCreateFeedback = await this.checkUserCreateFeedbackUpperLimitByTodayAsync(feedback.userId);
         if (!canCreateFeedback) {
-            throw new BadRequestException("Create failed.");
+            return BadRequestException("Create feedback failed.");
         }
         feedback.type = FeedbackTypeArray.indexOf(feedback.type) > -1 ? feedback.type : FeedbackType.Feedback;
         return await userFeedbackRepository.insertAsync(feedback);

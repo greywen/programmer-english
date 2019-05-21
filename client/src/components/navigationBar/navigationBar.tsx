@@ -54,6 +54,8 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
             Taro.navigateTo(_ops);
         } else if (_openType === NavigatorOpenType.navigateBack) {
             Taro.navigateBack();
+        } else if (_openType === NavigatorOpenType.reLaunch) {
+            Taro.reLaunch(_ops);
         }
     }
 

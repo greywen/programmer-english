@@ -1,3 +1,5 @@
+import * as Koa from "koa";
+
 import { prefix, router, authorize } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
 import wordService from "../services/word.service";
@@ -89,7 +91,7 @@ class WordController {
         path: "/translate",
         unless: true
     })
-    async translate(ctx: CustomKoaContextModel) {
+    async translate(ctx: Koa.Context) {
         let { text, type } = ctx.request.body;
         ctx.body = await translate(text, type);
     }

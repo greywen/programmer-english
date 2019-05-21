@@ -1,25 +1,23 @@
 import { userQuestionRepository, userQuestionAnswerRepository, userAttachmentRepository } from "../repository";
 import { UserQuestionEntity } from "../repository/entity/userQuestion.entity";
 import { CreateUserQuestionAnswerModel } from "../model/userQuestion";
-import { NotFoundException, InternalServerException } from "../common/exception";
+import { NotFoundException, BadRequestException } from "../common/exception";
 
 export class UserQuestionService {
     async getUserQuestionAsync(): Promise<UserQuestionEntity> {
         return await userQuestionRepository.getFirstOrDefaultAsync({ enable: true });
     }
 
-    async createUserQuestionAswerAsync(createModel: CreateUserQuestionAnswerModel): Promise<number> {
+    async createUserQuestionAswerAsync(createModel: CreateUserQuestionAnswerModel) {
         let question = await userQuestionRepository.getFirstOrDefaultAsync({ id: createModel.questionId, enable: true });
         if (!question) {
-            // new NotFoundException("Question not found");
-            return;
+            return NotFoundException("Word is not found.");
         }
 
         let userAnswerList = await userQuestionAnswerRepository.getAsync({ userId: createModel.userId, questionId: question.id });
 
         if (userAnswerList.length > 1) {
-            // new InternalServerException("翻译分析已达上限");
-            return;
+            return BadRequestException("Translation analysis has reached the upper limit");
         }
 
         let answerId = await userQuestionAnswerRepository.insertAsync(createModel);
