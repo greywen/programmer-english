@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./word.list.scss"
-import { View, Text, Navigator } from "@tarojs/components";
+import { View, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar } from "../../components";
@@ -13,7 +13,6 @@ interface WordListProps {
         loading: boolean,
         showLoadMore: boolean,
         wordList: IWordListDataModel[],
-        reset: () => {},
         getWordListAsync: () => {},
         getMoreWordAsync: () => {}
     }
@@ -27,8 +26,7 @@ export default class WordList extends Component<WordListProps, {}> {
     }
 
     async componentDidMount() {
-        const { reset, getWordListAsync } = this.props.wordStore;
-        reset();
+        const { getWordListAsync } = this.props.wordStore;
         await getWordListAsync();
     }
 

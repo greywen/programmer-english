@@ -21,18 +21,14 @@ class WordStore extends BaseStore {
     }
 
     getWordAsync = async () => {
-        this.loading = true;
         this.word = await this.get("word/getWord");
-        this.loading = false;
     }
 
     getNextWordAsync = async () => {
-        this.loading = true;
         let _word = await this.get("word/getNextWord");
         if (_word) {
             this.word = _word;
         }
-        this.loading = false;
         return _word;
     }
 
@@ -47,14 +43,8 @@ class WordStore extends BaseStore {
     }
 
     getWordListAsync = async () => {
-        this.loading = true;
         let _wordList = await this.get("word/getWordList", this.wordListQuery);
-        this.showLoadMore = _wordList && _wordList.length > 20;
-        if (this.showLoadMore) {
-            _wordList.pop(1);
-        }
-        this.wordList === undefined ? this.wordList = _wordList : this.wordList.push(..._wordList);
-        this.loading = false;
+        this.wordList = _wordList;
     }
 
     getMoreWordAsync = async () => {
@@ -63,9 +53,7 @@ class WordStore extends BaseStore {
     }
 
     getWordDetailAsync = async (wordId: number) => {
-        this.loading = true;
         this.wordDetail = await this.get("word/getWordDetail", { wordId: wordId });
-        this.loading = false;
     }
 }
 

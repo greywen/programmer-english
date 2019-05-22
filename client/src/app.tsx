@@ -23,8 +23,6 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      
-      "pages/me/me",
       "pages/dashboard/dashboard",
       "pages/dashboard/userAnswer",
       "pages/article/article",
@@ -34,6 +32,7 @@ class App extends Component {
       "pages/word/word.detail",
 
       //me
+      "pages/me/me",
       "pages/me/feedback",
       "pages/me/about",
       "pages/me/bug"

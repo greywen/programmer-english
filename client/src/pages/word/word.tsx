@@ -126,7 +126,7 @@ export default class Word extends Component<WordProps, WordState> {
                         </Authorization>
                         <Authorization authorizationStore={this.props.authorizationStore}>
                             <View className="page-help">
-                                <Navigator url="">单词有问题?</Navigator>
+                                <Navigator url={`../me/feedback?wordId=${word.id}`}>单词有问题?</Navigator>
                             </View>
                         </Authorization>
                     </View>

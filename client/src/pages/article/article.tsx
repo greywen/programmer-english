@@ -5,6 +5,7 @@ import { observer, inject } from '@tarojs/mobx';
 
 import { NavigationBar, Authorization } from "../../components";
 import { ArticleListDataModel } from "../../models/article";
+import Loading from "src/components/loading/loading";
 
 interface ArticleState {
     scrollTop: number
@@ -51,10 +52,11 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;
-        const { articleStore: { showLoadMore, artileList } } = this.props;
+        const { articleStore: { loading, showLoadMore, artileList } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px", backgroundColor: "#f8f8f8" }}>
             <NavigationBar title="文档阅读" scrollTop={scrollTop}></NavigationBar>
+            <Loading loading={loading}></Loading>
             <Authorization authorizationStore={this.props.authorizationStore}>
                 <View className="article">
                     {

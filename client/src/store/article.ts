@@ -14,14 +14,12 @@ class ArticleStore extends BaseStore {
     articleDetail: ArticleDetailDataModel;
 
     getArticleListAsync = async () => {
-        this.loading = true;
         let _articleList = await this.get("article/getArticleList", this.articleListQuery);
         this.showLoadMore = _articleList && _articleList.length > 20;
         if (this.showLoadMore) {
             _articleList.pop(1);
         }
         this.artileList === undefined ? this.artileList = _articleList : this.artileList.push(..._articleList);
-        this.loading = false;
     }
 
     getMoreArticleAsync = async () => {
@@ -31,9 +29,7 @@ class ArticleStore extends BaseStore {
 
 
     getArticleDetailAsync = async (articleId: number) => {
-        this.loading = true;
         this.articleDetail = await this.get("article/getArticleDetail", { articleId: articleId });
-        this.loading = false;
     }
 }
 

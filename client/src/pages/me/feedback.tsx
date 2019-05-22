@@ -39,8 +39,9 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
             showMessage("反馈建议必填");
             return;
         }
-
-        this.props.feedbackStore.createFeedbackAsync({ describe: describe, contact: contact, type: this.state.type });
+        let _wordId = this.$router.params["wordId"] || "";
+        let _describe = `${_wordId ? "wordId:" : ""}${_wordId}:${this.state.describe}`;
+        this.props.feedbackStore.createFeedbackAsync({ describe: _describe, contact: contact, type: this.state.type });
         this.setState({
             describe: "",
             contact: ""
