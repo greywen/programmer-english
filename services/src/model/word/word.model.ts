@@ -7,7 +7,6 @@ export interface WordModel {
     phoneticEN?: string,
     collocation?: string,
     createTime?: string,
-    collectionId?: number
 }
 
 export interface CreateCollectModel {
@@ -27,13 +26,13 @@ export interface WordQueryModel {
 }
 
 export interface WordSentencesModel {
-    id: number,
+    id?: number,
     english: string,
     chinese: string,
-    keyWords: string,
-    languageType: number,
-    excerptFrom: number,
-    createTime: string
+    keyWords?: string,
+    languageType?: number,
+    excerptFrom?: string,
+    createTime?: string
 }
 
 export interface WordResultModel {
@@ -66,4 +65,24 @@ export interface DisplayWordResultModel {
     collectionId: number,
     english: string,
     chinese: string
+}
+
+export interface WordCreateModel {
+    english: string,
+    chinese: string,
+    phoneticUS: string,
+    phoneticEN: string,
+    collocation: string,
+    sentences: WordSentencesModel[]
+}
+
+export interface WordUpdateModel {
+    id: number,
+    english: string,
+    chinese: string,
+    phoneticUS: string,
+    phoneticEN: string,
+    collocation: string,
+    createTime: string,
+    sentences?: WordSentencesModel[]
 }

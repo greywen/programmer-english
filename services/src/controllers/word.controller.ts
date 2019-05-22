@@ -105,16 +105,16 @@ class WordController {
     })
     @authorize([UserResource.CreateWord])
     async createWord(ctx: CustomKoaContextModel) {
-        ctx.body = 1;
+        ctx.body = await wordService.createWordAsync(ctx.request.body);
     }
 
     @router({
         method: "post",
-        path: "/editWord",
+        path: "/updateWord",
         unless: false
     })
     @authorize([UserResource.EditWord])
-    async editWord(ctx: CustomKoaContextModel) {
-        ctx.body = 1;
+    async updateWord(ctx: CustomKoaContextModel) {
+        return await wordService.updateWordAsync(ctx.request.body);
     }
 }

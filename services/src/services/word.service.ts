@@ -1,5 +1,5 @@
-import { wordRepository, userHistoryRepository, userCollectionRepository } from "../repository";
-import { WordResultModel, WordQueryModel, WordModel, CreateCollectModel, CreateUserHistoryModel, WordListQueryModel, WordListModel } from "../model/word/word.model";
+import { wordRepository, userHistoryRepository, userCollectionRepository, sentenceRepository, sentenceWordRepository } from "../repository";
+import { WordResultModel, WordQueryModel, CreateCollectModel, CreateUserHistoryModel, WordListQueryModel, WordListModel, WordCreateModel, WordSentencesModel, WordUpdateModel } from "../model/word/word.model";
 import { NotFoundException } from "../common/exception";
 import { parseNumber } from "../utils/common";
 import { UserHistoryType } from "../common/enums";
@@ -74,6 +74,42 @@ export class WordService {
         let wordSentences = await wordRepository.getWordSentencesAsync(_word.id);
         let word = await wordRepository.getWordAsync(queryModel);
         return <WordResultModel>{ ...word, sentences: wordSentences };
+    }
+
+    async createWordAsync(createModel: WordCreateModel) {
+        let wordId = await wordRepository.insertAsync(createModel);
+        await this.createWordSentenceAsync(wordId, createModel.sentences);
+        return wordId;
+    }
+
+    async createWordSentenceAsync(wordId: number, createSentencesModel: WordSentencesModel[]) {
+        let sentenceIds = [];
+        createSentencesModel.forEach(async (sentence) => {
+            let sentenceId = await sentenceRepository.insertAsync(sentence);
+            sentenceIds.push(sentenceId);
+        })
+
+        sentenceIds.forEach(async (sentenceId) => {
+            await sentenceWordRepository.insertAsync({ wordId: wordId, sentenceId: sentenceId })
+        })
+    }
+
+    async updateWordAsync(updateModel: WordUpdateModel) {
+        await wordRepository.updateAsync(updateModel, { id: updateModel.id });
+        await this.updateWordSenteceAsync(updateModel.id, updateModel.sentences);
+    }
+
+    async updateWordSenteceAsync(wordId: number, updateSentencesModel: WordSentencesModel[]): Promise<number[]> {
+        let sentenceIds = [];
+        updateSentencesModel.forEach(async (sentence) => {
+            if (sentence.id) {
+                let sentenceId = await sentenceRepository.updateAsync(sentence, { id: sentence.id });
+                sentenceIds.push(sentenceId);
+            } else {
+                await this.createWordSentenceAsync(wordId, [sentence]);
+            }
+        })
+        return sentenceIds;
     }
 }
 

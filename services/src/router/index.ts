@@ -35,8 +35,9 @@ export function authorize(resources: UserResource[]) {
             let isAuthorize = ctx.user.resources.filter(x => resources.includes(x)).length > 0;
             if (isAuthorize) {
                 await next();
+            } else {
+                ctx.body = "未授权."
             }
-            ctx.body = "未授权."
         }
         return value;
     }

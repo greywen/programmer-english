@@ -1,6 +1,7 @@
 import { BaseRepository } from "./base.repository";
 import { WordQueryModel, WordSentencesModel, WordModel, WordListModel, WordListQueryModel } from "../model/word/word.model";
 import { WordEntity } from "./entity/word.entity";
+import { IdName } from "../model/common.model";
 
 class WordRepository extends BaseRepository<WordEntity> {
     async getWordListAsync(queryModel: WordListQueryModel): Promise<WordListModel[]> {
@@ -15,6 +16,12 @@ class WordRepository extends BaseRepository<WordEntity> {
     async getWordAsync(queryModel: WordQueryModel): Promise<WordModel> {
         let data = await this.sqlmap.dQueryAsync("getWord", queryModel);
         return data[0];
+    }
+
+    async getWordByAutoCompleteAsync(query: string): Promise<IdName[]> {
+        let sql = `select id,english from data_word where english like ? limit 5;`;
+        let data = await this.sqlmap.queryAsync(sql, [`${query}%`]);
+        return data.map(x => { return { id: x["id"], name: x["english"] } });
     }
 }
 

@@ -17,3 +17,8 @@ export interface MailOptions {
     text?: string,
     html?: string
 }
+
+export interface IdName {
+    id: number,
+    name: string
+}
