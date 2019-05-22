@@ -19,6 +19,7 @@ interface UserAnswerState {
 
 interface UserAnswerProps {
     dashboardStore: {
+        loading: boolean,
         userAnswer: IQuestionAnswerModel,
         createAnswerAsync: (createModel: IQuestionAnswerModel) => {}
     },
@@ -83,9 +84,11 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { answer, contact, files } = this.state;
+        const { dashboardStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
             <NavigationBar title="翻译分析" scrollTop={0} backUrl="./dashboard" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <Loading loading={loading}></Loading>
             <View className="page-content">
 
                 <View className="upload-file">

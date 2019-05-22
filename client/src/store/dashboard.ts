@@ -9,6 +9,11 @@ class DashboardStore extends BaseStore {
     @observable
     question: IQuestionDataModel;
 
+    constructor() {
+        super();
+        this.loading = false;
+    }
+
     getQuestionAsync = async () => {
         this.question = await this.get("question/getQuestion");
     }

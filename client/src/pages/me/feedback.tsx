@@ -7,6 +7,7 @@ import { NavigationBar } from "../../components";
 import { NavigatorOpenType, FeedbackType } from "../../common/enums";
 import { IFeedbackModel } from "../../models/user";
 import { showSuccess, showMessage } from "../../utils/wechatUtils";
+import Loading from "../../components/loading/loading";
 
 interface FeedbackState {
     type: FeedbackType,
@@ -16,6 +17,7 @@ interface FeedbackState {
 
 interface FeedbackProps {
     feedbackStore: {
+        loading: boolean,
         createFeedbackAsync: (feedback: IFeedbackModel) => {}
     }
 }
@@ -52,9 +54,11 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { describe, contact } = this.state;
+        const { feedbackStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
             <NavigationBar title="建议反馈" scrollTop={0} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
                     <View className="form-item">

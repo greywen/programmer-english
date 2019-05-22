@@ -7,6 +7,7 @@ import { NavigationBar } from "../../components";
 import { NavigatorOpenType, FeedbackType } from "../../common/enums";
 import { IFeedbackModel } from "../../models/user";
 import { showSuccess, showMessage } from "../../utils/wechatUtils";
+import Loading from "../../components/loading/loading";
 
 interface BugState {
     type: FeedbackType,
@@ -16,6 +17,7 @@ interface BugState {
 
 interface BugProps {
     feedbackStore: {
+        loading: boolean,
         createFeedbackAsync: (feedback: IFeedbackModel) => {}
     }
 }
@@ -35,7 +37,7 @@ export default class Bug extends Component<BugProps, BugState> {
 
     async onFeedback() {
         let { describe, contact } = this.state;
-        
+
         if (describe.trim().length === 0) {
             showMessage("bug描述必填");
             return;
@@ -51,9 +53,11 @@ export default class Bug extends Component<BugProps, BugState> {
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { describe, contact } = this.state;
+        const { feedbackStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
             <NavigationBar title="提交bug" scrollTop={0} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
                     <View className="form-item">
