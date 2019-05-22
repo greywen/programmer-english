@@ -9,6 +9,7 @@ import config from "../common/config";
 import { FeedbackType } from "../common/enums";
 import { FeedbackTypeArray } from "../common/constant";
 import { BadRequestException } from "../common/exception";
+import userResourceRepository from "../repository/userResource.repository";
 
 export class UserService {
     async login(loginModel: LoginModel): Promise<LoginResultModel> {
@@ -22,12 +23,12 @@ export class UserService {
                     user.wxOpenId = jsCodeSession.openid;
                     user.id = await this.createUserAsync(user);
                     await this.createUserLoginLog(user.id);
-                    return { sessionKey: jsCodeSession.session_key, token: await generateTokenAsync(user), expireTime: moment().add(config.jwt.expired, "day").toString() };
+                    return this.generateLoginResult(user, jsCodeSession.session_key);
                 }
                 return null;
             } else {
                 await this.createUserLoginLog(user.id);
-                return { sessionKey: jsCodeSession.session_key, token: await generateTokenAsync(user), expireTime: moment().add(config.jwt.expired, "day").toString() };
+                return this.generateLoginResult(user, jsCodeSession.session_key);
             }
         } else {
             return null;
@@ -40,6 +41,18 @@ export class UserService {
 
     async createUserLoginLog(userId: number): Promise<void> {
         await userLoginLogRepository.insertAsync({ userId: userId })
+    }
+
+    async generateLoginResult(user: UserModel, session_key: string) {
+        let userResources = await userResourceRepository.getAsync({ userId: user.id });
+        let userResourceIds = userResources.map(x => x.id);
+
+        return {
+            sessionKey: session_key,
+            token: await generateTokenAsync({ id: user.id, resources: userResourceIds }),
+            resourceIds: userResourceIds,
+            expireTime: moment().add(config.jwt.expired, "day").toString()
+        };
     }
 
     async createFeedbackAsync(feedback: UserFeedbackModel) {

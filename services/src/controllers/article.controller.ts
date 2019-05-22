@@ -1,6 +1,6 @@
 import * as Koa from "koa";
 
-import { prefix, router, authorize } from "../router";
+import { prefix, router, setUserInformation } from "../router";
 import articleService from "../services/article.service";
 import { CustomKoaContextModel } from "../model/common.model";
 
@@ -21,7 +21,7 @@ class ArticleController {
         path: "/getArticleDetail",
         unless: true
     })
-    @authorize
+    @setUserInformation
     async getArticleDetail(ctx: CustomKoaContextModel) {
         let articleId = ctx.query["articleId"];
         ctx.body = await articleService.getArticleDetailAsync(articleId, ctx.user.id);

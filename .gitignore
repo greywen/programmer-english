@@ -4,6 +4,7 @@ client/dist
 client/src/common/config/index.ts
 client/package-lock.json
 client/yarn.lock
+client/yarn-error.log
 services/node_modules
 services/dist
 services/config/*

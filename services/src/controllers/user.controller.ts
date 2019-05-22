@@ -1,6 +1,6 @@
 import * as Koa from "koa";
 
-import { prefix, router, authorize } from "../router";
+import { prefix, router, setUserInformation } from "../router";
 import userService from "../services/user.service";
 import { getBaiduApiTokenAsync } from "../utils/baiduApiUtils";
 import { redis } from "../app";
@@ -24,7 +24,7 @@ class UserController {
             redis.setAsync(ctx.request.url, apiToken, 3600);
         }
 
-        loginResult ? loginResult.apiAccessToken = apiToken.access_token : loginResult = { apiAccessToken: apiToken.access_token };
+        loginResult ? loginResult.apiAccessToken = apiToken.access_token : loginResult = { apiAccessToken: apiToken.access_token, resourceIds: [] };
 
         ctx.body = loginResult;
     }
@@ -35,7 +35,7 @@ class UserController {
         unless: false
     })
     // @required()
-    @authorize
+    @setUserInformation
     async createFeedback(ctx: CustomKoaContextModel) {
         let feedback = <UserFeedbackModel>ctx.request["body"];
         feedback.userId = ctx.user.id;

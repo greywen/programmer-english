@@ -1,12 +1,13 @@
 import * as Koa from "koa";
 
-import { prefix, router, authorize } from "../router";
+import { prefix, router, setUserInformation, authorize } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
 import wordService from "../services/word.service";
 import { CreateCollectModel } from "../model/word";
 import { getUserId } from "../utils/jwtHelper";
 import { WordListQueryModel } from "src/model/word/word.model";
 import { translate } from "../utils/translate";
+import { UserResource } from "../common/enums";
 
 @prefix("/word")
 class WordController {
@@ -32,7 +33,7 @@ class WordController {
         path: "/getNextWord",
         unless: false
     })
-    @authorize
+    @setUserInformation
     async getNextWord(ctx: CustomKoaContextModel) {
         ctx.body = await wordService.getWordAsync({ userId: ctx.user.id, next: true });
     }
@@ -42,7 +43,7 @@ class WordController {
         path: "/collectWord",
         unless: false
     })
-    @authorize
+    @setUserInformation
     async collectWord(ctx: CustomKoaContextModel) {
         let params = <CreateCollectModel>ctx.request.body;
         params.userId = ctx.user.id;
@@ -54,7 +55,7 @@ class WordController {
         path: "/getWordList",
         unless: false
     })
-    @authorize
+    @setUserInformation
     async getWordList(ctx: CustomKoaContextModel) {
         let queryModel = <WordListQueryModel>ctx.query;
         queryModel.userId = ctx.user.id;
@@ -66,7 +67,7 @@ class WordController {
         path: "/getDisplayWord",
         unless: false
     })
-    @authorize
+    @setUserInformation
     async getDisplayWord(ctx: CustomKoaContextModel) {
         ctx.body = await wordService.getUserCollectionWordAsync(ctx.user.id);
     }
@@ -76,7 +77,7 @@ class WordController {
         path: "/getWordDetail",
         unless: false
     })
-    @authorize
+    @setUserInformation
     async getWordDetailAsync(ctx: CustomKoaContextModel) {
         let wordId = ctx.query["wordId"];
         if (!wordId) {
@@ -89,10 +90,31 @@ class WordController {
     @router({
         method: "post",
         path: "/translate",
-        unless: true
+        unless: false
     })
+    @authorize([UserResource.CreateWord, UserResource.EditWord])
     async translate(ctx: Koa.Context) {
         let { text, type } = ctx.request.body;
         ctx.body = await translate(text, type);
+    }
+
+    @router({
+        method: "post",
+        path: "/createWord",
+        unless: false
+    })
+    @authorize([UserResource.CreateWord])
+    async createWord(ctx: CustomKoaContextModel) {
+        ctx.body = 1;
+    }
+
+    @router({
+        method: "post",
+        path: "/editWord",
+        unless: false
+    })
+    @authorize([UserResource.EditWord])
+    async editWord(ctx: CustomKoaContextModel) {
+        ctx.body = 1;
     }
 }

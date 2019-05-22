@@ -111,7 +111,6 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
                     </View>
                 </View>
 
-                <Loading loading={true} fullScreen={true}></Loading>
                 <View className="file-list">
                     {
                         files.map(file => {

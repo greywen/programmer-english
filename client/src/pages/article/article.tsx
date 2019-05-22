@@ -5,7 +5,7 @@ import { observer, inject } from '@tarojs/mobx';
 
 import { NavigationBar, Authorization } from "../../components";
 import { ArticleListDataModel } from "../../models/article";
-import Loading from "src/components/loading/loading";
+import Loading from "../../components/loading/loading";
 
 interface ArticleState {
     scrollTop: number

@@ -1,4 +1,4 @@
-import { prefix, router, authorize } from "../router";
+import { prefix, router, setUserInformation } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
 import fileService from "../services/file.service";
 import { AttachmentType } from "../common/enums";
@@ -10,7 +10,7 @@ class FileController {
         path: "/upload",
         unless: false
     })
-    @authorize
+    @setUserInformation
     async fileUpload(ctx: CustomKoaContextModel) {
         const file = ctx.request.files["file"];
         await fileService.createFileAsync({ userId: ctx.user.id, fileName: file.name, filePath: `${file.path}\\${file.name}`, contentType: file.type, attachmentType: AttachmentType.UserQuestion });

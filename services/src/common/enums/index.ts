@@ -23,3 +23,8 @@ export enum UserHistoryType {
     Word = 1,
     Article = 2
 }
+
+export enum UserResource {
+    CreateWord = 1,
+    EditWord = 2
+}

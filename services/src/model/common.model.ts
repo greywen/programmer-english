@@ -1,5 +1,5 @@
 import * as Koa from "koa";
-import { UserModel } from "./user";
+import { JWTTokenModel } from "./user";
 
 export interface IdNameModel {
     id?: number | string
@@ -7,7 +7,7 @@ export interface IdNameModel {
 }
 
 export interface CustomKoaContextModel extends Koa.Context {
-    user: UserModel
+    user: JWTTokenModel
 }
 
 export interface MailOptions {
