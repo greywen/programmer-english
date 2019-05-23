@@ -1,11 +1,9 @@
 import {
-    UserSentenceModel, DashboardResultModel, SentenceWordModel,
+    UserSentenceModel,
     CreateSentenceModel
 } from "./sentence.model";
 
 export {
     UserSentenceModel,
-    DashboardResultModel,
-    SentenceWordModel,
     CreateSentenceModel
 }

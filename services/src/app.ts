@@ -13,16 +13,12 @@ const router = new Route(app);
 const redis = new RedisService();
 
 app.use(koaBody({
-    json: true,
-    multipart: true,
     formidable: {
         uploadDir: config.file.fileUploadPath,
         keepExtensions: true,
         maxFileSize: 10 * 1024 * 1024,
     }
 }));
-
-app.use(Json())
 
 router.registerRouters(`${__dirname}/controllers`, config.jwt);
 
