@@ -27,7 +27,6 @@ app.use(async (ctx, next) => {
         logger.response(ctx);
         await next();
     } catch (error) {
-        debugger
         logger.requestError(ctx, error);
         if (error["message"] === "Authentication Error") {
             ctx.status = 401;

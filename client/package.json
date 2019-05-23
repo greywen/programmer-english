@@ -34,6 +34,7 @@
 		"@tarojs/taro-swan": "1.3.0-beta.3",
 		"@tarojs/taro-tt": "1.2.14",
 		"@tarojs/taro-weapp": "1.3.0-beta.3",
+		"fundebug-wxjs": "^1.2.1",
 		"mobx": "^5.9.0",
 		"nerv-devtools": "^1.3.9",
 		"nervjs": "^1.3.9"

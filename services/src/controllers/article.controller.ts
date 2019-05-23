@@ -19,7 +19,7 @@ class ArticleController {
     @router({
         method: "get",
         path: "/getArticleDetail",
-        unless: true
+        unless: false
     })
     @setUserInformation
     async getArticleDetail(ctx: CustomKoaContextModel) {

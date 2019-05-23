@@ -1,6 +1,11 @@
 import Taro, { Component, Config } from '@tarojs/taro';
 import { Provider } from '@tarojs/mobx';
 import "@tarojs/async-await";
+// var fundebug = require('fundebug-wxjs');
+
+// fundebug.init({
+//   apikey : '86fdbe66d01609c33ca0b43eace2ac609cd564aa329edac2a89de6105473e3c9'
+// });
 
 import './assets/icons.scss'
 import './app.scss'

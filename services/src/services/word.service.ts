@@ -98,7 +98,7 @@ export class WordService {
 
     async updateWordAsync(updateModel: WordUpdateModel) {
         let sentences = updateModel.sentences;
-        delete createModel["sentences"];
+        delete updateModel["sentences"];
         await wordRepository.updateAsync(updateModel, { id: updateModel.id });
         await this.updateWordSenteceAsync(updateModel.id, sentences);
     }
