@@ -38,3 +38,19 @@ interface ISentenceWordModel {
     excerptFrom: number,
     createTime: string
 }
+
+export interface IEnglishChineseModel {
+    id?: string,
+    english: string,
+    chinese: string
+}
+
+export interface IWordCreateModel {
+    id?: number,
+    english: string,
+    chinese: string,
+    phoneticUS?: string,
+    phoneticEN?: string,
+    collocation?: string,
+    sentences: IEnglishChineseModel[],
+}

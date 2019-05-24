@@ -1,6 +1,6 @@
 import { observable } from 'mobx'
 
-import { IWordDataModel, IWordListDataModel, IWordListQueryModel } from '../models/word';
+import { IWordDataModel, IWordListDataModel, IWordListQueryModel, IWordCreateModel } from '../models/word';
 import { BaseStore } from './base.store';
 
 class WordStore extends BaseStore {
@@ -14,6 +14,11 @@ class WordStore extends BaseStore {
     wordListQuery: IWordListQueryModel = { page: 0, pageSize: 20 };
     @observable
     wordDetail: IWordDataModel;
+
+    constructor() {
+        super();
+        this.loading = false;
+    }
 
     reset = () => {
         this.wordList = [];
@@ -54,6 +59,18 @@ class WordStore extends BaseStore {
 
     getWordDetailAsync = async (wordId: number) => {
         this.wordDetail = await this.get("word/getWordDetail", { wordId: wordId });
+    }
+
+    translateWordAsync = async (text: string) => {
+        return await this.post("word/translate", { text: text, type: 1 });
+    }
+
+    createWordAsync = async (word: IWordCreateModel) => {
+        return await this.post("word/createWord", word);
+    }
+
+    updateWordAsync = async (word: IWordCreateModel) => {
+        return await this.post("update/createWord", word);
     }
 }
 

@@ -85,14 +85,9 @@ export class WordService {
     }
 
     async createWordSentenceAsync(wordId: number, sentences: WordSentencesModel[]) {
-        let sentenceIds = [];
         sentences.forEach(async (sentence) => {
             let sentenceId = await sentenceRepository.insertAsync(sentence);
-            sentenceIds.push(sentenceId);
-        })
-
-        sentenceIds.forEach(async (sentenceId) => {
-            await sentenceWordRepository.insertAsync({ wordId: wordId, sentenceId: sentenceId })
+            await sentenceWordRepository.insertAsync({ wordId: wordId, sentenceId: sentenceId });
         })
     }
 
@@ -101,19 +96,17 @@ export class WordService {
         delete updateModel["sentences"];
         await wordRepository.updateAsync(updateModel, { id: updateModel.id });
         await this.updateWordSenteceAsync(updateModel.id, sentences);
+        return true;
     }
 
-    async updateWordSenteceAsync(wordId: number, updateSentencesModel: WordSentencesModel[]): Promise<number[]> {
-        let sentenceIds = [];
-        updateSentencesModel.forEach(async (sentence) => {
+    async updateWordSenteceAsync(wordId: number, sentences: WordSentencesModel[]) {
+        sentences.forEach(async (sentence) => {
             if (sentence.id) {
-                let sentenceId = await sentenceRepository.updateAsync(sentence, { id: sentence.id });
-                sentenceIds.push(sentenceId);
+                await sentenceRepository.updateAsync(sentence, { id: sentence.id });
             } else {
                 await this.createWordSentenceAsync(wordId, [sentence]);
             }
         })
-        return sentenceIds;
     }
 }
 

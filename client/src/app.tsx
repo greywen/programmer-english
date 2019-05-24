@@ -32,6 +32,7 @@ class App extends Component {
       "pages/dashboard/userAnswer",
       "pages/article/article",
       "pages/article/article.detail",
+      "pages/word/word.create",
       "pages/word/word",
       "pages/word/word.list",
       "pages/word/word.detail",

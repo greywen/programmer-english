@@ -11,7 +11,7 @@
 }
 
 .form-item {
-    flex-direction: row;
+    flex-direction: column;
     display: flex;
     justify-content:flex-start;
     border-bottom: 1px solid #b2b2b2;
@@ -31,7 +31,7 @@
 }
 
 .form-input {
-    padding-left: 30px;
+    padding-top: 30px;
 }
 
 .form-submit-item {

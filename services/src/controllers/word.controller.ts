@@ -116,6 +116,6 @@ class WordController {
     })
     @authorize([UserResource.EditWord])
     async updateWord(ctx: CustomKoaContextModel) {
-        return await wordService.updateWordAsync(ctx.request.body);
+        ctx.body = await wordService.updateWordAsync(ctx.request.body);
     }
 }

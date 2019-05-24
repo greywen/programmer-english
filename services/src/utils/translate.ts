@@ -36,19 +36,19 @@ export async function translate(text: string, type: TranslateType): Promise<ITra
                 if (!err && response.statusCode == 200) {
                     let $ = cheerio.load(body);
                     let english = $("#headword h1").text();
-                    let phoneticUs = $(".hd_prUS").text().trim();
-                    let phoneticEn = $(".hd_pr").text().trim();
+                    let phoneticUS = $(".hd_prUS").text().trim();
+                    let phoneticEN = $(".hd_pr").text().trim();
                     let chinese = $("ul li .web").next().text();
                     let chineseV = $("div.qdef > ul > li:nth-child(1) > span.def > span")[0].children[0].data;
                     let chineseN = $("div.qdef > ul > li:nth-child(2) > span.def > span")[0].children[0].data;
-                    let matchs = [];
+                    let collocation = [];
                     let matchElement = $("#colid");
                     matchElement.children().map((index) => {
                         $(`#colid > div:nth-child(${index + 1}) > div.col_fl > a >span`).map((i, m) => {
-                            matchs.push(m.children[0].data);
+                            collocation.push(m.children[0].data);
                         });
                     })
-                    resolve({ english: english, chinese: chinese, chineseV: chineseV, chineseN: chineseN, phoneticEn: phoneticEn, phoneticUs: phoneticUs, matchs: matchs });
+                    resolve({ english: english, chinese: chinese, chineseV: chineseV, chineseN: chineseN, phoneticEN: phoneticEN, phoneticUS: phoneticUS, collocation: collocation.join("；") });
                 }
             })
         }
@@ -61,9 +61,9 @@ interface ITranslateResultModel {
     chinese: string,
     chineseV?: string,
     chineseN?: string,
-    phoneticEn?: string,
-    phoneticUs?: string,
-    matchs?: string[]
+    phoneticEN?: string,
+    phoneticUS?: string,
+    collocation?: string
 }
 
 interface IBaiduTranslateAPIResultModel {
