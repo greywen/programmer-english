@@ -1,4 +1,4 @@
-import { prefix, router, required, setUserInformation } from "../router";
+import { prefix, router, setUserInformation, cache } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
 import userQuestionService from "../services/userQuestion.service";
 import { CreateUserQuestionAnswerModel } from "../model/userQuestion";
@@ -10,7 +10,8 @@ class UserQuestionController {
         path: "/getQuestion",
         unless: true
     })
-    async createFeedback(ctx: CustomKoaContextModel) {
+    @cache()
+    async getQuestion(ctx: CustomKoaContextModel) {
         ctx.body = await userQuestionService.getUserQuestionAsync();
     }
 

@@ -1,6 +1,6 @@
 import * as Koa from "koa";
 
-import { prefix, router, setUserInformation, authorize } from "../router";
+import { prefix, router, setUserInformation, authorize, cache } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
 import wordService from "../services/word.service";
 import { CreateCollectModel } from "../model/word";
@@ -78,6 +78,7 @@ class WordController {
         unless: false
     })
     @setUserInformation
+    @cache()
     async getWordDetailAsync(ctx: CustomKoaContextModel) {
         let wordId = ctx.query["wordId"];
         if (!wordId) {
@@ -93,7 +94,7 @@ class WordController {
         unless: false
     })
     @authorize([UserResource.CreateWord, UserResource.EditWord])
-    async translate(ctx: Koa.Context) {
+    async translate(ctx: CustomKoaContextModel) {
         let { text, type } = ctx.request.body;
         ctx.body = await translate(text, type);
     }

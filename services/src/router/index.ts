@@ -5,8 +5,7 @@
 import { symbolRoutePrefix, Route } from './Route';
 import * as Koa from 'koa';
 import { verifyTokenAsync } from '../utils/jwtHelper';
-import { CustomKoaContextModel } from '../model/common.model';
-import { redis } from '../app';
+import { CustomKoaContextModel, IRedisOptions } from '../model/common.model';
 import { UserResource } from '../common/enums';
 
 //记录请求数
@@ -43,30 +42,31 @@ export function authorize(resources: UserResource[]) {
     }
 }
 
-export function cache(target: any, name: string, value: PropertyDescriptor) {
-    target[name] = sureIsArray(target[name]);
-    target[name].splice(target[name].length - 1, 0, Cache);
+export function cache(ops?: IRedisOptions) {
+    return function (target: any, name: string, value: PropertyDescriptor) {
+        target[name] = sureIsArray(target[name]);
+        target[name].splice(target[name].length - 1, 0, Cache);
 
-    async function Cache(ctx: CustomKoaContextModel, next: any) {
-        let token = ctx.header["authorization"];
-        if (token !== "Bearer undefined") {
-            ctx.user = await verifyTokenAsync(token);
-            let key = `${ctx.user.id}:${ctx.request.url}`;
-            let value = await redis.getAsync(key);
+        async function Cache(ctx: CustomKoaContextModel, next: any) {
+            let request = ctx.request;
+            let key = new Buffer(request.url + JSON.stringify(request.body) + JSON.stringify(request.query)).toString("base64");
+            let defaultCacheOps = { key: key, whetherCache: false };
+            ops = Object.assign({}, defaultCacheOps, ops);
+            let value = await ctx.redis.getAsync(ops.key);
+            ops.whetherCache = !value;
 
             if (value) {
                 ctx.response.status = 200;
                 ctx.response.set('X-Koa-Redis-Cache', 'true');
                 ctx.response.body = value;
             } else {
+                ctx.redisOptions = ops;
                 await next();
             }
-        } else {
-            await next();
         }
-    }
 
-    return value;
+        return value;
+    }
 }
 
 /**

@@ -1,6 +1,6 @@
 import * as Koa from "koa";
 
-import { prefix, router, setUserInformation } from "../router";
+import { prefix, router, setUserInformation, cache } from "../router";
 import articleService from "../services/article.service";
 import { CustomKoaContextModel } from "../model/common.model";
 
@@ -11,6 +11,7 @@ class ArticleController {
         path: "/getArticleList",
         unless: true
     })
+    @cache()
     async getArticleList(ctx: Koa.Context) {
         let queryModel = ctx.query;
         ctx.body = await articleService.getArticleListAsync(queryModel);
@@ -22,6 +23,7 @@ class ArticleController {
         unless: false
     })
     @setUserInformation
+    @cache()
     async getArticleDetail(ctx: CustomKoaContextModel) {
         let articleId = ctx.query["articleId"];
         ctx.body = await articleService.getArticleDetailAsync(articleId, ctx.user.id);

@@ -20,20 +20,29 @@ app.use(koaBody({
     }
 }));
 
+app.use(function* (next) {
+    this.redis = redis;
+    yield next;
+    if (this.redisOptions && this.redisOptions.whetherCache) {
+        yield redis.setAsync(this.redisOptions.key, this.body);
+    }
+    yield next;
+})
+
 router.registerRouters(`${__dirname}/controllers`, config.jwt);
 
-app.use(async (ctx, next) => {
+app.use(function* (next) {
     try {
-        logger.response(ctx);
-        await next();
+        logger.response(this);
+        yield next;
     } catch (error) {
-        logger.requestError(ctx, error);
+        logger.requestError(this, error);
         if (error["message"] === "Authentication Error") {
-            ctx.status = 401;
-            ctx.body = { message: "用户未授权" };
+            this.status = 401;
+            this.body = { message: "用户未授权" };
         } else {
-            ctx.status = error["status"] || 500;
-            ctx.body = { message: error["message"] || "服务器错误" };
+            this.status = error["status"] || 500;
+            this.body = { message: error["message"] || "服务器错误" };
         }
     }
 });
@@ -48,7 +57,4 @@ app.use(cors({
     allowHeaders: ["Content-Type", "Authorization", "Accept", "Access-Control-Allow-Origin", "Origin"],
 }));
 
-export {
-    app,
-    redis
-};
+export default app;

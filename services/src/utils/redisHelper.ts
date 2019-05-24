@@ -18,7 +18,7 @@ export class RedisService {
         this.client.on('ready', () => { });
     }
 
-    public async setAsync(key: string, value: string | object, expire?: number) {
+    public async setAsync(key: string, value: string | object, expire: number = 24 * 60 * 60) {
         let _value = value;
         if (typeof value === "object") {
             _value = JSON.stringify(value);
