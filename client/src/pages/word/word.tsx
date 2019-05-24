@@ -3,11 +3,10 @@ import "./word.scss"
 import { View, Text, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx';
 
-import { NavigationBar, Authorization } from "../../components";
+import { NavigationBar, WecharAuthorize, Loading } from "../../components";
 import { IWordDataModel } from "../../models/word";
 import { readingText } from "../../utils/baiduUtils";
 import { showMessage } from "../../utils/wechatUtils";
-import Loading from "../../components/loading/loading";
 
 interface WordState {
     scrollTop: number
@@ -74,7 +73,7 @@ export default class Word extends Component<WordProps, WordState> {
             <Loading loading={loading}></Loading>
             {word ? <View className="page-content">
                 <View className="page-nav">
-                    <Authorization authorizationStore={this.props.authorizationStore}>
+                    <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                         <View onClick={this.onCollectWord}>
                             {
                                 word && word.collectionId ?
@@ -82,7 +81,7 @@ export default class Word extends Component<WordProps, WordState> {
                                     <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart nav-icon"></Text>
                             }
                         </View>
-                    </Authorization>
+                    </WecharAuthorize>
                 </View>
                 <View className="flex-custom">
                     <View className="flex-custom-item">
@@ -121,14 +120,14 @@ export default class Word extends Component<WordProps, WordState> {
                             }
 
                         </View>
-                        <Authorization authorizationStore={this.props.authorizationStore}>
+                        <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                             <View className="next-item" onClick={this.onGetNextWord}>下一个词汇</View>
-                        </Authorization>
-                        <Authorization authorizationStore={this.props.authorizationStore}>
+                        </WecharAuthorize>
+                        <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                             <View className="page-help">
                                 <Navigator url={`../me/feedback?wordId=${word.id}`}>单词有问题?</Navigator>
                             </View>
-                        </Authorization>
+                        </WecharAuthorize>
                     </View>
                 </View>
             </View> : null

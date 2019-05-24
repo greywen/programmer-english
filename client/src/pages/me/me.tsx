@@ -3,11 +3,11 @@ import "./me.scss"
 import { View, OpenData, Navigator, Text } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
-import { NavigationBar, Authorization } from "../../components";
+import { NavigationBar, WecharAuthorize, ResourceAuthorize, Loading } from "../../components";
 import { showMessage } from "../../utils/wechatUtils";
 import { IDisplayWordDataModel } from "../../models/word";
-import Loading from "../../components/loading/loading";
 import { isAuthorized } from "../../utils/loginUtils";
+import { UserResource } from "../../common/enums";
 
 interface MeState {
     scrollTop: number
@@ -79,7 +79,7 @@ export default class Me extends Component<MeProps, MeState> {
                     </View>
                 </View>
             </View>
-            <Authorization authorizationStore={this.props.authorizationStore}>
+            <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                 <View className="page-content">
                     <View className="flex-custom-border-top">
                         <Navigator url="../word/word.list" className="flex-custom-row">
@@ -106,13 +106,14 @@ export default class Me extends Component<MeProps, MeState> {
                         }
 
                     </View>
-
-                    <View className="flex-custom-border-top">
-                        <Navigator url="../word/word.create" className="flex-custom-row">
-                            <View className="flex-custom-text">创建单词</View>
-                            <View className="flex-custom-icon">></View>
-                        </Navigator>
-                    </View>
+                    <ResourceAuthorize resources={[UserResource.CreateWord]}>
+                        <View className="flex-custom-border-top">
+                            <Navigator url="../word/word.create" className="flex-custom-row">
+                                <View className="flex-custom-text">创建单词</View>
+                                <View className="flex-custom-icon">></View>
+                            </Navigator>
+                        </View>
+                    </ResourceAuthorize>
 
                     <View className="flex-custom-border-top">
                         <Navigator url="./feedback" className="flex-custom-row">
@@ -133,7 +134,7 @@ export default class Me extends Component<MeProps, MeState> {
                         <View className="copyright">版权所有 ©2019 程序员英语.</View>
                     </View>
                 </View>
-            </Authorization>
+            </WecharAuthorize>
         </View>
     }
 }

@@ -3,10 +3,9 @@ import "./word.detail.scss"
 import { View, Text, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx';
 
-import { NavigationBar } from "../../components";
+import { NavigationBar, Loading } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
 import { IWordDataModel } from "../../models/word";
-import Loading from "../../components/loading/loading";
 import { readingText } from "../../utils/baiduUtils";
 
 interface WordDetailProps {

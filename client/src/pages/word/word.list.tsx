@@ -3,9 +3,8 @@ import "./word.list.scss"
 import { View, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
-import { NavigationBar } from "../../components";
+import { NavigationBar, Loading } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
-import Loading from "../../components/loading/loading";
 import { IWordListDataModel } from "../../models/word";
 
 interface WordListProps {

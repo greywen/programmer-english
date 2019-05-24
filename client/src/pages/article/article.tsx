@@ -3,9 +3,8 @@ import "./article.scss"
 import { View, Image, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx';
 
-import { NavigationBar, Authorization } from "../../components";
+import { NavigationBar, WecharAuthorize, Loading } from "../../components";
 import { ArticleListDataModel } from "../../models/article";
-import Loading from "../../components/loading/loading";
 
 interface ArticleState {
     scrollTop: number
@@ -57,7 +56,7 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
         return <View className="page" style={{ minHeight: windowHeight + "px", backgroundColor: "#f8f8f8" }}>
             <NavigationBar title="文档阅读" scrollTop={scrollTop}></NavigationBar>
             <Loading loading={loading}></Loading>
-            <Authorization authorizationStore={this.props.authorizationStore}>
+            <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                 <View className="article">
                     {
                         artileList && artileList.map(article => {
@@ -74,7 +73,7 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
                         })
                     }
                 </View>
-            </Authorization>
+            </WecharAuthorize>
             <View className="footer">
                 {
                     showLoadMore ? <View onClick={this.onLoadMoreArticleAsync}>点击加载更多</View> : null

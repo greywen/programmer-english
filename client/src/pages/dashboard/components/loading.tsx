@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, OpenData } from '@tarojs/components';
 
 import './loading.scss'
-import Authorization from "../../../components/authorization/authorization";
+import { WecharAuthorize } from "../../../components";
 
 interface DashboardLoadingProps {
     loading: boolean,
@@ -46,9 +46,9 @@ export default class DashboardLoading extends Component<DashboardLoadingProps, D
                 <View animation={moveAnimate} className={loading ? "circle-anmiate" : "circle"}>
                     <View className='flex-wrp' style='flex-direction:row;'>
                         <View className='flex-item flex-item-V'>
-                            <Authorization authorizationStore={this.props.authorizationStore}>
+                            <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                                 <OpenData className="avatar" lang="zh_CN" type='userAvatarUrl' />
-                            </Authorization>
+                            </WecharAuthorize>
                         </View>
                     </View>
                 </View>

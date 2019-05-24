@@ -3,12 +3,11 @@ import "./userAnswer.scss"
 import { View, Input, Text, Button, Textarea } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
-import { NavigationBar } from "../../components";
+import { NavigationBar, Loading } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
 import { IQuestionAnswerModel } from "../../models/dashiboard";
 import { uploadFile } from "../../utils/request";
 import { showMessage } from "../../utils/wechatUtils";
-import Loading from "../../components/loading/loading";
 
 interface UserAnswerState {
     questionId: number,

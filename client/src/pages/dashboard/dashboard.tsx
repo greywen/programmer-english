@@ -5,10 +5,8 @@ import { observer, inject } from '@tarojs/mobx'
 import "./dashboard.scss"
 import withLogin from "../../common/decorator/withLogin";
 import { IQuestionDataModel } from "../../models/dashiboard";
-import NavigationBar from '../../components/navigationBar/navigationBar';
 import { HtmlParse } from '../../components/htmlParse/htmlParse';
-import Loading from '../../components/loading/loading';
-import { Authorization } from '../../components';
+import { NavigationBar, Loading, WecharAuthorize } from '../../components';
 
 interface DashboardState {
     scrollTop: number
@@ -58,9 +56,9 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                 <Loading loading={loading}></Loading>
                 <View className="page-content">
                     {question ? <HtmlParse data={question.describe}></HtmlParse> : null}
-                    <Authorization authorizationStore={this.props.authorizationStore}>
+                    <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                         <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
-                    </Authorization>
+                    </WecharAuthorize>
                 </View>
             </View >
         )

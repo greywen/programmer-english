@@ -3,11 +3,10 @@ import "./feedback.scss"
 import { View, Input } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
-import { NavigationBar } from "../../components";
+import { NavigationBar, Loading } from "../../components";
 import { NavigatorOpenType, FeedbackType } from "../../common/enums";
 import { IFeedbackModel } from "../../models/user";
 import { showSuccess, showMessage } from "../../utils/wechatUtils";
-import Loading from "../../components/loading/loading";
 
 interface FeedbackState {
     type: FeedbackType,

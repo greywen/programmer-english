@@ -3,9 +3,8 @@ import "./article.detail.scss"
 import { View } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx';
 
-import { NavigationBar } from "../../components";
+import { NavigationBar, Loading } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
-import Loading from "../../components/loading/loading";
 import { ArticleDetailDataModel } from "../../models/article";
 import { HtmlParse } from "../../components/htmlParse/htmlParse";
 

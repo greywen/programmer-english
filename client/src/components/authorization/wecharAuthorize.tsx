@@ -3,10 +3,10 @@ import { observer, inject } from '@tarojs/mobx'
 import { Button, View } from '@tarojs/components';
 
 import { login } from '../../utils/loginUtils';
-import './authorization.scss'
+import './wecharAuthorize.scss'
 import { showMessage } from '../../utils/wechatUtils';
 
-interface AuthorizationProps {
+interface WecharAuthorizeProps {
     authorizationStore: {
         isAuthorized: boolean,
         update: () => {}
@@ -15,7 +15,7 @@ interface AuthorizationProps {
 
 @inject('authorizationStore')
 @observer
-export default class Authorization extends Component<AuthorizationProps, {}> {
+export default class WecharAuthorize extends Component<WecharAuthorizeProps, {}> {
     onGetUserInfo = async (user) => {
         if (user.detail.errMsg === "getUserInfo:ok") {
             login(user.detail.userInfo)

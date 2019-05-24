@@ -3,10 +3,9 @@ import "./word.create.scss"
 import { View, Input, Textarea } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
-import { NavigationBar } from "../../components";
+import { NavigationBar, Loading } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
 import { showSuccess, showMessage } from "../../utils/wechatUtils";
-import Loading from "../../components/loading/loading";
 import { IEnglishChineseModel, IWordCreateModel } from "../../models/word";
 
 interface WordState {
@@ -47,6 +46,10 @@ export default class WordCreate extends Component<WordProps, WordState> {
 
     async onCreateWord() {
         let { english, chinese, phoneticUS, phoneticEN, collocation, sentences } = this.state;
+        if (!english || !chinese) {
+            showMessage("词汇必填");
+            return;
+        }
         let createWordResult = await this.props.wordStore.createWordAsync({ english: english, chinese: chinese, phoneticUS: phoneticUS, phoneticEN: phoneticEN, collocation: collocation, sentences: sentences });
         if (createWordResult) {
             showSuccess("创建成功");
@@ -122,7 +125,7 @@ export default class WordCreate extends Component<WordProps, WordState> {
                         {sentences.map((sentence, index) => {
                             return <View className="form-input">
                                 <Textarea placeholder="例句中文(选填)" maxlength={200} autoHeight value={sentence.chinese} onInput={(e) => { this.onChangeSentence(index, { chinese: e.target["value"], english: sentence.english }) }}></Textarea>
-                                <View style="border-bottom: 1px dashed #b2b2b2;margin:15px 0px 15px 0px;"></View>
+                                <View style="border-bottom: 1px dashed #b2b2b2;margin:10px 0px 10px 0px;"></View>
                                 <Textarea placeholder="例句英文(选填)" maxlength={200} autoHeight value={sentence.english} onInput={(e) => { this.onChangeSentence(index, { english: e.target["value"], chinese: sentence.chinese }) }}></Textarea>
                             </View>
                         })}

@@ -11,3 +11,9 @@ export enum FeedbackType {
     Word = 2, // 单词反馈
     Bug = 3 // bug反馈
 }
+
+export enum UserResource {
+    CreateWord = 1,
+    EditWord = 2,
+    Test = 99
+}
