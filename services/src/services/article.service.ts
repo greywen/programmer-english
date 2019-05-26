@@ -25,10 +25,10 @@ export class ArticleService {
     }
 
     private async createUserArticleHistoryAsync(model: CreateUserHistoryModel): Promise<void> {
-        let history = await userHistoryRepository.getFirstOrDefaultAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Article });
-        if (!history) {
-            await userHistoryRepository.insertAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Article });
-        }
+        // let history = await userHistoryRepository.getFirstOrDefaultAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Article });
+        // if (!history) {
+        await userHistoryRepository.insertAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Article });
+        // }
     }
 }
 

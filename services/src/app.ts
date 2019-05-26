@@ -23,6 +23,7 @@ app.use(koaBody({
 app.use(function* (next) {
     this.redis = redis;
     yield next;
+    console.log(this.redisOptions && this.redisOptions.whetherCache);
     if (this.redisOptions && this.redisOptions.whetherCache) {
         yield redis.setAsync(this.redisOptions.key, this.body);
     }

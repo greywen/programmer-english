@@ -78,7 +78,7 @@ export default class WordDetail extends Component<WordDetailProps, {}> {
                                 <View className="flex-custom-item-collocation">{wordDetail.collocation}</View>
                             </View> : null
                         }
-                        <View className="flex-custom-item-title">例句<Navigator url="">(推荐?)</Navigator></View>
+                        <View className="flex-custom-item-title">例句{/* <Navigator url="">(推荐?)</Navigator> */}</View>
                         <View className="flex-custom-item-sentences">
                             {
                                 wordDetail.sentences.map(sentence => {

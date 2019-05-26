@@ -30,17 +30,17 @@ export interface IWordListQueryModel {
 }
 
 interface ISentenceWordModel {
-    id: number,
+    id?: number,
     english: string,
     chinese: string,
-    keyWords: string,
-    languageType: number,
-    excerptFrom: number,
-    createTime: string
+    keyWords?: string,
+    languageType?: number,
+    excerptFrom?: number,
+    createTime?: string
 }
 
 export interface IEnglishChineseModel {
-    id?: string,
+    id?: number,
     english: string,
     chinese: string
 }

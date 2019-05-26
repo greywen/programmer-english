@@ -1,11 +1,3 @@
-textarea {
-    width: 450px !important;
-}
-
-.page-content {
-    
-}
-
 .upload-file {
     padding:20px 0px 20px 87px; 
     color:#3271fd;
@@ -43,7 +35,7 @@ textarea {
 }
 
 .form-item {
-    flex-direction: row;
+    flex-direction: column;
     display: flex;
     justify-content:flex-start;
     border-bottom: 1px solid #b2b2b2;
@@ -63,7 +55,7 @@ textarea {
 }
 
 .form-input {
-    padding-left: 30px;
+    padding-top: 30px;
 }
 
 .form-submit-item {

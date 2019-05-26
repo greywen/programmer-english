@@ -116,6 +116,13 @@ export default class Me extends Component<MeProps, MeState> {
                     </ResourceAuthorize>
 
                     <View className="flex-custom-border-top">
+                        <Navigator url="./help" className="flex-custom-row">
+                            <View className="flex-custom-text">请喝饮料</View>
+                            <View className="flex-custom-icon">></View>
+                        </Navigator>
+                    </View>
+
+                    <View className="flex-custom-border-top">
                         <Navigator url="./feedback" className="flex-custom-row">
                             <View className="flex-custom-text">反馈建议</View>
                             <View className="flex-custom-icon">></View>

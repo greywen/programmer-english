@@ -43,10 +43,10 @@ export class WordService {
     }
 
     private async createUserWordHistoryAsync(model: CreateUserHistoryModel): Promise<void> {
-        let history = await userHistoryRepository.getFirstOrDefaultAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Word });
-        if (!history) {
-            await userHistoryRepository.insertAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Word });
-        }
+        // let history = await userHistoryRepository.getFirstOrDefaultAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Word });
+        // if (!history) {
+        await userHistoryRepository.insertAsync({ userId: model.userId, refId: model.refId, historyType: UserHistoryType.Word });
+        // }
     }
 
     async getWordListAsync(queryModel: WordListQueryModel): Promise<WordListModel[]> {

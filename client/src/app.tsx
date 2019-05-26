@@ -28,6 +28,7 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      "pages/me/me", 
       "pages/dashboard/dashboard",
       "pages/dashboard/userAnswer",
       "pages/article/article",
@@ -37,11 +38,11 @@ class App extends Component {
       "pages/word/word.list",
       "pages/word/word.detail",
 
-      //me
-      "pages/me/me",
+      //me     
       "pages/me/feedback",
       "pages/me/about",
-      "pages/me/bug"
+      "pages/me/bug",
+      "pages/me/help"
     ],
     tabBar: {
       selectedColor: "#3271fd",

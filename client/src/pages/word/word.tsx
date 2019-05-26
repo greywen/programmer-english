@@ -104,7 +104,7 @@ export default class Word extends Component<WordProps, WordState> {
                                 <View className="flex-custom-item-collocation">{word.collocation}</View>
                             </View> : null
                         }
-                        <View className="flex-custom-item-title">例句<Navigator url="">(推荐?)</Navigator></View>
+                        <View className="flex-custom-item-title">例句{/* <Navigator url="">(推荐?)</Navigator> */}</View>
                         <View className="flex-custom-item-sentences">
                             {
                                 word.sentences.map(sentence => {

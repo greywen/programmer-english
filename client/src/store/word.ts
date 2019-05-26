@@ -58,11 +58,17 @@ class WordStore extends BaseStore {
     }
 
     getWordDetailAsync = async (wordId: number) => {
-        this.wordDetail = await this.get("word/getWordDetail", { wordId: wordId });
+        let wordDetail = await this.get("word/getWordDetail", { wordId: wordId });
+        this.wordDetail = wordDetail;
+        return wordDetail;
     }
 
     translateWordAsync = async (text: string) => {
         return await this.post("word/translate", { text: text, type: 1 });
+    }
+
+    getWordByAutoCompleteAsync = async (query: string) => {
+        return await this.get("autoComplete/word", { query: query });
     }
 
     createWordAsync = async (word: IWordCreateModel) => {
