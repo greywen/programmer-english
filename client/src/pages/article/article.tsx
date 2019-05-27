@@ -48,6 +48,11 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
         await this.props.articleStore.getMoreArticleAsync();
     }
 
+    async onPullDownRefresh() {
+        await this.props.articleStore.getArticleListAsync();
+        Taro.stopPullDownRefresh();
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;
@@ -59,7 +64,7 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
             <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                 <View className="article">
                     {
-                        artileList && artileList.map(article => {
+                        artileList ? artileList.map(article => {
                             return <Navigator url={`./article.detail?articleId=${article.id}`} key={article.id}>
                                 <View className="article-item">
                                     <View className="article-item-icon">
@@ -71,6 +76,8 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
                                 </View>
                             </Navigator>
                         })
+                            :
+                            <View>xxxx</View>
                     }
                 </View>
             </WecharAuthorize>

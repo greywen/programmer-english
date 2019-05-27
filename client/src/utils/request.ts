@@ -39,6 +39,8 @@ function request(options: RequestOptions) {
       showError(res.data["message"] || "服务器错误请稍后再试");
       throw new Error(`网络请求错误，状态码${statusCode}`);
     }
+  }).catch(() => {
+    showError("加载失败请下拉重试");
   })
 }
 

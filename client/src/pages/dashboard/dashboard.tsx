@@ -46,6 +46,11 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
         })
     }
 
+    async onPullDownRefresh() {
+        await this.props.dashboardStore.getQuestionAsync();
+        Taro.stopPullDownRefresh();
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;
@@ -55,10 +60,14 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                 <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
                 <Loading loading={loading}></Loading>
                 <View className="page-content">
-                    {question ? <HtmlParse data={question.describe}></HtmlParse> : null}
-                    <WecharAuthorize authorizationStore={this.props.authorizationStore}>
-                        <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
-                    </WecharAuthorize>
+                    {
+                        question ? <View>
+                            <HtmlParse data={question.describe}></HtmlParse>
+                            <WecharAuthorize authorizationStore={this.props.authorizationStore}>
+                                <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
+                            </WecharAuthorize>
+                        </View> : null
+                    }
                 </View>
             </View >
         )

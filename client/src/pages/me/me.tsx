@@ -59,6 +59,11 @@ export default class Me extends Component<MeProps, MeState> {
         await collectWordAsync();
     }
 
+    async onPullDownRefresh() {
+        await this.props.meStore.getDisplayWordAsync();
+        Taro.stopPullDownRefresh();
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;

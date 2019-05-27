@@ -30,7 +30,6 @@ export default class WordDetail extends Component<WordDetailProps, {}> {
         await this.props.wordStore.getWordDetailAsync(wordId);
     }
 
-
     onCollectWord = async () => {
         const { collectDetailWordAsync } = this.props.wordStore;
         await collectDetailWordAsync();

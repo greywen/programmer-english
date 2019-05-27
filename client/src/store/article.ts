@@ -15,11 +15,7 @@ class ArticleStore extends BaseStore {
 
     getArticleListAsync = async () => {
         let _articleList = await this.get("article/getArticleList", this.articleListQuery);
-        this.showLoadMore = _articleList && _articleList.length > 20;
-        if (this.showLoadMore) {
-            _articleList.pop(1);
-        }
-        this.artileList === undefined ? this.artileList = _articleList : this.artileList.push(..._articleList);
+        this.artileList = _articleList;
     }
 
     getMoreArticleAsync = async () => {

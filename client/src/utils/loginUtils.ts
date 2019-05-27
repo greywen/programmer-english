@@ -36,7 +36,7 @@ export function isAuthorized() {
 }
 
 export function getUserResource(): number[] {
-    return Taro.getStorageSync("authorized")["resourceIds"];
+    return Taro.getStorageSync("authorized")["resourceIds"] || [];
 }
 
 interface AuthorizedModel {

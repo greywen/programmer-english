@@ -33,6 +33,11 @@ export default class WordList extends Component<WordListProps, {}> {
         this.props.wordStore.getMoreWordAsync();
     }
 
+    async onPullDownRefresh() {
+        await this.props.wordStore.getWordListAsync();
+        Taro.stopPullDownRefresh();
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { wordStore: { loading, showLoadMore, wordList } } = this.props;

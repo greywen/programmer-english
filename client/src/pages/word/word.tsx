@@ -63,6 +63,11 @@ export default class Word extends Component<WordProps, WordState> {
         return val ? val : ""
     }
 
+    async onPullDownRefresh() {
+        await this.props.wordStore.getWordAsync();
+        Taro.stopPullDownRefresh();
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { scrollTop } = this.state;

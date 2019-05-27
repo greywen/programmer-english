@@ -12,7 +12,10 @@ class UserQuestionController {
     })
     @cache()
     async getQuestion(ctx: CustomKoaContextModel) {
-        ctx.body = await userQuestionService.getUserQuestionAsync();
+        let _body = await userQuestionService.getUserQuestionAsync();
+        let key = await ctx.redis.generateKeyAsync(ctx.request.url);
+        await ctx.redis.setAsync(key, _body);
+        ctx.body = _body;
     }
 
     @router({
