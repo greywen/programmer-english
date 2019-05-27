@@ -27,10 +27,10 @@ export class RedisService {
         if (!_value) return;
 
         if (expire) {
-            await this.client.setex(key, expire, _value);
+            await this.client.setex(key, expire, `${_value}`);
         }
         else {
-            await this.client.set(key, _value);
+            await this.client.set(key, `${_value}`);
         }
     }
 
@@ -46,5 +46,13 @@ export class RedisService {
                 resolve(null);
             })
         })
+    }
+
+    public async generateKeyAsync(key: object | string) {
+        if (typeof key === "object") {
+            key = JSON.stringify(key);
+        }
+
+        return Buffer.from(key).toString("base64");
     }
 }

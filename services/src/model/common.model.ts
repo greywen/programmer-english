@@ -14,7 +14,8 @@ export interface CustomKoaContextModel extends Koa.Context {
 
 interface IRedis {
     setAsync(key: string, value: string | object, expire?: number),
-    getAsync(key: string): Promise<object>
+    getAsync(key: string): Promise<object>,
+    generateKeyAsync(key: string | object): string
 }
 
 export interface MailOptions {

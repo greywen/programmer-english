@@ -14,7 +14,10 @@ class ArticleController {
     @cache()
     async getArticleList(ctx: Koa.Context) {
         let queryModel = ctx.query;
-        ctx.body = await articleService.getArticleListAsync(queryModel);
+        let _body = await articleService.getArticleListAsync(queryModel);
+        let key = await ctx.redis.generateKeyAsync(ctx.request.url);
+        await ctx.redis.setAsync(key, _body);
+        ctx.body = _body;
     }
 
     @router({
@@ -26,6 +29,10 @@ class ArticleController {
     @cache()
     async getArticleDetail(ctx: CustomKoaContextModel) {
         let articleId = ctx.query["articleId"];
-        ctx.body = await articleService.getArticleDetailAsync(articleId, ctx.user.id);
+
+        let _body = await articleService.getArticleDetailAsync(articleId, ctx.user.id);
+        let key = await ctx.redis.generateKeyAsync(ctx.request.url);
+        await ctx.redis.setAsync(key, _body, 0);
+        ctx.body = _body;
     }
 }

@@ -20,30 +20,29 @@ app.use(koaBody({
     }
 }));
 
-app.use(function* (next) {
-    this.redis = redis;
-    yield next;
-    console.log(this.redisOptions && this.redisOptions.whetherCache);
-    if (this.redisOptions && this.redisOptions.whetherCache) {
-        yield redis.setAsync(this.redisOptions.key, this.body);
-    }
-    yield next;
+app.use(async (ctx, next) => {
+    ctx.redis = redis;
+    await next();
+    // console.log(this.redisOptions && this.redisOptions.whetherCache);
+    // if (this.redisOptions && this.redisOptions.whetherCache) {
+    //     await redis.setAsync(this.redisOptions.key, this.body);
+    // }
 })
 
 router.registerRouters(`${__dirname}/controllers`, config.jwt);
 
-app.use(function* (next) {
+app.use(async (ctx, next) => {
     try {
-        logger.response(this);
-        yield next;
+        logger.response(ctx);
+        await next();
     } catch (error) {
-        logger.requestError(this, error);
+        logger.requestError(ctx, error);
         if (error["message"] === "Authentication Error") {
-            this.status = 401;
-            this.body = { message: "用户未授权" };
+            ctx.status = 401;
+            ctx.body = { message: "用户未授权" };
         } else {
-            this.status = error["status"] || 500;
-            this.body = { message: error["message"] || "服务器错误" };
+            ctx.status = error["status"] || 500;
+            ctx.body = { message: error["message"] || "服务器错误" };
         }
     }
 });

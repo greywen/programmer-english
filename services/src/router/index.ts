@@ -50,17 +50,13 @@ export function cache(ops?: IRedisOptions) {
 
         async function Cache(ctx: CustomKoaContextModel, next: any) {
             let request = ctx.request;
-            let key = Buffer.from(request.url).toString("base64");
-            console.log(key);
-            ops = ops || { key: key, whetherCache: false }
+            let key = await ctx.redis.generateKeyAsync(request.url);
             let value = await ctx.redis.getAsync(key);
-            ops.whetherCache = !value;
             if (value) {
                 ctx.response.status = 200;
                 ctx.response.set('X-Koa-Redis-Cache', 'true');
                 ctx.response.body = value;
             } else {
-                ctx.redisOptions = ops;
                 await next();
             }
         }

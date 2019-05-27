@@ -85,7 +85,10 @@ class WordController {
             ctx.body = {};
             return;
         }
-        ctx.body = await wordService.getWordDetailAsync({ wordId: wordId, userId: ctx.user.id, next: false });
+        let _body = await wordService.getWordDetailAsync({ wordId: wordId, userId: ctx.user.id, next: false });
+        let key = await ctx.redis.generateKeyAsync(ctx.request.url);
+        await ctx.redis.setAsync(key, _body);
+        ctx.body = _body;
     }
 
     @router({
