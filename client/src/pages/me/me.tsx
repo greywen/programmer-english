@@ -57,6 +57,7 @@ export default class Me extends Component<MeProps, MeState> {
     onCollectWord = async () => {
         const { collectWordAsync } = this.props.meStore;
         await collectWordAsync();
+        Taro.vibrateShort();
     }
 
     async onPullDownRefresh() {
@@ -114,7 +115,7 @@ export default class Me extends Component<MeProps, MeState> {
                     <ResourceAuthorize resources={[UserResource.CreateWord]}>
                         <View className="flex-custom-border-top">
                             <Navigator url="../word/word.create" className="flex-custom-row">
-                                <View className="flex-custom-text">创建单词</View>
+                                <View className="flex-custom-text">单词管理</View>
                                 <View className="flex-custom-icon">></View>
                             </Navigator>
                         </View>

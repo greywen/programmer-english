@@ -50,6 +50,7 @@ export default class Word extends Component<WordProps, WordState> {
     onCollectWord = async () => {
         const { collectWordAsync } = this.props.wordStore;
         await collectWordAsync();
+        Taro.vibrateShort();
     }
 
     onGetNextWord = async () => {
