@@ -59,9 +59,9 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
             <View className="page" style={{ height: windowHeight + "px" }}>
                 <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
                 <Loading loading={loading}></Loading>
-                <View className="page-content">
+                <View>
                     {
-                        question ? <View>
+                        question ? <View className="page-content">
                             <HtmlParse data={question.describe}></HtmlParse>
                             <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                                 <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
