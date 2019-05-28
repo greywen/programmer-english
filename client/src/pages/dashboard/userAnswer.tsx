@@ -120,8 +120,8 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
                 </View>
                 <View className="file-list">
                     {
-                        files.map(file => {
-                            return <View><Text className="file-list-del icomoonfont icon-close-circle" onClick={() => { this.onDeleteFile(file) }}></Text>{file}</View>
+                        files.map((file, index) => {
+                            return <View key={"file-" + index}><Text className="file-list-del icomoonfont icon-close-circle" onClick={() => { this.onDeleteFile(file) }}></Text>{file}</View>
                         })
                     }
                 </View>

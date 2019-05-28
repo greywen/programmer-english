@@ -49,7 +49,7 @@ export default class WordList extends Component<WordListProps, {}> {
                 <View className="word-list">
                     {
                         wordList && wordList.map(word => {
-                            return <Navigator key={word.id} url={`./word.detail?wordId=${word.id}`}>
+                            return <Navigator key={"word-" + word.id} url={`./word.detail?wordId=${word.id}`}>
                                 <View className="border-bottom">
                                     <View className="list-item">
                                         <View className="list-item-text">{word.english}</View>

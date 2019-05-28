@@ -113,8 +113,8 @@ export default class Word extends Component<WordProps, WordState> {
                         <View className="flex-custom-item-title">例句{/* <Navigator url="">(推荐?)</Navigator> */}</View>
                         <View className="flex-custom-item-sentences">
                             {
-                                word.sentences.map(sentence => {
-                                    return <View>
+                                word.sentences.map((sentence, index) => {
+                                    return <View key={"sentence-" + index}>
                                         <View className="flex-custom-sentence-cn">
                                             {sentence.chinese}
                                         </View>

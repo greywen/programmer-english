@@ -65,7 +65,7 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
                 <View className="article">
                     {
                         artileList ? artileList.map(article => {
-                            return <Navigator url={`./article.detail?articleId=${article.id}`} key={article.id}>
+                            return <Navigator url={`./article.detail?articleId=${article.id}`} key={"article-" + article.id}>
                                 <View className="article-item">
                                     <View className="article-item-icon">
                                         <Image src={article.articleCover} />
@@ -75,9 +75,7 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
                                     </View>
                                 </View>
                             </Navigator>
-                        })
-                            :
-                            <View>xxxx</View>
+                        }) : null
                     }
                 </View>
             </WecharAuthorize>
