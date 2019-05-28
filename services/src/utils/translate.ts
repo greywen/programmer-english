@@ -12,7 +12,7 @@ export async function translate(text: string, type: TranslateType): Promise<ITra
             resolve(null);
         }
 
-        if (type === TranslateType.Sentence) {
+        if (type == TranslateType.Sentence) {
             let appid = config.baidu.translateAppId;
             let key = config.baidu.translateKey;
             let salt = (new Date).getTime();
@@ -30,15 +30,25 @@ export async function translate(text: string, type: TranslateType): Promise<ITra
             });
         }
 
-        if (type === TranslateType.Word) {
+        if (type == TranslateType.Word) {
             let url = `https://cn.bing.com/dict/search?q=${text.replace(/ /g, "%20")}`
             request.get(url, (err, response, body) => {
                 if (!err && response.statusCode == 200) {
                     let $ = cheerio.load(body);
                     let english = $("#headword h1").text();
-                    let phonetic = $(".hd_prUS").text().replace("美", "");
+                    let phoneticUS = $(".hd_prUS").text().trim();
+                    let phoneticEN = $(".hd_pr").text().trim();
                     let chinese = $("ul li .web").next().text();
-                    resolve({ english: english, phonetic: phonetic, chinese: chinese });
+                    let chineseV = $("div.qdef > ul > li:nth-child(1) > span.def > span")[0].children[0].data;
+                    let chineseN = $("div.qdef > ul > li:nth-child(2) > span.def > span")[0].children[0].data;
+                    let collocation = [];
+                    let matchElement = $("#colid");
+                    matchElement.children().map((index) => {
+                        $(`#colid > div:nth-child(${index + 1}) > div.col_fl > a >span`).map((i, m) => {
+                            collocation.push(m.children[0].data);
+                        });
+                    })
+                    resolve({ english: english, chinese: chinese, chineseV: chineseV, chineseN: chineseN, phoneticEN: phoneticEN, phoneticUS: phoneticUS, collocation: collocation.join("；") });
                 }
             })
         }
@@ -48,7 +58,12 @@ export async function translate(text: string, type: TranslateType): Promise<ITra
 interface ITranslateResultModel {
     english: string,
     phonetic?: string,
-    chinese: string
+    chinese: string,
+    chineseV?: string,
+    chineseN?: string,
+    phoneticEN?: string,
+    phoneticUS?: string,
+    collocation?: string
 }
 
 interface IBaiduTranslateAPIResultModel {

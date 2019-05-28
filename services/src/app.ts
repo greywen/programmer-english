@@ -6,21 +6,46 @@ import * as koaBody from "koa-body";
 import { Route } from "./router/Route";
 import { RedisService } from "./utils/redisHelper";
 import config from "./common/config";
+import logger from "./utils/logger";
 
 const app = new Koa();
 const router = new Route(app);
 const redis = new RedisService();
 
 app.use(koaBody({
-    multipart: true,
     formidable: {
-        maxFileSize: 400 * 1024 * 1024
+        uploadDir: config.file.fileUploadPath,
+        keepExtensions: true,
+        maxFileSize: 10 * 1024 * 1024,
     }
-}))
+}));
 
-app.use(Json());
+app.use(async (ctx, next) => {
+    ctx.redis = redis;
+    await next();
+    // console.log(this.redisOptions && this.redisOptions.whetherCache);
+    // if (this.redisOptions && this.redisOptions.whetherCache) {
+    //     await redis.setAsync(this.redisOptions.key, this.body);
+    // }
+})
 
 router.registerRouters(`${__dirname}/controllers`, config.jwt);
+
+app.use(async (ctx, next) => {
+    try {
+        logger.response(ctx);
+        await next();
+    } catch (error) {
+        logger.requestError(ctx, error);
+        if (error["message"] === "Authentication Error") {
+            ctx.status = 401;
+            ctx.body = { message: "用户未授权" };
+        } else {
+            ctx.status = error["status"] || 500;
+            ctx.body = { message: error["message"] || "服务器错误" };
+        }
+    }
+});
 
 app.use(cors({
     origin: function (ctx: Koa.Context) {
@@ -32,7 +57,4 @@ app.use(cors({
     allowHeaders: ["Content-Type", "Authorization", "Accept", "Access-Control-Allow-Origin", "Origin"],
 }));
 
-export {
-    app,
-    redis
-};
+export default app;

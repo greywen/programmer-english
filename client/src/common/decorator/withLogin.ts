@@ -23,7 +23,7 @@ function withLogin() {
     }
 
     async function autoLogin() {
-        let authorized = Taro.getStorageSync("authorized")["token"];
+        let authorized = Taro.getStorageSync("authorized");
         if (!authorized || (new Date(authorized["expireTime"]) as any - (new Date() as any)) < 0) {
             return await login();
         }

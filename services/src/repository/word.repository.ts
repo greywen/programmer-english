@@ -1,40 +1,27 @@
 import { BaseRepository } from "./base.repository";
-import { WordListModel } from "../model/word";
-import { WordModel } from "../model/word/word.model";
-import { SentenceWordModel } from "../model/sentence";
+import { WordQueryModel, WordSentencesModel, WordModel, WordListModel, WordListQueryModel } from "../model/word/word.model";
+import { WordEntity } from "./entity/word.entity";
+import { IdName } from "../model/common.model";
 
-class WordRepository extends BaseRepository<WordModel> {
-    async getWordList(userId: number, wordId: number): Promise<WordListModel[]> {
-        return await this.sqlmap.queryAsync(`
-            SELECT
-                w.*, ws.sentences,
-                if(ISNULL(uc.wordId),FALSE,TRUE) AS isCollection
-            FROM
-                data_word w
-            LEFT JOIN (
-                SELECT
-                    ws.wordId,
-                    GROUP_CONCAT(chinese, ',', english) sentences
-                FROM
-                    data_Sentence s
-                LEFT JOIN word_Sentence ws ON ws.sentenceId = s.id
-                GROUP BY
-                    ws.wordId
-            ) ws ON ws.wordId = w.id
-            LEFT JOIN user_Collection uc ON uc.userId = ?
-            AND uc.wordId = w.id
-            WHERE
-                w.id > ?
-            ORDER BY w.id
-            LIMIT 0,5;`, [userId, wordId]);
+class WordRepository extends BaseRepository<WordEntity> {
+    async getWordListAsync(queryModel: WordListQueryModel): Promise<WordListModel[]> {
+        return await this.sqlmap.dQueryAsync("getWordList", queryModel);
     }
 
-    async getSentenceWordList(sentenceId: number): Promise<SentenceWordModel[]> {
-        return await this.sqlmap.queryAsync(`
-            SELECT w.id,w.english,w.chinese,w.phonetic FROM sentence_Word sw
-                LEFT JOIN data_word w ON w.id = sw.wordId
-                WHERE sw.SentenceId = ?;
-        `, [sentenceId]);
+    async getWordSentencesAsync(wordId: number): Promise<WordSentencesModel[]> {
+        let sql = `select id, english, chinese, keyWords, languageType, excerptFrom, createTime from data_sentence where id in (select sentenceId from sentence_word where wordId = ?);`
+        return await this.sqlmap.queryAsync(sql, [wordId])
+    }
+
+    async getWordAsync(queryModel: WordQueryModel): Promise<WordModel> {
+        let data = await this.sqlmap.dQueryAsync("getWord", queryModel);
+        return data[0];
+    }
+
+    async getWordByAutoCompleteAsync(query: string): Promise<IdName[]> {
+        let sql = `select id,english from data_word where english like ? limit 5;`;
+        let data = await this.sqlmap.queryAsync(sql, [`${query}%`]);
+        return data.map(x => { return { id: x["id"], name: x["english"] } });
     }
 }
 

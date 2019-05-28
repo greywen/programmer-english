@@ -1,0 +1,23 @@
+.page-content {
+    padding: 35px 87px 35px 87px;
+}
+
+.pay {
+    flex-direction: row;
+    display: flex;
+    justify-content:flex-start;
+}
+
+.pay image {
+    width: 260px;
+    height: 300px;
+    padding:30px 0px 20px 0px;
+}
+
+.tip {
+    font-size: 11pt;
+}
+
+.tip view {
+    padding:10px 0px;
+}

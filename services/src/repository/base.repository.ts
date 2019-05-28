@@ -11,7 +11,7 @@ export class BaseRepository<T> {
     }
 
     async getAsync(t: Partial<T>): Promise<T[]> {
-        let sqlResult = assembledDeleteSql(this.model.table, t);
+        let sqlResult = assembledSelectSql(this.model.table, t);
         let data = await sqlmap.queryAsync(sqlResult.sql, sqlResult.values);
         return data;
     }

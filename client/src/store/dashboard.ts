@@ -1,25 +1,41 @@
 import { observable } from 'mobx'
 
-import { get, post } from '../utils/request';
-import { IDashboardDataModel } from '../models/dashiboard';
+import { IQuestionDataModel, IQuestionAnswerModel } from '../models/dashiboard';
+import { BaseStore } from './base.store';
 
-class Dashboard {
+class DashboardStore extends BaseStore {
     @observable
-    dashboardData: IDashboardDataModel;
+    userAnswer: IQuestionAnswerModel;
+    @observable
+    question: IQuestionDataModel;
 
-    getSentenceAsync = async () => {
-        this.dashboardData = await get("sentence/get");
+    constructor() {
+        super();
+        this.loading = false;
     }
 
-    collectAsync = async () => {
-        let params = { sentenceId: this.dashboardData.id };
-        this.dashboardData.collectionId = await post("sentence/collect", params);
+    getQuestionAsync = async () => {
+        this.question = await this.get("question/getQuestion");
     }
 
-    createHistoryAsync = async () => {
-        let params = { sentenceId: this.dashboardData.id };
-        await post("sentence/createhistory", params);
+    createAnswerAsync = async (createModel: IQuestionAnswerModel): Promise<number> => {
+        return await this.post("question/createAswer", createModel);
     }
+
+    // createWordAsync = async () => {
+    //     await this.post("word/updateWord", {
+    //         id: 15,
+    //         english: "repository test",
+    //         chinese: "资源库;",
+    //         phoneticUS: "美 [rɪ'pɑzə.tɔri]",
+    //         phoneticEN: "英 [rɪ'pɒzɪt(ə)ri]",
+    //         collocation: "repository test test",
+    //         sentences: [
+    //             { id: 3, english: "As a result of our analysis, the team decided that the model of a document repository was the wrong model to enforce.", chinese: "根据我们的分析，团队认为文档存储库采用了错误的模型。" },
+    //             { id: 4, english: "update test 2", chinese: "update test 2" }
+    //         ]
+    //     });
+    // }
 }
 
-export default new Dashboard()
+export default new DashboardStore()

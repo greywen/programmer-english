@@ -1,0 +1,17 @@
+button {    
+    padding-left: 0;
+    padding-right: 0;
+    line-height:1;
+    background: transparent !important;
+    font-size: none !important;
+    text-align: inherit !important;
+
+}
+
+button::after {
+    border: none;
+}
+
+button:hover {
+    background: transparent !important;
+}

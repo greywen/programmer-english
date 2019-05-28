@@ -1,15 +1,13 @@
-export interface IDashboardDataModel {
+export interface IQuestionDataModel {
     id: number,
-    english: string,
-    chinese: string,
-    keyWords: string,
-    word: SentenceWordModel[],
-    collectionId: number,
+    userId: number,
+    createTime: string,
+    describe: string,
+    enable: boolean
 }
 
-interface SentenceWordModel {
-    id: number,
-    english: string,
-    chinese: string,
-    phonetic: string
+export interface IQuestionAnswerModel {
+    questionId: number,
+    answer: string,
+    contact: string
 }

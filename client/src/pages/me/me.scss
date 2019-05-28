@@ -1,0 +1,119 @@
+.page-content {
+    padding-top:20px;
+}
+
+.flex-custom-border {
+    border-top:1px solid #cdcdcd;
+    border-bottom:1px solid #cdcdcd;
+}
+
+.flex-custom-border-top {
+    border-top:1px solid #cdcdcd;
+}
+
+.flex-custom-border-bottom {
+    border-bottom:1px solid #cdcdcd;
+}
+
+.flex-custom-userinfo {
+    flex-direction: row;
+    display: flex;
+    padding:30px 87px 30px 87px;
+    background-color:#fff;
+}
+
+.flex-custom-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    display:inline-block;
+}
+
+.flex-custom-welcome {
+    padding-left: 50px;
+    font-size: 11pt;
+    height: 100px;
+    line-height: 40px;
+    padding-top:10px;
+}
+
+.flex-custom-row {
+    flex-direction: row;
+    display: flex;
+    justify-content:space-between;
+    padding: 35px 87px 35px 87px;
+    font-weight: bold;
+    background-color:#fff;
+}
+
+.flex-custom-icon {
+    color:#b2b2b2 !important;
+}
+
+.flex-custom-searchall {
+    color:#3271fd;
+    font-size: 11pt;
+    font-weight: normal !important;
+}
+
+.flex-custom-version {
+    color:#df6921 !important;
+    font-size: 9pt;
+    padding-right: 15px;
+}
+
+.flex-custom-content {
+    flex-direction: row;
+    font-size: 11pt;
+    background-color: #fff;
+    padding:30px 87px 30px 87px;
+}
+
+.flex-custom-box {
+    padding:20px 0px 60px 0px;
+    box-shadow: 10px 15px 30px #cdcdcd;
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.flex-custom-love {
+    display:flex; 
+    flex-direction:row;
+    justify-content:flex-end;
+    height: 40px;
+    font-size: 45px;
+    line-height: 40px;
+    padding-right: 50px;
+}
+
+.flex-custom-word {
+    text-transform:capitalize;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
+
+.page-help {
+    color:#b2b2b2;
+    font-size: 9pt;
+    padding: 10px;
+    text-align: center;
+}
+
+.footer {
+    padding:50px 87px 30px 87px;
+    font-size: 10pt;
+}
+
+.footer view {
+    padding: 30px 0px 30px 0px;
+}
+
+.bug {
+    color:#3271fd;
+}
+
+.copyright {
+    color:#b2b2b2;
+}

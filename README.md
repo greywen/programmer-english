@@ -2,7 +2,7 @@
 
 ### service环境准备
 ```
-1.安装redis http://www.runoob.com/redis/redis-install.html
+1.安装redis [http://www.runoob.com/redis/redis-install.html](http://www.runoob.com/redis/redis-install.html)
 2.yarn || npm i
 3.npm run wacth
 4.vs code启动node调试 / node index
@@ -12,7 +12,7 @@
 ```
 1.yarn || npm i
 2.npm run dev:weapp
-3.使用微信开发者工具打开dist文件夹 ()
+3.使用微信开发者工具打开dist文件夹
 ```
 
 

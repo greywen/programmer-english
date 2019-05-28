@@ -1,4 +1,4 @@
-import { app } from "./src/app";
+import app from "./src/app";
 import * as https from "https";
 import * as fs from "fs";
 

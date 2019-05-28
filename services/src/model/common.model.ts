@@ -1,5 +1,5 @@
 import * as Koa from "koa";
-import { UserModel } from "./user";
+import { JWTTokenModel } from "./user";
 
 export interface IdNameModel {
     id?: number | string
@@ -7,7 +7,15 @@ export interface IdNameModel {
 }
 
 export interface CustomKoaContextModel extends Koa.Context {
-    user: UserModel
+    user: JWTTokenModel,
+    redis: IRedis
+    redisOptions: IRedisOptions
+}
+
+interface IRedis {
+    setAsync(key: string, value: string | object, expire?: number),
+    getAsync(key: string): Promise<object>,
+    generateKeyAsync(key: string | object): string
 }
 
 export interface MailOptions {
@@ -16,4 +24,15 @@ export interface MailOptions {
     subject?: string,
     text?: string,
     html?: string
+}
+
+export interface IdName {
+    id: number,
+    name: string
+}
+
+export interface IRedisOptions {
+    key?: string,
+    expire?: number,
+    whetherCache?: boolean
 }

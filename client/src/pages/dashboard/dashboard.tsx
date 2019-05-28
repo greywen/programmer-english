@@ -1,30 +1,22 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, ScrollView } from '@tarojs/components';
+import { View, Navigator } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx'
 
 import "./dashboard.scss"
-
-import Welcome from "./components/welcome";
 import withLogin from "../../common/decorator/withLogin";
-import { IDashboardDataModel } from "../../models/dashiboard";
-import { readingText } from "../../utils/baiduUtils";
-import NavigationBar from '../../components/navigationBar/navigationBar';
-import Authorization from '../../components/authorization/authorization';
-import HighlightWord from '../../components/highlightWord/highlightWord';
-import CTransition from '../../components/transition/cTransition';
-
-import DashboardLoading from './components/loading';
+import { IQuestionDataModel } from "../../models/dashiboard";
+import { HtmlParse } from '../../components/htmlParse/htmlParse';
+import { NavigationBar, Loading, WecharAuthorize } from '../../components';
 
 interface DashboardState {
-    loading: boolean
+    scrollTop: number
 }
 
 interface DashboardProps {
     dashboardStore: {
-        dashboardData: IDashboardDataModel,
-        getSentenceAsync: () => {},
-        collectAsync: () => {},
-        createHistoryAsync: () => {}
+        loading: boolean,
+        question: IQuestionDataModel,
+        getQuestionAsync: () => {}
     },
     authorizationStore: {
         isAuthorized: boolean,
@@ -39,96 +31,44 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
     constructor() {
         super()
         this.state = {
-            loading: true
+            scrollTop: 0
         }
     }
 
     async componentWillMount() {
-        const { getSentenceAsync } = this.props.dashboardStore;
-        await getSentenceAsync();
-        this.showDashboardLoding();
+        const { getQuestionAsync } = this.props.dashboardStore;
+        await getQuestionAsync();
     }
 
-    showDashboardLoding = () => {
-        setTimeout(() => {
-            this.setState({ loading: false });
-        }, 1000)
+    onPageScroll = (e) => {
+        this.setState({
+            scrollTop: e.scrollTop
+        })
     }
 
-    onCollectWord = async () => {
-        const { collectAsync } = this.props.dashboardStore;
-        await collectAsync();
+    async onPullDownRefresh() {
+        await this.props.dashboardStore.getQuestionAsync();
+        Taro.stopPullDownRefresh();
     }
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { loading } = this.state;
-        const { dashboardStore: { dashboardData } } = this.props;
-
+        const { scrollTop } = this.state;
+        const { dashboardStore: { question, loading } } = this.props;
         return (
             <View className="page" style={{ height: windowHeight + "px" }}>
-                <NavigationBar></NavigationBar>
-
-                <DashboardLoading loading={loading} authorizationStore={this.props.authorizationStore}></DashboardLoading>
-
-
-                <View className="page-content" style={{ display: loading ? "none" : "block" }}>
-                    <CTransition visible={true}>
-                        <Welcome />
-                    </CTransition>
-
+                <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
+                <Loading loading={loading}></Loading>
+                <View className="page-content">
                     {
-                        dashboardData ?
-                            <View className="sentence-content">
-                                <View className="content">
-                                    <View className="header header-icon">
-                                        <CTransition visible={true}>
-                                            <Authorization authorizationStore={this.props.authorizationStore}>
-                                                <View onClick={this.onCollectWord}>
-                                                    {
-                                                        dashboardData && dashboardData.collectionId ?
-                                                            <Text style={{ color: "#ed4630" }} className="icomoonfont icon-heart-fill"></Text> :
-                                                            <Text style={{ color: "#ed4630" }} className="icomoonfont icon-heart"></Text>
-                                                    }
-                                                </View>
-                                            </Authorization>
-                                        </CTransition>
-                                    </View>
-
-                                    <View className="content-body">
-                                        <CTransition visible={true}>
-                                            <View>
-                                                {dashboardData.word.map((word, index) => {
-                                                    return <View className='flex-wrp' style='flex-direction:column; padding-bottom:10rpx;' key={index}>
-                                                        <View className='flex-item'>
-                                                            <View className="word-english" onClick={() => { readingText(word.english) }}>{word.english}
-                                                                <Text className="word-phonetic">{"  " + word.phonetic}</Text>
-                                                            </View>
-                                                        </View>
-                                                        <View className='flex-item'>
-                                                            <View className="word-chinese">{word.chinese}</View>
-                                                        </View>
-                                                    </View>
-                                                })}
-                                            </View>
-                                        </CTransition>
-                                        <CTransition visible={true}>
-                                            <View className='flex-wrp' style='flex-direction:column;margin-top:10px;'>
-                                                <View className='flex-item sentence-english' onClick={() => { readingText(dashboardData.english) }}>
-                                                    <HighlightWord sentence={dashboardData.english} words={dashboardData.keyWords.split(",")}></HighlightWord>
-                                                </View>
-                                                <ScrollView className='flex-item sentence-chinese'>
-                                                    {dashboardData.chinese}
-                                                </ScrollView>
-                                                {/* <View className='flex-item sentence-chinese'>{dashboardData.chinese}</View> */}
-                                            </View>
-                                        </CTransition>
-                                    </View>
-                                </View>
-                            </View> :
-                            null
+                        question ? <View>
+                            <HtmlParse data={question.describe}></HtmlParse>
+                            <WecharAuthorize authorizationStore={this.props.authorizationStore}>
+                                <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
+                            </WecharAuthorize>
+                        </View> : null
                     }
-                </View >
+                </View>
             </View >
         )
     }

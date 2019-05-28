@@ -1,3 +1,5 @@
+import { FeedbackType } from "../../common/enums";
+
 export interface UserModel extends WechatUserModel {
     id?: number,
     wxOpenId?: string,
@@ -12,4 +14,11 @@ export interface WechatUserModel {
     province?: string,
     country?: string,
     avatarUrl?: string
+}
+
+export interface UserFeedbackModel {
+    type: FeedbackType,
+    userId: number,
+    describe: string,
+    contact: string
 }

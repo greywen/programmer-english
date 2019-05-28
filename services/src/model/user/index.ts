@@ -1,9 +1,11 @@
-import { UserModel, WechatUserModel } from "./user.model"
-import { LoginResultModel } from "./login.model";
+import { UserModel, WechatUserModel, UserFeedbackModel } from "./user.model"
+import { LoginResultModel, JWTTokenModel } from "./login.model";
 
 export {
     UserModel,
     WechatUserModel,
 
-    LoginResultModel
+    LoginResultModel,
+    JWTTokenModel,
+    UserFeedbackModel
 }

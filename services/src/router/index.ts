@@ -5,17 +5,17 @@
 import { symbolRoutePrefix, Route } from './Route';
 import * as Koa from 'koa';
 import { verifyTokenAsync } from '../utils/jwtHelper';
-import { CustomKoaContextModel } from '../model/common.model';
-import { redis } from '../app';
+import { CustomKoaContextModel, IRedisOptions } from '../model/common.model';
+import { UserResource } from '../common/enums';
 
 //记录请求数
 let requestID = 0;
 
-export function authorize(target: any, name: string, value: PropertyDescriptor) {
+export function setUserInformation(target: any, name: string, value: PropertyDescriptor) {
     target[name] = sureIsArray(target[name]);
-    target[name].splice(target[name].length - 1, 0, Authorize);
+    target[name].splice(target[name].length - 1, 0, SetUserInformation);
 
-    async function Authorize(ctx: CustomKoaContextModel, next: any) {
+    async function SetUserInformation(ctx: CustomKoaContextModel, next: any) {
         let token = ctx.header["authorization"];
         ctx.user = await verifyTokenAsync(token);
         await next();
@@ -23,17 +23,35 @@ export function authorize(target: any, name: string, value: PropertyDescriptor) 
     return value;
 }
 
-export function cache(target: any, name: string, value: PropertyDescriptor) {
-    target[name] = sureIsArray(target[name]);
-    target[name].splice(target[name].length - 1, 0, Cache);
+export function authorize(resources: UserResource[]) {
+    return function (target: any, name: string, value: PropertyDescriptor, ) {
+        target[name] = sureIsArray(target[name]);
+        target[name].splice(target[name].length - 1, 0, Authorize);
 
-    async function Cache(ctx: CustomKoaContextModel, next: any) {
-        let token = ctx.header["authorization"];
-        if (token !== "Bearer undefined") {
+        async function Authorize(ctx: CustomKoaContextModel, next: any) {
+            let token = ctx.header["authorization"];
             ctx.user = await verifyTokenAsync(token);
-            let key = `${ctx.user.id}:${ctx.request.url}`;
-            let value = await redis.getAsync(key);
+            let isAuthorize = ctx.user.resources.filter(x => resources.includes(x)).length > 0;
+            if (isAuthorize) {
+                await next();
+            } else {
+                ctx.status = 401;
+                ctx.body = { message: "用户未授权" }
+            }
+        }
+        return value;
+    }
+}
 
+export function cache(ops?: IRedisOptions) {
+    return function (target: any, name: string, value: PropertyDescriptor) {
+        target[name] = sureIsArray(target[name]);
+        target[name].splice(target[name].length - 1, 0, Cache);
+
+        async function Cache(ctx: CustomKoaContextModel, next: any) {
+            let request = ctx.request;
+            let key = await ctx.redis.generateKeyAsync(request.url);
+            let value = await ctx.redis.getAsync(key);
             if (value) {
                 ctx.response.status = 200;
                 ctx.response.set('X-Koa-Redis-Cache', 'true');
@@ -41,12 +59,10 @@ export function cache(target: any, name: string, value: PropertyDescriptor) {
             } else {
                 await next();
             }
-        } else {
-            await next();
         }
-    }
 
-    return value;
+        return value;
+    }
 }
 
 /**

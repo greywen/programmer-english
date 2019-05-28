@@ -1,4 +1,7 @@
-interface LoginResult {
-    session_key: string
-    token: string
+import { FeedbackType } from "../common/enums";
+
+export interface IFeedbackModel {
+    type: FeedbackType,
+    describe: string,
+    contact: string
 }

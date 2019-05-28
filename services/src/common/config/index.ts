@@ -1,8 +1,8 @@
-import config = require("config");
+const config = require("config");
 var path = require('path');
 
 //日志根目录
-var baseLogPath = path.resolve(__dirname, '../logs')
+var baseLogPath = path.resolve(__dirname, '../../../logs')
 //错误日志输出完整路径
 var errorLogPath = baseLogPath + "/errors/";
 //响应日志输出完整路径
@@ -16,6 +16,7 @@ interface IConfig {
     redis: { host: string, port: number, auth_pass: string, db: number },
     email: { smtp: { host: string, port: number, secure: boolean, auth: { user: string, pass: string } }, managerEmail: string },
     baidu: { clientId: string, clientSecret: string, translateAppId: string, translateKey: string },
+    file: { fileUploadPath: string }
     log: any,
     baseLogPath: string
 }
@@ -28,6 +29,7 @@ export default <IConfig>{
     redis: config.get("redis"),
     email: config.get("email"),
     baidu: config.get("baidu"),
+    file: config.get("file"),
     log: {
         //日志格式等设置
         appenders:
@@ -61,6 +63,7 @@ export default <IConfig>{
             "errorLogger": { "appenders": ["errorLogger"], "level": "error" },
             "http": { "appenders": ["resLogger"], "level": "info" }
         },
-        baseLogPath: baseLogPath
+        baseLogPath: baseLogPath,
+        disableClustering: true
     }
 }

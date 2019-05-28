@@ -1,6 +1,11 @@
 import Taro, { Component, Config } from '@tarojs/taro';
 import { Provider } from '@tarojs/mobx';
 import "@tarojs/async-await";
+// var fundebug = require('fundebug-wxjs');
+
+// fundebug.init({
+//   apikey : '86fdbe66d01609c33ca0b43eace2ac609cd564aa329edac2a89de6105473e3c9'
+// });
 
 import './assets/icons.scss'
 import './app.scss'
@@ -23,13 +28,54 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      "pages/dashboard/dashboard"
+      "pages/dashboard/dashboard",
+      "pages/dashboard/userAnswer",
+      "pages/article/article",
+      "pages/article/article.detail",
+      "pages/word/word.create",
+      "pages/word/word",
+      "pages/word/word.list",
+      "pages/word/word.detail",
+
+      //me     
+      "pages/me/me",
+      "pages/me/feedback",
+      "pages/me/about",
+      "pages/me/bug",
+      "pages/me/help"
     ],
+    tabBar: {
+      selectedColor: "#3271fd",
+      color: "#b1b1b1",
+      backgroundColor: "#f8f8f8",
+      list: [
+        {
+          pagePath: "pages/dashboard/dashboard", text: "推荐",
+          selectedIconPath: "./assets/images/compass-selected.png",
+          iconPath: "./assets/images/compass.png"
+        },
+        {
+          pagePath: "pages/word/word", text: "技术词汇",
+          selectedIconPath: "./assets/images/file-word-selected.png",
+          iconPath: "./assets/images/file-word.png"
+        },
+        {
+          pagePath: "pages/article/article", text: "文档阅读",
+          selectedIconPath: "./assets/images/read-selected.png",
+          iconPath: "./assets/images/read.png"
+        },
+        {
+          pagePath: "pages/me/me", text: "我的",
+          selectedIconPath: "./assets/images/user-selected.png",
+          iconPath: "./assets/images/user.png"
+        }
+      ]
+    },
     requiredBackgroundModes: ["audio"],
     window: {
-      disableScroll: true,
       navigationBarTextStyle: "white",
-      navigationStyle: "custom"
+      navigationStyle: "custom",
+      enablePullDownRefresh: true
     }
   }
 
