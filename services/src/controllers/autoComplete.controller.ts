@@ -10,7 +10,7 @@ class AutoCompleteController {
         path: "/word",
         unless: false
     })
-    @authorize([UserResource.CreateWord, UserResource.EditWord])
+    @authorize([UserResource.WordCreate, UserResource.WordEdit])
     async word(ctx: CustomKoaContextModel) {
         ctx.body = await autoCompleteService.getWordByAutoComplete(ctx.query["query"]);
     }
