@@ -55,8 +55,9 @@ export class WordService {
         if (page < 0 && page > 20) {
             pageSize = 20;
         }
-        if (pageSize < 0) {
-            page = 0;
+        if (pageSize < 1) {
+            page = 1;
+            page *= pageSize;
         }
 
         return await wordRepository.getWordListAsync({ userId: queryModel.userId, page: page, pageSize: pageSize + 1 });

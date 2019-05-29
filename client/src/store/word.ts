@@ -78,14 +78,6 @@ class WordStore extends BaseStore {
     updateWordAsync = async (word: IWordCreateModel) => {
         return await this.post("word/updateWord", word);
     }
-
-    createUserWordAsync = async (word: IWordCreateModel) => {
-        return await this.post("userWord/createWord", word);
-    }
-
-    updateUserWordAsync = async (word: IWordCreateModel) => {
-        return await this.post("userWord/updateWord", word);
-    }
 }
 
 export default new WordStore()

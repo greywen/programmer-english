@@ -116,12 +116,12 @@ export default class Me extends Component<MeProps, MeState> {
                     <View className="flex-custom-border-top">
                         <View className="flex-custom-row">
                             <View className="flex-custom-text">
-                                <Navigator url="./user/userWord.list">
+                                <Navigator url="../user/userWord.list">
                                     我的词汇
-                            </Navigator>
+                                </Navigator>
                             </View>
                             <View className="flex-custom-searchall">
-                                <Navigator url="./user/userWord.create">+</Navigator>
+                                <Navigator url="../user/userWord.create">+</Navigator>
                             </View>
                         </View>
                     </View>

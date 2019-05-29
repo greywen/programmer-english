@@ -21,7 +21,9 @@ export interface IWordListDataModel {
     id: number,
     english: string,
     chinese: string,
-    createTime: string
+    comments: string,
+    createTime: string,
+    showDetail: boolean
 }
 
 export interface IWordListQueryModel {

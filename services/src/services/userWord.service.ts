@@ -26,12 +26,13 @@ export class UserWordService {
     async getUserWordListAsync(queryModel: WordListQueryModel): Promise<UserWordResultModel[]> {
         let page = parseNumber(queryModel.page), pageSize = parseNumber(queryModel.pageSize);
 
-        if (page < 0 && page > 20) {
+        if (pageSize < 0 && pageSize > 20) {
             pageSize = 20;
         }
-        if (pageSize < 0) {
+        if (page < 0) {
             page = 0;
         }
+        page *= 20;
 
         return await userWordRepository.getUserWordListAsync({ userId: queryModel.userId, page: page, pageSize: pageSize + 1 });
     }

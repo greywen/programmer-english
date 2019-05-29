@@ -3,10 +3,10 @@ import "./userWord.create.scss"
 import { View, Input, Textarea } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
-import { NavigationBar, Loading } from "../../../components";
-import { NavigatorOpenType } from "../../../common/enums";
-import { showSuccess, showMessage } from "../../../utils/wechatUtils";
-import { IUserWordCreateModel } from "../../../models/word";
+import { NavigationBar, Loading } from "../../components";
+import { NavigatorOpenType } from "../../common/enums";
+import { showSuccess, showMessage } from "../../utils/wechatUtils";
+import { IUserWordCreateModel } from "../../models/word";
 
 interface UserWordState {
     id: number | null,
@@ -17,14 +17,14 @@ interface UserWordState {
 }
 
 interface UserWordProps {
-    wordStore: {
+    userWordStore: {
         loading: boolean,
         createUserWordAsync: (word: IUserWordCreateModel) => {},
         updateUserWordAsync: (word: IUserWordCreateModel) => {}
     }
 }
 
-@inject("wordStore")
+@inject("userWordStore")
 @observer
 export default class UserWordCreate extends Component<UserWordProps, UserWordState> {
 
@@ -49,9 +49,9 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
 
         if (id) {
             _word["id"] = id;
-            result = await this.props.wordStore.updateUserWordAsync(_word);
+            result = await this.props.userWordStore.updateUserWordAsync(_word);
         } else {
-            result = await this.props.wordStore.createUserWordAsync(_word);
+            result = await this.props.userWordStore.createUserWordAsync(_word);
         }
 
         if (result) {
@@ -71,10 +71,10 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
         const { english, chinese, comments } = this.state;
-        const { wordStore: { loading } } = this.props;
+        const { userWordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词管理" scrollTop={0} backUrl="../me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="单词管理" scrollTop={0} backUrl="../me/me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
@@ -92,7 +92,7 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
                     </View>
                     <View className="form-item">
                         <View className="form-title">备注</View>
-                        <Textarea placeholder="选填" maxlength={800} autoHeight value={comments} onInput={(e) => { this.setState({ comments: e.target["comments"] }) }}></Textarea>
+                        <Textarea placeholder="选填" maxlength={800} autoHeight value={comments} onInput={(e) => { this.setState({ comments: e.target["value"] }) }}></Textarea>
                     </View>
                     <View className="form-submit-item">
                         <View className="form-submit" onClick={this.onSubmit}>完成</View>
