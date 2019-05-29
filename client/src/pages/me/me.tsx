@@ -89,7 +89,7 @@ export default class Me extends Component<MeProps, MeState> {
                 <View className="page-content">
                     <View className="flex-custom-border-top">
                         <Navigator url="../word/word.list" className="flex-custom-row">
-                            <View className="flex-custom-text">我的词汇</View>
+                            <View className="flex-custom-text">收藏词汇</View>
                             <View className="flex-custom-searchall">查看全部</View>
                         </Navigator>
                         <Loading loading={loading}></Loading>
@@ -112,6 +112,20 @@ export default class Me extends Component<MeProps, MeState> {
                         }
 
                     </View>
+
+                    <View className="flex-custom-border-top">
+                        <View className="flex-custom-row">
+                            <View className="flex-custom-text">
+                                <Navigator url="./user/userWord.list">
+                                    我的词汇
+                            </Navigator>
+                            </View>
+                            <View className="flex-custom-searchall">
+                                <Navigator url="./user/userWord.create">+</Navigator>
+                            </View>
+                        </View>
+                    </View>
+
                     <ResourceAuthorize resources={[UserResource.CreateWord]}>
                         <View className="flex-custom-border-top">
                             <Navigator url="../word/word.create" className="flex-custom-row">

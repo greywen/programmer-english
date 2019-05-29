@@ -42,7 +42,9 @@ class App extends Component {
       "pages/me/feedback",
       "pages/me/about",
       "pages/me/bug",
-      "pages/me/help"
+      "pages/me/help",
+      "pages/me/user/userWord.create",
+      "pages/me/user/userWord.list"
     ],
     tabBar: {
       selectedColor: "#3271fd",

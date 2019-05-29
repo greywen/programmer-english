@@ -54,3 +54,11 @@ export interface IWordCreateModel {
     collocation?: string,
     sentences: IEnglishChineseModel[],
 }
+
+
+export interface IUserWordCreateModel {
+    id?: number,
+    english: string,
+    chinese: string,
+    comments: string
+}
