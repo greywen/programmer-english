@@ -80,8 +80,8 @@ export default class WordDetail extends Component<WordDetailProps, {}> {
                         <View className="flex-custom-item-title">例句{/* <Navigator url="">(推荐?)</Navigator> */}</View>
                         <View className="flex-custom-item-sentences">
                             {
-                                wordDetail.sentences.map(sentence => {
-                                    return <View key={sentence.english}>
+                                wordDetail.sentences.map((sentence, index) => {
+                                    return <View key={"sentence-" + index}>
                                         <View className="flex-custom-sentence-cn">
                                             {sentence.chinese}
                                         </View>
@@ -94,7 +94,7 @@ export default class WordDetail extends Component<WordDetailProps, {}> {
 
                         </View>
                         <View className="page-help">
-                            <Navigator url="">单词有问题?</Navigator>
+                            <Navigator url={`../me/feedback?wordId=${wordDetail.id}`}>单词有问题?</Navigator>
                         </View>
                     </View>
                 </View>

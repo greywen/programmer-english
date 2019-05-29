@@ -18,3 +18,11 @@ select dw.id, dw.english, dw.chinese, dw.phoneticUS, dw.phoneticEN, dw.collocati
 from data_word dw
     left join user_collection uc on uc.wordId = dw.id and uc.userId = @userId
 where dw.id = @wordId;
+
+
+#select getUserWordList:
+select id,english,chinese,comments,createTime 
+from user_word
+where createUserId = @userId 
+order by id desc
+limit @page,@pageSize;

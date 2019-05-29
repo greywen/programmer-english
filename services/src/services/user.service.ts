@@ -6,7 +6,7 @@ import { userRepository, userLoginLogRepository, userFeedbackRepository } from "
 import { UserModel, UserFeedbackModel } from "../model/user";
 import { generateTokenAsync } from "../utils/jwtHelper";
 import config from "../common/config";
-import { FeedbackType } from "../common/enums";
+import { FeedbackType, UserResource } from "../common/enums";
 import { FeedbackTypeArray } from "../common/constant";
 import { BadRequestException } from "../common/exception";
 import userResourceRepository from "../repository/userResource.repository";
@@ -22,6 +22,7 @@ export class UserService {
                     user = loginModel.wechatUserInfo;
                     user.wxOpenId = jsCodeSession.openid;
                     user.id = await this.createUserAsync(user);
+                    this.createUserDefaultResourceAsync(user.id);
                     await this.createUserLoginLog(user.id);
                     return this.generateLoginResult(user, jsCodeSession.session_key);
                 }
@@ -37,6 +38,10 @@ export class UserService {
 
     async createUserAsync(userModel: UserModel): Promise<number> {
         return await userRepository.insertAsync(userModel);
+    }
+
+    async createUserDefaultResourceAsync(userId: number) {
+        return await userResourceRepository.createUserDefaultResourcesAsync(userId);
     }
 
     async createUserLoginLog(userId: number): Promise<void> {

@@ -5,7 +5,7 @@ import { CustomKoaContextModel } from "../model/common.model";
 import wordService from "../services/word.service";
 import { CreateCollectModel } from "../model/word";
 import { getUserId } from "../utils/jwtHelper";
-import { WordListQueryModel } from "src/model/word/word.model";
+import { WordListQueryModel } from "../model/word/word.model";
 import { translate } from "../utils/translate";
 import { UserResource } from "../common/enums";
 
@@ -96,7 +96,7 @@ class WordController {
         path: "/translate",
         unless: false
     })
-    @authorize([UserResource.CreateWord, UserResource.EditWord])
+    @authorize([UserResource.WordCreate, UserResource.WordEdit])
     async translate(ctx: CustomKoaContextModel) {
         let { text, type } = ctx.request.body;
         ctx.body = await translate(text, type);
@@ -107,7 +107,7 @@ class WordController {
         path: "/createWord",
         unless: false
     })
-    @authorize([UserResource.CreateWord])
+    @authorize([UserResource.WordCreate])
     async createWord(ctx: CustomKoaContextModel) {
         ctx.body = await wordService.createWordAsync(ctx.request.body);
     }
@@ -117,7 +117,7 @@ class WordController {
         path: "/updateWord",
         unless: false
     })
-    @authorize([UserResource.EditWord])
+    @authorize([UserResource.WordEdit])
     async updateWord(ctx: CustomKoaContextModel) {
         ctx.body = await wordService.updateWordAsync(ctx.request.body);
     }
