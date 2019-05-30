@@ -116,12 +116,12 @@ export default class Me extends Component<MeProps, MeState> {
                     <View className="flex-custom-border-top">
                         <View className="flex-custom-row">
                             <View className="flex-custom-text">
-                                <Navigator url="../user/userWord.list">
+                                <Navigator hoverClass="none" url="../user/userWord.list">
                                     我的词汇
                                 </Navigator>
                             </View>
                             <View className="flex-custom-searchall">
-                                <Navigator url="../user/userWord.create">+</Navigator>
+                                <Navigator hoverClass="none" url="../user/userWord.create"><Text className="icomoonfont icon-plus"></Text></Navigator>
                             </View>
                         </View>
                     </View>
@@ -130,7 +130,7 @@ export default class Me extends Component<MeProps, MeState> {
                         <View className="flex-custom-border-top">
                             <Navigator url="../word/word.create" className="flex-custom-row">
                                 <View className="flex-custom-text">单词管理</View>
-                                <View className="flex-custom-icon">></View>
+                                <View className="flex-custom-icon"><Text className="icomoonfont icon-right"></Text></View>
                             </Navigator>
                         </View>
                     </ResourceAuthorize>
@@ -138,21 +138,21 @@ export default class Me extends Component<MeProps, MeState> {
                     <View className="flex-custom-border-top">
                         <Navigator url="./help" className="flex-custom-row">
                             <View className="flex-custom-text">请喝饮料</View>
-                            <View className="flex-custom-icon">></View>
+                            <View className="flex-custom-icon"><Text className="icomoonfont icon-right"></Text></View>
                         </Navigator>
                     </View>
 
                     <View className="flex-custom-border-top">
                         <Navigator url="./feedback" className="flex-custom-row">
                             <View className="flex-custom-text">反馈建议</View>
-                            <View className="flex-custom-icon">></View>
+                            <View className="flex-custom-icon"><Text className="icomoonfont icon-right"></Text></View>
                         </Navigator>
                     </View>
 
                     <View className="flex-custom-border">
                         <Navigator url="./about" className="flex-custom-row">
                             <View className="flex-custom-text">关于</View>
-                            <View className="flex-custom-icon"><Text className="flex-custom-version">V 3.0.0</Text> ></View>
+                            <View className="flex-custom-icon"><Text className="flex-custom-version">V 3.0.0</Text></View>
                         </Navigator>
                     </View>
 

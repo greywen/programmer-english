@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./userWord.list.scss"
-import { View } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar, Loading, CTransition } from "../../components";
@@ -93,13 +93,13 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
                             return <View className="border-bottom" key={"word-" + index}>
                                 <View className="list-item">
                                     <View className="list-item-text">{word.english}</View>
+                                    <View className="list-item-time">{word.chinese}</View>
                                     <View className="list-item-content" onClick={() => { this.onShowDetail(index) }}>
                                         <View className="list-item-time">{word.createTime}</View>
-                                        <View className="list-item-tool">{word.showDetail ? "^" : "v"}</View>
+                                        <View className="list-item-tool">{word.showDetail ? <Text className="icomoonfont icon-down"></Text> : <Text className="icomoonfont icon-right"></Text>}</View>
                                     </View>
                                     <CTransition name="fadeDown" transform="5" duration={500} visible={word.showDetail}>
                                         <View className="list-item-more">
-                                            <View>{word.chinese}</View>
                                             <View>{word.comments}</View>
                                         </View>
                                     </CTransition>
