@@ -50,12 +50,10 @@ export default class WordList extends Component<WordListProps, {}> {
                     {
                         wordList && wordList.map(word => {
                             return <Navigator key={"word-" + word.id} url={`./word.detail?wordId=${word.id}`}>
-                                <View className="border-bottom">
-                                    <View className="list-item">
-                                        <View className="list-item-text">{word.english}</View>
-                                        <View className="list-item-time">{word.chinese}</View>
-                                        <View className="list-item-time">{word.createTime}</View>
-                                    </View>
+                                <View className="list-item">
+                                    <View className="list-item-title">{word.english}</View>
+                                    <View className="list-item-text">{word.chinese}</View>
+                                    <View className="list-item-time">{word.createTime}</View>
                                 </View>
                             </Navigator>
                         })

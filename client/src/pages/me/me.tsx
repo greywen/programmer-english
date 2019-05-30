@@ -70,7 +70,7 @@ export default class Me extends Component<MeProps, MeState> {
         const { scrollTop } = this.state;
         const { meStore: { loading, word } } = this.props;
 
-        return <View className="page" style={{ minHeight: windowHeight + "px", backgroundColor: "#f8f8f8" }}>
+        return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="我的" scrollTop={scrollTop}></NavigationBar>
             <View className="flex-custom-border-bottom">
                 <View className="flex-custom-userinfo">
@@ -119,11 +119,11 @@ export default class Me extends Component<MeProps, MeState> {
                     <View className="flex-custom-border-top">
                         <ResourceAuthorize resources={[UserResource.UserWordCreate]}>
                             <View className="flex-custom-row">
-                                <View className="flex-custom-text">
-                                    <Navigator hoverClass="none" url="../user/userWord.list">
+                                <Navigator hoverClass="none" url="../user/userWord.list">
+                                    <View className="flex-custom-text">
                                         我的词汇
-                                    </Navigator>
-                                </View>
+                                    </View>
+                                </Navigator>
                                 <View className="flex-custom-searchall">
                                     <Navigator hoverClass="none" url="../user/userWord.create"><Text className="icomoonfont icon-plus"></Text></Navigator>
                                 </View>

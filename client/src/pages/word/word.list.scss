@@ -1,3 +1,7 @@
+.page {
+    background-color: #efeff4;
+}
+
 .page-content {
     padding-top:130px;
 }
@@ -20,10 +24,11 @@
     flex-direction: column;
     display: flex;
     border-radius:5px;
-    padding:20px 87px 20px 87px;
+    padding:35px 87px 20px 87px;
+    margin-bottom: 20px;
 }
 
-.list-item-text {
+.list-item-title {
     text-transform:capitalize;
     font-weight: bold;
     font-size: 14pt;
@@ -31,6 +36,7 @@
 
 .list-item-time {
     padding-top: 10px;
+    font-size: 11pt;
     color:#b2b2b2;
 }
 

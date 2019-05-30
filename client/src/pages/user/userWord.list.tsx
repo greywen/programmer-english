@@ -101,20 +101,14 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
                 <View className="word-list">
                     {
                         wordList && wordList.map((word, index) => {
-                            return <View className="border-bottom" key={"word-" + index}>
-                                <View className="list-item">
-                                    <View className="list-item-text">{word.english}</View>
-                                    <View className="list-item-time">{word.chinese}</View>
-                                    <View className="list-item-content" onClick={() => { this.onShowDetail(index) }}>
+                            return <View key={"word-" + index}>
+                                <View className="list-group">
+                                    <View className="list-item-title">{word.english}</View>
+                                    <View className="list-item-text">{word.chinese}</View>
+                                    <View className="list-item-content">
+                                        <View>{word.comments}</View>
                                         <View className="list-item-time">{word.createTime}</View>
-                                        <View className="list-item-tool">{word.showDetail ? <Text className="icomoonfont icon-down"></Text> : <Text className="icomoonfont icon-right"></Text>}</View>
                                     </View>
-                                    <CTransition name="fadeDown" transform="5" duration={500} visible={word.showDetail}>
-                                        <View className="list-item-more">
-                                            <View>{word.comments}</View>
-                                            <View className="list-item-del" onClick={() => { this.onDeleteWord(word.id, index) }}>删除词汇</View>
-                                        </View>
-                                    </CTransition>
                                 </View>
                             </View>
                         })

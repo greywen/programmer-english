@@ -68,7 +68,8 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
                     height: this.state.height + "px",
                     lineHeight: this.state.height + "px",
                     background: background || "#f5f4f9",
-                    color: color || "#000"
+                    color: color || "#000",
+                    borderBottom: hidePageTitle ? "1px solid #cdcdcd" : "none"
                 }}>
                     <View className="tools" style={{
                         paddingTop: this.state.paddingTop + "px",

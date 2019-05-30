@@ -78,17 +78,13 @@ class WordController {
         unless: false
     })
     @setUserInformation
-    @cache()
     async getWordDetailAsync(ctx: CustomKoaContextModel) {
         let wordId = ctx.query["wordId"];
         if (!wordId) {
             ctx.body = {};
             return;
         }
-        let _body = await wordService.getWordDetailAsync({ wordId: wordId, userId: ctx.user.id, next: false });
-        let key = await ctx.redis.generateKeyAsync(ctx.request.url);
-        await ctx.redis.setAsync(key, _body);
-        ctx.body = _body;
+        ctx.body = await wordService.getWordDetailAsync({ wordId: wordId, userId: ctx.user.id, next: false });;
     }
 
     @router({

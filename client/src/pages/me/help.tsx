@@ -1,4 +1,4 @@
-import Taro, { Component, showLoading, hideLoading } from "@tarojs/taro";
+import Taro, { Component, showLoading } from "@tarojs/taro";
 import "./about.scss"
 import { View, Image } from "@tarojs/components";
 
@@ -18,7 +18,7 @@ export default class Help extends Component<{}, HelpState> {
     onSavePayPhoto = () => {
         showLoading();
         Taro.downloadFile({
-            url: "https://wx.just-right.cn/1558755583.png",
+            url: "https://wx.just-right.cn:8092/1558755583.png",
             success: (res) => {
                 if (res.statusCode === 200) {
                     Taro.saveImageToPhotosAlbum({
@@ -27,7 +27,6 @@ export default class Help extends Component<{}, HelpState> {
                         showSuccess("保存成功");
                     });
                 }
-                hideLoading();
             },
             fail: (err) => {
                 console.log(err);
@@ -38,7 +37,7 @@ export default class Help extends Component<{}, HelpState> {
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
 
-        return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
+        return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="请喝饮料" scrollTop={0} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <View className="page-content">
                 <View className="pay">
