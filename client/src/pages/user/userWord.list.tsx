@@ -19,7 +19,8 @@ interface UserWordListProps {
         loading: boolean,
         showLoadMore: boolean,
         getUserWordListAsync: (page: number, pageSize: number) => IWordListDataModel[],
-        getMoreWordAsync: () => {}
+        getMoreWordAsync: () => {},
+        deleteUserWordAsync: (wordId: number) => Promise<boolean>
     }
 }
 @inject("userWordStore")
@@ -62,6 +63,16 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
         })
     }
 
+    onDeleteWord(wordId: number, index: number) {
+        this.props.userWordStore.deleteUserWordAsync(wordId).then(() => {
+            let _wordList = this.state.wordList.slice();
+            _wordList.splice(index, 1);
+            this.setState({
+                wordList: _wordList
+            })
+        });
+    }
+
     async onPullDownRefresh() {
         this.setState({
             page: 0
@@ -101,6 +112,7 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
                                     <CTransition name="fadeDown" transform="5" duration={500} visible={word.showDetail}>
                                         <View className="list-item-more">
                                             <View>{word.comments}</View>
+                                            <View className="list-item-del" onClick={() => { this.onDeleteWord(word.id, index) }}>删除词汇</View>
                                         </View>
                                     </CTransition>
                                 </View>

@@ -1,7 +1,8 @@
-import { prefix, router, setUserInformation, cache } from "../router";
+import { prefix, router, setUserInformation, cache, authorize } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
 import userQuestionService from "../services/userQuestion.service";
 import { CreateUserQuestionAnswerModel } from "../model/userQuestion";
+import { UserResource } from "../common/enums";
 
 @prefix("/question")
 class UserQuestionController {
@@ -24,6 +25,7 @@ class UserQuestionController {
         unless: false
     })
     // @required()
+    @authorize([UserResource.QuertionAnswerCreate])
     @setUserInformation
     async CreateQuertionAswer(ctx: CustomKoaContextModel) {
         let createModel = <CreateUserQuestionAnswerModel>ctx.request["body"];

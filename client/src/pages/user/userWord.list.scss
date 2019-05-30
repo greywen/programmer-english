@@ -45,8 +45,12 @@
 
 .list-item-more view {
     padding: 5px 0px;
-     color:#b2b2b2;
+    color:#b2b2b2;
     font-size: 11pt;
+}
+
+.list-item-del {
+    color:red !important;
 }
 
 .list-item-time {

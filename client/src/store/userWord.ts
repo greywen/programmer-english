@@ -23,6 +23,10 @@ class UserWordStore extends BaseStore {
     updateUserWordAsync = async (word: IWordCreateModel) => {
         return await this.post("userWord/updateWord", word);
     }
+
+    deleteUserWordAsync = async (wordId: number) => {
+        return await this.post("userWord/deleteWord", { wordId: wordId });
+    }
 }
 
 export default new UserWordStore()
