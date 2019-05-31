@@ -1,9 +1,9 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./userWord.list.scss"
-import { View, Text } from "@tarojs/components";
+import { View, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
-import { NavigationBar, Loading, CTransition } from "../../components";
+import { NavigationBar, Loading, Swipeout } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
 import { IWordListDataModel } from "../../models/word";
 
@@ -37,7 +37,7 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
         }
     }
 
-    async componentDidMount() {
+    async init() {
         const { getUserWordListAsync } = this.props.userWordStore;
         const { page, pageSize } = this.state;
         var _wordList = await getUserWordListAsync(page, pageSize);
@@ -46,6 +46,10 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
             wordList: _wordList,
             showLoadMore: _wordList.length > this.state.pageSize
         })
+    }
+
+    async componentDidMount() {
+        await this.init();
     }
 
     async onLoadMoreWordAsync() {
@@ -77,7 +81,7 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
         this.setState({
             page: 0
         })
-        await this.props.userWordStore.getUserWordListAsync(0, 20);
+        await this.init();
         Taro.stopPullDownRefresh();
     }
 
@@ -101,7 +105,7 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
                 <View className="word-list">
                     {
                         wordList && wordList.map((word, index) => {
-                            return <View key={"word-" + index}>
+                            return <Swipeout key={"word-" + index}>
                                 <View className="list-group">
                                     <View className="list-item-title">{word.english}</View>
                                     <View className="list-item-text">{word.chinese}</View>
@@ -110,7 +114,13 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
                                         <View className="list-item-time">{word.createTime}</View>
                                     </View>
                                 </View>
-                            </View>
+                                <View className="list-right-group">
+                                    <View className="list-right-group-item" style={{ backgroundColor: "#3271fd" }}>
+                                        <Navigator url={`./userWord.create?word=${JSON.stringify(word)}`}>编辑</Navigator>
+                                    </View>
+                                    <View className="list-right-group-item" style={{ backgroundColor: "#fd3f34" }} onClick={() => { this.onDeleteWord(word.id, index) }}>删除</View>
+                                </View>
+                            </Swipeout>
                         })
                     }
                 </View>

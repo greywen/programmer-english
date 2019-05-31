@@ -30,11 +30,12 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
 
     constructor() {
         super()
+        let word = JSON.parse(this.$router.params["word"] || "{}");
         this.state = {
-            id: 0,
-            english: "",
-            chinese: "",
-            comments: "",
+            id: word["id"],
+            english: word["english"],
+            chinese: word["chinese"],
+            comments: word["comments"],
             timeout: null
         }
     }
@@ -55,8 +56,8 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
         }
 
         if (result) {
-            showSuccess("操作成功");
             this.clearState();
+            Taro.redirectTo({ url: "./userWord.list" });
         }
     }
 
