@@ -32,7 +32,7 @@ export class UserWordService {
         if (page < 0) {
             page = 0;
         }
-        page *= 20;
+        page *= pageSize;
 
         return await userWordRepository.getUserWordListAsync({ userId: queryModel.userId, page: page, pageSize: pageSize + 1 });
     }

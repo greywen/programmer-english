@@ -52,11 +52,11 @@ export class WordService {
     async getWordListAsync(queryModel: WordListQueryModel): Promise<WordListModel[]> {
         let page = parseNumber(queryModel.page), pageSize = parseNumber(queryModel.pageSize);
 
-        if (page < 0 && page > 20) {
+        if (pageSize < 0 && pageSize > 20) {
             pageSize = 20;
         }
-        if (pageSize < 1) {
-            page = 1;
+        if (page < 0) {
+            page = 0;
         }
         page *= pageSize;
 

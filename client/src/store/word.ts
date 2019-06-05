@@ -47,16 +47,10 @@ class WordStore extends BaseStore {
         this.wordDetail.collectionId = await this.post("word/collectWord", params);
     }
 
-    getWordListAsync = async () => {
-        let _wordList = await this.get("word/getWordList", this.wordListQuery);
-        this.wordList = _wordList;
+    getWordListAsync = async (page: number, pageSize: number) => {
+        return  await this.get("word/getWordList",  { page: page, pageSize: pageSize });
     }
-
-    getMoreWordAsync = async () => {
-        this.wordListQuery.page += 1;
-        this.getWordListAsync();
-    }
-
+    
     getWordDetailAsync = async (wordId: number) => {
         let wordDetail = await this.get("word/getWordDetail", { wordId: wordId });
         this.wordDetail = wordDetail;

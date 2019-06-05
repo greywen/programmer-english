@@ -60,6 +60,7 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
             page: _page
         })
         var _wordList = await getUserWordListAsync(_page, pageSize);
+        _wordList.shift();
         _wordList = this.state.wordList.concat(_wordList);
         this.setState({
             wordList: _wordList,
