@@ -6,7 +6,7 @@ import { userRepository, userLoginLogRepository, userFeedbackRepository } from "
 import { UserModel, UserFeedbackModel } from "../model/user";
 import { generateTokenAsync } from "../utils/jwtHelper";
 import config from "../common/config";
-import { FeedbackType, UserResource } from "../common/enums";
+import { FeedbackType } from "../common/enums";
 import { FeedbackTypeArray } from "../common/constant";
 import { BadRequestException } from "../common/exception";
 import userResourceRepository from "../repository/userResource.repository";
@@ -50,13 +50,14 @@ export class UserService {
 
     async generateLoginResult(user: UserModel, session_key: string) {
         let userResources = await userResourceRepository.getAsync({ userId: user.id });
-        let userResourceIds = userResources.map(x => x.id);
+        let userResourceIds = userResources.map(x => x.resourceId);
 
         return {
             sessionKey: session_key,
             token: await generateTokenAsync({ id: user.id, resources: userResourceIds }),
             resourceIds: userResourceIds,
-            expireTime: moment().add(config.jwt.expired, "day").toString()
+            expireTime: moment().add(config.jwt.expired, "day").toString(),
+            apiAccessToken: ""
         };
     }
 

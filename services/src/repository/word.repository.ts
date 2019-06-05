@@ -1,5 +1,5 @@
 import { BaseRepository } from "./base.repository";
-import { WordQueryModel, WordSentencesModel, WordModel, WordListModel, WordListQueryModel } from "../model/word/word.model";
+import { WordQueryModel, WordSentencesModel, WordListModel, WordListQueryModel, WordResultModel } from "../model/word/word.model";
 import { WordEntity } from "./entity/word.entity";
 import { IdName } from "../model/common.model";
 
@@ -13,7 +13,7 @@ class WordRepository extends BaseRepository<WordEntity> {
         return await this.sqlmap.queryAsync(sql, [wordId])
     }
 
-    async getWordAsync(queryModel: WordQueryModel): Promise<WordModel> {
+    async getWordAsync(queryModel: WordQueryModel): Promise<WordResultModel> {
         let data = await this.sqlmap.dQueryAsync("getWord", queryModel);
         return data[0];
     }

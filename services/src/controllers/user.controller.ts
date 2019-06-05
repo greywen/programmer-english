@@ -1,8 +1,10 @@
-import { prefix, router, setUserInformation } from "../router";
+import { prefix, router, setUserInformation, authorize } from "../router";
 import userService from "../services/user.service";
 import { getBaiduApiTokenAsync } from "../utils/baiduApiUtils";
 import { CustomKoaContextModel } from "../model/common.model";
 import { UserFeedbackModel } from "../model/user";
+import { UserDefaultResources } from "../common/constant";
+import { UserResource } from "../common/enums";
 
 @prefix("/user")
 class UserController {
@@ -21,7 +23,7 @@ class UserController {
             ctx.redis.setAsync("baiduApiToken", apiToken, 3600);
         }
 
-        loginResult ? loginResult.apiAccessToken = apiToken.access_token : loginResult = { apiAccessToken: apiToken.access_token, resourceIds: [] };
+        loginResult ? loginResult.apiAccessToken = apiToken.access_token : loginResult = { apiAccessToken: apiToken.access_token, resourceIds: UserDefaultResources };
 
         ctx.body = loginResult;
     }
@@ -32,6 +34,7 @@ class UserController {
         unless: false
     })
     // @required()
+    @authorize([UserResource.FeedbackCreate])
     @setUserInformation
     async createFeedback(ctx: CustomKoaContextModel) {
         let feedback = <UserFeedbackModel>ctx.request["body"];

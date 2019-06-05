@@ -12,35 +12,74 @@ interface WordListProps {
         loading: boolean,
         showLoadMore: boolean,
         wordList: IWordListDataModel[],
-        getWordListAsync: () => {},
-        getMoreWordAsync: () => {}
+        getWordListAsync: (page: number, pageSize: number) => IWordListDataModel[]
     }
 }
+
+interface WordListState {
+    wordList: IWordListDataModel[],
+    page: number,
+    pageSize: number,
+    showLoadMore: boolean
+}
+
 @inject("wordStore")
 @observer
-export default class WordList extends Component<WordListProps, {}> {
+export default class WordList extends Component<WordListProps, WordListState> {
 
     constructor() {
         super()
+        this.state = {
+            wordList: [],
+            page: 0,
+            pageSize: 20,
+            showLoadMore: false
+        }
     }
 
     async componentDidMount() {
+        await this.init();
+    }
+    
+    async init() {
         const { getWordListAsync } = this.props.wordStore;
-        await getWordListAsync();
+        const { page, pageSize } = this.state;
+        var _wordList = await getWordListAsync(page, pageSize);
+
+        this.setState({
+            wordList: _wordList,
+            showLoadMore: _wordList.length > this.state.pageSize
+        })
     }
 
-    onLoadMoreWordAsync() {
-        this.props.wordStore.getMoreWordAsync();
+    async onLoadMoreWordAsync() {
+        const { getWordListAsync } = this.props.wordStore;
+        const { page, pageSize } = this.state;
+        let _page = page + 1;
+        this.setState({
+            page: _page
+        })
+        var _wordList = await getWordListAsync(_page, pageSize);
+        _wordList.shift();
+        _wordList = this.state.wordList.concat(_wordList);
+        this.setState({
+            wordList: _wordList,
+            showLoadMore: _wordList.length > this.state.pageSize * (_page + 1)
+        })
     }
 
     async onPullDownRefresh() {
-        await this.props.wordStore.getWordListAsync();
+        this.setState({
+            page: 0
+        })
+        await this.init();
         Taro.stopPullDownRefresh();
     }
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { wordStore: { loading, showLoadMore, wordList } } = this.props;
+        const { wordList, showLoadMore } = this.state;
+        const { wordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="单词列表" hidePageTitle={true} backUrl="../me/me" openType={NavigatorOpenType.switchTab}></NavigationBar>
@@ -50,12 +89,10 @@ export default class WordList extends Component<WordListProps, {}> {
                     {
                         wordList && wordList.map(word => {
                             return <Navigator key={"word-" + word.id} url={`./word.detail?wordId=${word.id}`}>
-                                <View className="border-bottom">
-                                    <View className="list-item">
-                                        <View className="list-item-text">{word.english}</View>
-                                        <View className="list-item-time">{word.chinese}</View>
-                                        <View className="list-item-time">{word.createTime}</View>
-                                    </View>
+                                <View className="list-item">
+                                    <View className="list-item-title">{word.english}</View>
+                                    <View className="list-item-text">{word.chinese}</View>
+                                    <View className="list-item-time">{word.createTime}</View>
                                 </View>
                             </Navigator>
                         })

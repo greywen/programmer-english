@@ -46,8 +46,10 @@ export enum UserResource {
 
     Donate = 18, // 捐赠
 
+    WordCollect = 19,
+
     // administrator
-    
+
     WordCreate = 100,
     WordEdit = 101,
     WordListDisplay = 102,

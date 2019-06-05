@@ -52,10 +52,8 @@ export default class CTransition extends Component<CTransitionProps, CTransition
     render() {
         const { name, duration, transform } = this.props;
         let _name = name || "fadeUp", _duration = duration || 1500;
-
         const { type, display } = this.state;
-
-        const animationName = `c-transition__${_name}${type}${transform}`;
+        const animationName = `c-transition__${_name}${type}${transform || ""}`;
         const animationDuration = `${_duration}ms`;
 
         return (

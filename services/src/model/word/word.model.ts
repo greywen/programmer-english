@@ -41,7 +41,6 @@ export interface WordResultModel {
     chinese: string,
     phoneticUS?: string,
     phoneticEN?: string,
-    collocation?: string,
     createTime?: string,
     collectionId?: number,
     sentences: WordSentencesModel[]

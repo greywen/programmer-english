@@ -6,7 +6,8 @@ import "./dashboard.scss"
 import withLogin from "../../common/decorator/withLogin";
 import { IQuestionDataModel } from "../../models/dashiboard";
 import { HtmlParse } from '../../components/htmlParse/htmlParse';
-import { NavigationBar, Loading, WecharAuthorize } from '../../components';
+import { NavigationBar, Loading, WecharAuthorize, ResourceAuthorize } from '../../components';
+import { UserResource } from '../../common/enums';
 
 interface DashboardState {
     scrollTop: number
@@ -64,7 +65,9 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
                         question ? <View className="page-content">
                             <HtmlParse data={question.describe}></HtmlParse>
                             <WecharAuthorize authorizationStore={this.props.authorizationStore}>
-                                <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
+                                <ResourceAuthorize resources={[UserResource.QuertionAnswerCreate]}>
+                                    <View className="tools"><Navigator url={`./userAnswer?questionId=${question.id}`}>翻译与分析</Navigator></View>
+                                </ResourceAuthorize>
                             </WecharAuthorize>
                         </View> : null
                     }

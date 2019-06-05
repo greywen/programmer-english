@@ -3,10 +3,11 @@ import "./word.scss"
 import { View, Text, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx';
 
-import { NavigationBar, WecharAuthorize, Loading } from "../../components";
+import { NavigationBar, WecharAuthorize, Loading, ResourceAuthorize } from "../../components";
 import { IWordDataModel } from "../../models/word";
 import { readingText } from "../../utils/baiduUtils";
 import { showMessage } from "../../utils/wechatUtils";
+import { UserResource } from "../../common/enums";
 
 interface WordState {
     scrollTop: number
@@ -80,13 +81,15 @@ export default class Word extends Component<WordProps, WordState> {
             {word ? <View className="page-content">
                 <View className="page-nav">
                     <WecharAuthorize authorizationStore={this.props.authorizationStore}>
-                        <View onClick={this.onCollectWord}>
-                            {
-                                word && word.collectionId ?
-                                    <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart-fill nav-icon"></Text> :
-                                    <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart nav-icon"></Text>
-                            }
-                        </View>
+                        <ResourceAuthorize resources={[UserResource.WordCollect]}>
+                            <View onClick={this.onCollectWord}>
+                                {
+                                    word && word.collectionId ?
+                                        <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart-fill nav-icon"></Text> :
+                                        <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart nav-icon"></Text>
+                                }
+                            </View>
+                        </ResourceAuthorize>
                     </WecharAuthorize>
                 </View>
                 <View className="flex-custom">

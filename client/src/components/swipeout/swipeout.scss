@@ -1,0 +1,17 @@
+.swipeout-wrap {
+    position: relative;
+    overflow: hidden;
+    /* border-bottom: 1px solid #dddee1; */
+  }
+  
+  .swipeout-item {
+    width: 100%;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+  }
+  
+  .swipeout-content {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  

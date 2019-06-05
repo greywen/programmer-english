@@ -77,10 +77,10 @@ $prefix: c-transition;
   }
 }
 
-@keyframes #{$prefix}__fadeDownLeave {
+@keyframes #{$prefix}__fadeDownLeave5 {
   to {
     opacity: 0;
-    transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -5%, 0);
   }
 }
 
@@ -93,6 +93,18 @@ $prefix: c-transition;
 @keyframes #{$prefix}__slideDownLeave {
   to {
     transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes #{$prefix}__slideDownEnter5 {
+  from {
+    transform: translate3d(0, -5%, 0);
+  }
+}
+
+@keyframes #{$prefix}__slideDownLeave5 {
+  to {
+    transform: translate3d(0, -5%, 0);
   }
 }
 

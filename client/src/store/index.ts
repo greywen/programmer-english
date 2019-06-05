@@ -4,6 +4,7 @@ import WordStore from "./word";
 import FeedbackStore from "./feedback";
 import MeStore from "./me";
 import ArticleStore from "./article";
+import UserWordStore from "./userWord";
 
 export default {
     dashboardStore: DashboardStore,
@@ -11,5 +12,6 @@ export default {
     wordStore: WordStore,
     feedbackStore: FeedbackStore,
     meStore: MeStore,
-    articleStore: ArticleStore
+    articleStore: ArticleStore,
+    userWordStore:UserWordStore
 }
