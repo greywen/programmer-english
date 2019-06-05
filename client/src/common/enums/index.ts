@@ -31,10 +31,9 @@ export enum UserResource {
 
     ArticleReview = 16, // 文章评论
     ArticlePraise = 17, // 文章点赞
-    
-    WordCollect = 19,
 
     Donate = 18, // 捐赠
+    WordCollect = 19,
 
     // administrator
     

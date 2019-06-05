@@ -22,7 +22,6 @@ export default class About extends Component<{}, AboutState> {
             <View className="page-content">
                 <View>
                     前端工程师，目前就职于长沙一家不知名小企业；
-                    喜欢捣鼓前端相关的各种东西。
                 </View>
             </View>
         </View>
