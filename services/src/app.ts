@@ -13,6 +13,7 @@ const router = new Route(app);
 const redis = new RedisService();
 
 app.use(koaBody({
+    multipart:true,
     formidable: {
         uploadDir: config.file.fileUploadPath,
         keepExtensions: true,
