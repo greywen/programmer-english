@@ -38,7 +38,7 @@ export default class Swipeout extends Component<SwipeoutProps, SwipeoutState> {
     swipper(touches) {
         const { touchStart } = this.state;
         const { limitMove } = this.props;
-        let _limitMove = limitMove || 200;
+        let _limitMove = limitMove || 300;
         const spacing = {
             pageX: touches.pageX - touchStart.pageX,
             pageY: touches.pageY - touchStart.pageY
@@ -76,7 +76,7 @@ export default class Swipeout extends Component<SwipeoutProps, SwipeoutState> {
         const touches = event.changedTouches ? event.changedTouches[0] : {};
         const { touchStart } = this.state;
         const { limitMove } = this.props;
-        let _limitMove = limitMove || 200;
+        let _limitMove = limitMove || 300;
 
         if (touches) {
             const direction = this.swipeDirection(touchStart.pageX, touches.pageX, touchStart.pageY, touches.pageY);

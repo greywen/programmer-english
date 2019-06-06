@@ -41,7 +41,7 @@ export default class Help extends Component<{}, HelpState> {
             <NavigationBar title="请喝饮料" scrollTop={0} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <View className="page-content">
                 <View className="pay">
-                    <Image onClick={this.onSavePayPhoto} src="../../assets/images/pay.png"></Image>
+                    <Image className="pay-image" onClick={this.onSavePayPhoto} src="../../assets/images/pay.png"></Image>
                 </View>
                 <View className="tip">
                     <View style="font-weight: bold;padding-bottom:10px;">点击二维码保存，然后使用微信扫一扫识别</View>
