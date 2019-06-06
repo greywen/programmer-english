@@ -8,7 +8,7 @@ where 1 = 1
 limit 1;
 
 #select getWordList:
-select dw.id,dw.english,dw.chinese,dw.createTime 
+select dw.id,dw.english,dw.chinese,uc.createTime 
 from user_collection uc left join data_word dw on dw.id = uc.wordId 
 where uc.userId = @userId 
 limit @page,@pageSize;

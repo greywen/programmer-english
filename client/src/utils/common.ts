@@ -5,3 +5,8 @@ export function removeChinese(value: string): string {
     }
     return "";
 }
+
+
+export function isNullReturnEmpty(val) {
+    return val ? val : ""
+}

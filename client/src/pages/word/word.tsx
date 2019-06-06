@@ -61,10 +61,6 @@ export default class Word extends Component<WordProps, WordState> {
         }
     }
 
-    isNullReturnEmpty(val) {
-        return val ? val : ""
-    }
-
     async onPullDownRefresh() {
         await this.props.wordStore.getWordAsync();
         Taro.stopPullDownRefresh();
@@ -98,12 +94,15 @@ export default class Word extends Component<WordProps, WordState> {
                             {word.english}
                         </View>
                         <View className="flex-custom-item-title">读音释义</View>
-                        <View className="flex-custom-item-phonetic">
-                            <View>{this.isNullReturnEmpty(word.phoneticEN)}</View>
-                            <View onClick={() => { readingText(word.english) }}>
-                                {this.isNullReturnEmpty(word.phoneticUS)}<Text className="icomoonfont icon-sound"></Text>
-                            </View>
-                        </View>
+                        {
+                            word.phoneticUS ?
+                                <View className="flex-custom-item-phonetic">
+                                    <View>{word.phoneticEN}</View>
+                                    <View onClick={() => { readingText(word.english) }}>
+                                        {word.phoneticUS}<Text className="icomoonfont icon-sound"></Text>
+                                    </View>
+                                </View> : null
+                        }
                         <View className="flex-custom-item-cn">
                             <View>{word.chinese}</View>
                         </View>
