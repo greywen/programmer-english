@@ -45,6 +45,11 @@ export default class WordList extends Component<WordListProps, WordListState> {
         const { getWordListAsync } = this.props.wordStore;
         const { page, pageSize } = this.state;
         var _wordList = await getWordListAsync(page, pageSize);
+        
+        _wordList = _wordList.map(x=>{
+            x.createTime = new Date(x.createTime).toLocaleString();
+            return x;
+        })
 
         this.setState({
             wordList: _wordList,
@@ -59,7 +64,12 @@ export default class WordList extends Component<WordListProps, WordListState> {
         this.setState({
             page: _page
         })
+        
         var _wordList = await getWordListAsync(_page, pageSize);
+        _wordList = _wordList.map(x=>{
+            x.createTime = new Date(x.createTime).toLocaleString();
+            return x;
+        })
         _wordList.shift();
         _wordList = this.state.wordList.concat(_wordList);
         this.setState({

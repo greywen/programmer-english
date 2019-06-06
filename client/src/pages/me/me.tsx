@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./me.scss"
-import { View, OpenData, Navigator, Text } from "@tarojs/components";
+import { View, OpenData, Navigator, Text, Button } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar, WecharAuthorize, ResourceAuthorize, Loading } from "../../components";
@@ -58,6 +58,14 @@ export default class Me extends Component<MeProps, MeState> {
         const { collectWordAsync } = this.props.meStore;
         await collectWordAsync();
         Taro.vibrateShort();
+    }
+
+    onShareAppMessage = () => {
+        return {
+            title: '程序员英语 - 一个简单的程序员英语小程序.',
+            imageUrl: '../../assets/images/appshare.png',
+            path: '/pages/dashboard/dashboard'
+        }
     }
 
     async onPullDownRefresh() {
@@ -158,6 +166,15 @@ export default class Me extends Component<MeProps, MeState> {
                         </View>
                     </ResourceAuthorize>
 
+                    <View className="flex-custom-border-top">
+                        <View className="flex-custom-row" onClick={() => { this.onShareAppMessage }}>
+                            <View className="flex-custom-text">
+                                <Button style={{marginTop:"8rpx"}} openType="share" hoverClass="none" open-type="share">分享给好友</Button>
+                            </View>
+                            <View className="flex-custom-icon"><Text className="icomoonfont icon-right"></Text></View>
+                        </View>
+                    </View>
+
                     <View className="flex-custom-border">
                         <Navigator url="./about" className="flex-custom-row">
                             <View className="flex-custom-text">关于</View>
@@ -169,7 +186,7 @@ export default class Me extends Component<MeProps, MeState> {
                         <ResourceAuthorize resources={[UserResource.FeedbackCreate]}>
                             <View className="bug"><Navigator url="./bug">提交bug</Navigator></View>
                         </ResourceAuthorize>
-                        <View className="copyright">版权所有 ©2019 程序员英语.</View>
+                        <View className="copyright">版权所有 ©2017-2019 程序员英语.</View>
                     </View>
                 </View>
             </WecharAuthorize>

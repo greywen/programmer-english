@@ -1,3 +1,14 @@
+button::after {
+    border: none;
+    background-color: none;
+    outline: none;
+    padding: 0;
+}
+
+button {
+    font-size: 12pt;
+}
+  
 .page {
     background-color: #efeff4;
 }

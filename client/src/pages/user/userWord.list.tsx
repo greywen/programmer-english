@@ -6,6 +6,7 @@ import { observer, inject } from '@tarojs/mobx'
 import { NavigationBar, Loading, Swipeout } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
 import { IWordListDataModel } from "../../models/word";
+import { isNullReturnEmpty } from "../../utils/common";
 
 interface UserWordListState {
     wordList: IWordListDataModel[],
@@ -42,6 +43,11 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
         const { page, pageSize } = this.state;
         var _wordList = await getUserWordListAsync(page, pageSize);
 
+        _wordList = _wordList.map(x=>{
+            x.createTime = new Date(x.createTime).toLocaleString();
+            return x;
+        })
+
         this.setState({
             wordList: _wordList,
             showLoadMore: _wordList.length > this.state.pageSize
@@ -60,6 +66,10 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
             page: _page
         })
         var _wordList = await getUserWordListAsync(_page, pageSize);
+        _wordList = _wordList.map(x=>{
+            x.createTime = new Date(x.createTime).toLocaleString();
+            return x;
+        })
         _wordList.shift();
         _wordList = this.state.wordList.concat(_wordList);
         this.setState({
@@ -111,7 +121,7 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
                                     <View className="list-item-title">{word.english}</View>
                                     <View className="list-item-text">{word.chinese}</View>
                                     <View className="list-item-content">
-                                        <View>{word.comments}</View>
+                                        <View>{isNullReturnEmpty(word.comments)}</View>
                                         <View className="list-item-time">{word.createTime}</View>
                                     </View>
                                 </View>
