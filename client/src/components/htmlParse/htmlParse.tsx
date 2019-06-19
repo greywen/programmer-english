@@ -11,14 +11,15 @@ export class HtmlParse extends Component<HtmlParseProps, {}> {
 
     componentDidMount() {
         let _WxParse = WxParse as any;
-        _WxParse.wxParse('article', 'html', this.props.data || "", this.$scope, 10);
+        let { data } = this.props;
+        _WxParse.wxParse('article', 'html', data || "", this.$scope, 10);
     }
 
     render() {
         return (
             <View>
                 <import src='../wxParse/wxParse.wxml' />
-                <template is='wxParse' data='{{wxParseData:article.nodes}}' />
+                <template is='wxParse' data="{{wxParseData:article.nodes}}" />
             </View>
         )
     }

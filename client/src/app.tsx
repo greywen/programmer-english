@@ -1,6 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro';
 import { Provider } from '@tarojs/mobx';
 import "@tarojs/async-await";
+import * as globalData from "./common/globalData"
 // var fundebug = require('fundebug-wxjs');
 
 // fundebug.init({
@@ -81,7 +82,23 @@ class App extends Component {
     }
   }
 
-  componentDidMount() { }
+  componentDidMount() {
+    const systemInfo = Taro.getSystemInfoSync();
+    const statusBarHeight = systemInfo.statusBarHeight;
+    let _topHeight = 68;
+
+    if (systemInfo.model.indexOf("iPhone X") !== -1) {
+      _topHeight = 88;
+    } else if (systemInfo.model.indexOf("iPhone") !== -1) {
+      _topHeight = 64;
+    }
+
+    globalData.set("navigationBar", {
+      paddingTop: _topHeight + statusBarHeight,
+      statusBarHeight: statusBarHeight,
+      titleBarHeight: _topHeight - statusBarHeight
+    });
+  }
 
   componentDidShow() { }
 

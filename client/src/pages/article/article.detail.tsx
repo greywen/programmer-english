@@ -11,33 +11,36 @@ import { HtmlParse } from "../../components/htmlParse/htmlParse";
 interface ArticleDetailProps {
     articleStore: {
         loading: boolean,
-        articleDetail: ArticleDetailDataModel,
-        getArticleDetailAsync: (articleId: number) => {}
+        getArticleDetailAsync: (articleId: number) => ArticleDetailDataModel
     }
+}
+
+interface ArticleDetailState {
+    article: ArticleDetailDataModel
 }
 
 @inject("articleStore")
 @observer
-export default class ArticleDetail extends Component<ArticleDetailProps, {}> {
-
-    constructor() {
-        super()
-    }
+export default class ArticleDetail extends Component<ArticleDetailProps, ArticleDetailState> {
 
     async componentDidMount() {
         let articleId = this.$router.params["articleId"];
-        await this.props.articleStore.getArticleDetailAsync(articleId);
+        let _article = await this.props.articleStore.getArticleDetailAsync(articleId);
+        this.setState({
+            article: _article
+        })
     }
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { articleStore: { loading, articleDetail } } = this.props;
+        const { articleStore: { loading } } = this.props;
+        const { article } = this.state;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="文章详情" hidePageTitle={true} backUrl="./article" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
-                {articleDetail ? <HtmlParse data={articleDetail.describe}></HtmlParse> : null}
+                {article ? <HtmlParse data={article.describe}></HtmlParse> : null}
             </View>
         </View>
     }

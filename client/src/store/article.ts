@@ -10,8 +10,6 @@ class ArticleStore extends BaseStore {
     artileList: ArticleListDataModel[];
     @observable
     articleListQuery = { page: 0, pageSize: 20 };
-    @observable
-    articleDetail: ArticleDetailDataModel;
 
     getArticleListAsync = async () => {
         let _articleList = await this.get("article/getArticleList", this.articleListQuery);
@@ -25,7 +23,7 @@ class ArticleStore extends BaseStore {
 
 
     getArticleDetailAsync = async (articleId: number) => {
-        this.articleDetail = await this.get("article/getArticleDetail", { articleId: articleId });
+        return await this.get("article/getArticleDetail", { articleId: articleId });
     }
 }
 
