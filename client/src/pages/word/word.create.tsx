@@ -138,7 +138,7 @@ export default class WordCreate extends Component<WordProps, WordState> {
         const { wordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词管理" scrollTop={0} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="单词管理" showPageTitle={true} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">

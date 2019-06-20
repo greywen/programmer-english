@@ -55,7 +55,7 @@ export default class Bug extends Component<BugProps, BugState> {
         const { feedbackStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
-            <NavigationBar title="提交bug" scrollTop={0} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="提交bug" showPageTitle={true} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">

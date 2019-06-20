@@ -56,7 +56,7 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
         const { feedbackStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
-            <NavigationBar title="建议反馈" scrollTop={0} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="建议反馈" showPageTitle={true} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">

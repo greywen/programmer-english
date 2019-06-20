@@ -10,7 +10,7 @@ import { NavigationBar, Loading, WecharAuthorize, ResourceAuthorize } from '../.
 import { UserResource } from '../../common/enums';
 
 interface DashboardState {
-    scrollTop: number
+    showPageTitle: boolean
 }
 
 interface DashboardProps {
@@ -32,7 +32,7 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
     constructor() {
         super()
         this.state = {
-            scrollTop: 0
+            showPageTitle: true
         }
     }
 
@@ -42,8 +42,9 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
     }
 
     onPageScroll = (e) => {
+        let scrollTop = e.scrollTop;
         this.setState({
-            scrollTop: e.scrollTop
+            showPageTitle: scrollTop < 50
         })
     }
 
@@ -54,11 +55,11 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { scrollTop } = this.state;
+        const { showPageTitle } = this.state;
         const { dashboardStore: { question, loading } } = this.props;
         return (
             <View className="page" style={{ height: windowHeight + "px" }}>
-                <NavigationBar title="推荐" scrollTop={scrollTop}></NavigationBar>
+                <NavigationBar title="推荐" showPageTitle={showPageTitle}></NavigationBar>
                 <Loading loading={loading}></Loading>
                 <View>
                     {

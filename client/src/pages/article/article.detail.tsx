@@ -37,7 +37,7 @@ export default class ArticleDetail extends Component<ArticleDetailProps, Article
         const { article } = this.state;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="文章详情" hidePageTitle={true} backUrl="./article" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="文章详情" showPageTitle={false} backUrl="./article" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 {article ? <HtmlParse data={article.describe}></HtmlParse> : null}

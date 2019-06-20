@@ -10,7 +10,7 @@ import { showMessage } from "../../utils/wechatUtils";
 import { UserResource } from "../../common/enums";
 
 interface WordState {
-    scrollTop: number
+    showPageTitle: boolean
 }
 
 interface WordProps {
@@ -33,7 +33,7 @@ export default class Word extends Component<WordProps, WordState> {
     constructor() {
         super()
         this.state = {
-            scrollTop: 0
+            showPageTitle: true
         }
     }
 
@@ -43,8 +43,9 @@ export default class Word extends Component<WordProps, WordState> {
     }
 
     onPageScroll = (e) => {
+        let scrollTop = e.scrollTop;
         this.setState({
-            scrollTop: e.scrollTop
+            showPageTitle: scrollTop < 50
         })
     }
 
@@ -68,11 +69,11 @@ export default class Word extends Component<WordProps, WordState> {
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { scrollTop } = this.state;
+        const { showPageTitle } = this.state;
         const { wordStore: { word, loading } } = this.props;
 
-        return <View className="page" style={{ height: windowHeight - 45 + "px" }}>
-            <NavigationBar title="技术词汇" scrollTop={scrollTop}></NavigationBar>
+        return <View className="page" style={{ height: windowHeight - 50 + "px" }}>
+            <NavigationBar title="技术词汇" showPageTitle={showPageTitle}></NavigationBar>
             <Loading loading={loading}></Loading>
             {word ? <View className="page-content">
                 <View className="page-nav">

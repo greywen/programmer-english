@@ -10,7 +10,7 @@ import { isAuthorized } from "../../utils/loginUtils";
 import { UserResource } from "../../common/enums";
 
 interface MeState {
-    scrollTop: number
+    showPageTitle: boolean
 }
 
 interface MeProps {
@@ -33,7 +33,7 @@ export default class Me extends Component<MeProps, MeState> {
     constructor() {
         super()
         this.state = {
-            scrollTop: 0
+            showPageTitle: true
         }
     }
 
@@ -45,8 +45,9 @@ export default class Me extends Component<MeProps, MeState> {
     }
 
     onPageScroll = (e) => {
+        let scrollTop = e.scrollTop;
         this.setState({
-            scrollTop: e.scrollTop
+            showPageTitle: scrollTop < 50
         })
     }
 
@@ -75,11 +76,11 @@ export default class Me extends Component<MeProps, MeState> {
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { scrollTop } = this.state;
+        const { showPageTitle } = this.state;
         const { meStore: { loading, word } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="我的" scrollTop={scrollTop}></NavigationBar>
+            <NavigationBar title="我的" showPageTitle={showPageTitle}></NavigationBar>
             <View className="flex-custom-border-bottom">
                 <View className="flex-custom-userinfo">
                     <View>
@@ -169,7 +170,7 @@ export default class Me extends Component<MeProps, MeState> {
                     <View className="flex-custom-border-top">
                         <View className="flex-custom-row" onClick={() => { this.onShareAppMessage }}>
                             <View className="flex-custom-text">
-                                <Button style={{marginTop:"8rpx"}} openType="share" hoverClass="none" open-type="share">分享给好友</Button>
+                                <Button style={{ marginTop: "8rpx" }} openType="share" hoverClass="none" open-type="share">分享给好友</Button>
                             </View>
                             <View className="flex-custom-icon"><Text className="icomoonfont icon-right"></Text></View>
                         </View>

@@ -92,10 +92,10 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
         const { dashboardStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
-            <NavigationBar title="翻译分析" scrollTop={0} backUrl="./dashboard" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="翻译分析" showPageTitle={false} backUrl="./dashboard" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="文章详情" showPageTitle={true} backUrl="./article" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading || uploadFileLoading}></Loading>
             <View className="page-content">
-
                 <View className="upload-file">
                     <View onClick={this.onChooseImage}><Button className="submit-button" size='mini' plain type="primary">从相册上传图片</Button></View>
                 </View>

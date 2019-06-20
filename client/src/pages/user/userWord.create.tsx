@@ -75,7 +75,7 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
         const { userWordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词管理" scrollTop={0} backUrl="../me/me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="单词管理" showPageTitle={true} backUrl="../me/me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">

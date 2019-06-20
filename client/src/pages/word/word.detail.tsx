@@ -44,7 +44,7 @@ export default class WordDetail extends Component<WordDetailProps, {}> {
         const { wordStore: { loading, wordDetail } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词详情" hidePageTitle={true} backUrl="./word.list" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="单词详情" showPageTitle={false} backUrl="./word.list" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             {wordDetail ? <View className="page-content">
                 <View className="page-nav">

@@ -84,19 +84,21 @@ class App extends Component {
 
   componentDidMount() {
     const systemInfo = Taro.getSystemInfoSync();
-    const statusBarHeight = systemInfo.statusBarHeight;
-    let _topHeight = 68;
+    let reg = /ios/i;
+    let _paddingTop = 20;
+    let _height = 44;
 
-    if (systemInfo.model.indexOf("iPhone X") !== -1) {
-      _topHeight = 88;
-    } else if (systemInfo.model.indexOf("iPhone") !== -1) {
-      _topHeight = 64;
+    if (reg.test(systemInfo.system)) {
+      _paddingTop = systemInfo.statusBarHeight;
+      _height = 44;
+    } else {
+      _paddingTop = systemInfo.statusBarHeight;
+      _height = 48;
     }
 
     globalData.set("navigationBar", {
-      paddingTop: _topHeight + statusBarHeight,
-      statusBarHeight: statusBarHeight,
-      titleBarHeight: _topHeight - statusBarHeight
+      paddingTop: _paddingTop,
+      statusBarHeight: _height
     });
   }
 

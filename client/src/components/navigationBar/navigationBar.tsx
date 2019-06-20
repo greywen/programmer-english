@@ -4,6 +4,7 @@ import { View, Text } from '@tarojs/components';
 import '../../assets/icons.scss'
 import './navigationBar.scss'
 import { NavigatorOpenType } from '../../common/enums';
+import * as globalData from "../../common/globalData";
 
 interface NavigationBarProps {
     background?: string,
@@ -11,35 +12,22 @@ interface NavigationBarProps {
     title?: string,
     openType?: NavigatorOpenType,
     backUrl?: string,
-    scrollTop?: number
-    hidePageTitle?: boolean
+    showPageTitle?: boolean
 }
 
 interface NavigationBarState {
     paddingTop: number,
-    height: number
+    statusBarHeight: number
 }
 
 export default class NavigationBar extends Component<NavigationBarProps, NavigationBarState> {
 
     constructor() {
         super();
-        const systemInfo = Taro.getSystemInfoSync();
-        let reg = /ios/i;
-        let _paddingTop = 20;
-        let _height = 44;
-
-        if (reg.test(systemInfo.system)) {
-            _paddingTop = systemInfo.statusBarHeight;
-            _height = 44;
-        } else {
-            _paddingTop = systemInfo.statusBarHeight;
-            _height = 48;
-        }
-
+        const { paddingTop, statusBarHeight } = globalData.get("navigationBar");
         this.state = {
-            paddingTop: _paddingTop,
-            height: _height
+            paddingTop: paddingTop,
+            statusBarHeight: statusBarHeight
         }
     }
 
@@ -60,33 +48,35 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
     }
 
     render() {
-        const { background, color, title, backUrl, scrollTop, hidePageTitle } = this.props;
+        const { background, color, title, backUrl, showPageTitle } = this.props;
+        const { paddingTop, statusBarHeight } = this.state;
+        
         return (
             <View>
                 <View className="navigation-bar" style={{
-                    paddingTop: this.state.paddingTop + "px",
-                    height: this.state.height + "px",
-                    lineHeight: this.state.height + "px",
+                    paddingTop: paddingTop + "px",
+                    height: statusBarHeight + "px",
+                    lineHeight: statusBarHeight + "px",
                     background: background || "#f5f4f9",
                     color: color || "#000",
-                    borderBottom: hidePageTitle ? "1px solid #cdcdcd" : "none"
+                    borderBottom: showPageTitle ? "none" : "1px solid #c7c7ca"
                 }}>
                     <View className="tools" style={{
                         paddingTop: this.state.paddingTop + "px",
-                        height: this.state.height + "px",
-                        lineHeight: this.state.height + "px"
+                        height: statusBarHeight + "px",
+                        lineHeight: statusBarHeight + "px"
                     }}>
                         <View className="icon-tools">
-                            {!!backUrl ? <Text style="color:#3271fd;" className="icomoonfont icon-arrowleft" onClick={this.onClickBack.bind(this)}></Text> : ""}
+                            {backUrl ? <Text style="color:#3271fd;" className="icomoonfont icon-arrowleft" onClick={this.onClickBack.bind(this)}></Text> : ""}
                         </View>
                     </View>
-                    <View className="title">{(title && scrollTop && scrollTop > 50) || hidePageTitle ? title : ""}</View>
+                    <View className="title">{showPageTitle ? "" : title}</View>
                 </View >
 
                 {
-                    hidePageTitle ? "" : <View style={{ marginTop: this.state.height + "px", }} className="page-header">
-                        <View className="header-title">{scrollTop === 0 || scrollTop && scrollTop < 50 ? title : ""}</View>
-                    </View>
+                    showPageTitle ? <View style={{ marginTop: statusBarHeight + "px", borderBottom: "1px solid #c7c7ca" }} className="page-header">
+                        <View className="header-title">{title}</View>
+                    </View> : null
                 }
 
             </View>

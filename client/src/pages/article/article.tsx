@@ -7,7 +7,7 @@ import { NavigationBar, WecharAuthorize, Loading } from "../../components";
 import { ArticleListDataModel } from "../../models/article";
 
 interface ArticleState {
-    scrollTop: number
+    showPageTitle: boolean
 }
 
 interface ArtickeProps {
@@ -30,13 +30,14 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
     constructor() {
         super()
         this.state = {
-            scrollTop: 0
+            showPageTitle: true
         }
     }
 
     onPageScroll = (e) => {
+        let scrollTop = e.scrollTop;
         this.setState({
-            scrollTop: e.scrollTop
+            showPageTitle: scrollTop < 50
         })
     }
 
@@ -55,11 +56,11 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { scrollTop } = this.state;
+        const { showPageTitle } = this.state;
         const { articleStore: { loading, showLoadMore, artileList } } = this.props;
 
-        return <View className="page" style={{ minHeight: windowHeight + "px", backgroundColor: "#f8f8f8" }}>
-            <NavigationBar title="文档阅读" scrollTop={scrollTop}></NavigationBar>
+        return <View className="page" style={{ minHeight: windowHeight - 50 + "px", backgroundColor: "#f8f8f8" }}>
+            <NavigationBar title="文档阅读" showPageTitle={showPageTitle}></NavigationBar>
             <Loading loading={loading}></Loading>
             <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                 <View className="article">

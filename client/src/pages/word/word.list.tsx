@@ -92,7 +92,7 @@ export default class WordList extends Component<WordListProps, WordListState> {
         const { wordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词列表" hidePageTitle={true} backUrl="../me/me" openType={NavigatorOpenType.switchTab}></NavigationBar>
+            <NavigationBar title="单词列表" showPageTitle={false} backUrl="../me/me" openType={NavigatorOpenType.switchTab}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="word-list">
