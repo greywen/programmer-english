@@ -6,6 +6,7 @@ import { NavigationBar } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
 
 interface AboutState {
+    noop: boolean
 }
 
 export default class About extends Component<{}, AboutState> {
@@ -14,11 +15,15 @@ export default class About extends Component<{}, AboutState> {
         super()
     }
 
+    componentDidMount() {
+        this.setState({ noop: false });
+    }
+
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
 
-        return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
-            <NavigationBar title="关于" showPageTitle={true} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+        return <View className="page" style={{ minHeight: windowHeight + "px" }}>
+            <NavigationBar title="关于" showPageTitle={false} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <View className="page-content">
                 <View>
                     前端工程师，目前就职于长沙一家不知名小企业；

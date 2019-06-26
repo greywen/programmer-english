@@ -57,7 +57,7 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
                     paddingTop: paddingTop + "px",
                     height: statusBarHeight + "px",
                     lineHeight: statusBarHeight + "px",
-                    background: background || "#f5f4f9",
+                    background: background || "#f6f6f6",
                     color: color || "#000",
                     borderBottom: showPageTitle ? "none" : "1px solid #c7c7ca"
                 }}>
@@ -67,7 +67,7 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
                         lineHeight: statusBarHeight + "px"
                     }}>
                         <View className="icon-tools">
-                            {backUrl ? <Text style="color:#3271fd;" className="icomoonfont icon-arrowleft" onClick={this.onClickBack.bind(this)}></Text> : ""}
+                            {backUrl ? <Text style="color:#1d1d1d;" className="icomoonfont icon-arrowleft" onClick={this.onClickBack.bind(this)}></Text> : ""}
                         </View>
                     </View>
                     <View className="title">{showPageTitle ? "" : title}</View>

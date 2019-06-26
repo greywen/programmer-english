@@ -1,4 +1,8 @@
-.word-list view{
+.page-content {
+    padding-top: 178px;
+}
+
+.word-list view {
     padding:5px 0px;
 }
 
@@ -14,14 +18,9 @@
     flex-direction: column;
     display: flex;
     justify-content:flex-start;
-    border-bottom: 1px solid #b2b2b2;
     padding-top: 20px;
     padding-bottom: 20px;
     font-size: 12pt;
-}
-
-.form-item:last-child {
-    border-bottom:none;
 }
 
 .form-title {

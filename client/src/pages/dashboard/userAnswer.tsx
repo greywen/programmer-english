@@ -44,6 +44,10 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
         }
     }
 
+    componentDidMount() {
+        this.setState({ files: [] });
+    }
+
     onChooseImage = () => {
         Taro.chooseImage({
             count: 1,
@@ -91,9 +95,8 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
         const { answer, contact, files, uploadFileLoading } = this.state;
         const { dashboardStore: { loading } } = this.props;
 
-        return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
+        return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="翻译分析" showPageTitle={false} backUrl="./dashboard" openType={NavigatorOpenType.navigateBack}></NavigationBar>
-            <NavigationBar title="文章详情" showPageTitle={true} backUrl="./article" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading || uploadFileLoading}></Loading>
             <View className="page-content">
                 <View className="upload-file">
@@ -104,14 +107,13 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
                     <View className="form-item">
                         <View className="form-title">翻译分析</View>
                         <View className="form-input">
-                            {/* <Input placeholder="必填" value={answer} onInput={(e) => { this.setState({ answer: e.target["value"] }) }}></Input> */}
-                            <Textarea maxlength={500} autoHeight placeholder="必填" value={answer} onInput={(e) => { this.setState({ answer: e.target["value"] }) }}></Textarea>
+                            <Textarea style={{minHeight:"75px"}} maxlength={500} placeholder="必填" value={answer} onInput={(e) => { this.setState({ answer: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
                     <View className="form-item">
                         <View className="form-title">联系方式</View>
                         <View className="form-input">
-                            <Input placeholder="选填" value={contact} onInput={(e) => { this.setState({ contact: e.target["value"] }) }}>></Input>
+                            <Textarea placeholder="选填" value={contact} onInput={(e) => { this.setState({ contact: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
                     <View className="form-submit-item">

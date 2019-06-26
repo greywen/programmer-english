@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./feedback.scss"
-import { View, Input } from "@tarojs/components";
+import { View, Textarea } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar, Loading } from "../../components";
@@ -34,6 +34,10 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
         }
     }
 
+    componentDidMount() {
+        this.setState({ type: FeedbackType.Feedback });
+    }
+
     async onFeedback() {
         let { describe, contact } = this.state;
         if (describe.trim().length === 0) {
@@ -55,21 +59,21 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
         const { describe, contact } = this.state;
         const { feedbackStore: { loading } } = this.props;
 
-        return <View className="page" style={{ minHeight: windowHeight - 45 + "px" }}>
-            <NavigationBar title="建议反馈" showPageTitle={true} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+        return <View className="page" style={{ minHeight: windowHeight + "px" }}>
+            <NavigationBar title="建议反馈" showPageTitle={false} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
                     <View className="form-item">
                         <View className="form-title">反馈建议</View>
                         <View className="form-input">
-                            <Input placeholder="必填" value={describe} onInput={(e) => { this.setState({ describe: e.target["value"] }) }}></Input>
+                            <Textarea style={{minHeight:"75px"}} placeholder="必填" value={describe} onInput={(e) => { this.setState({ describe: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
                     <View className="form-item">
                         <View className="form-title">联系方式</View>
                         <View className="form-input">
-                            <Input placeholder="选填" value={contact} onInput={(e) => { this.setState({ contact: e.target["value"] }) }}>></Input>
+                            <Textarea placeholder="选填" value={contact} onInput={(e) => { this.setState({ contact: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
                     <View className="form-submit-item">

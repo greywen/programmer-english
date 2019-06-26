@@ -184,9 +184,6 @@ export default class Me extends Component<MeProps, MeState> {
                     </View>
 
                     <View className="footer">
-                        <ResourceAuthorize resources={[UserResource.FeedbackCreate]}>
-                            <View className="bug"><Navigator url="./bug">提交bug</Navigator></View>
-                        </ResourceAuthorize>
                         <View className="copyright">版权所有 ©2017-2019 程序员英语.</View>
                     </View>
                 </View>

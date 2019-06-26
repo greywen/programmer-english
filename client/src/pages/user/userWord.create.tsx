@@ -5,7 +5,7 @@ import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar, Loading } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
-import { showSuccess, showMessage } from "../../utils/wechatUtils";
+import { showMessage } from "../../utils/wechatUtils";
 import { IUserWordCreateModel } from "../../models/word";
 
 interface UserWordState {
@@ -38,6 +38,10 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
             comments: word["comments"],
             timeout: null
         }
+    }
+
+    componentDidMount() {
+        this.setState({ timeout: null });
     }
 
     async onSubmit() {
@@ -75,25 +79,25 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
         const { userWordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词管理" showPageTitle={true} backUrl="../me/me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="单词管理" showPageTitle={false} backUrl="../me/me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
                     <View className="form-item">
                         <View className="form-title">词汇英文</View>
                         <View className="form-input">
-                            <Input placeholder="必填" value={english} onInput={(e) => { this.setState({ english: e.target["value"] }) }}></Input>
+                            <Textarea placeholder="必填" value={english} onInput={(e) => { this.setState({ english: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
                     <View className="form-item">
                         <View className="form-title">词汇中文</View>
                         <View className="form-input">
-                            <Input placeholder="选填" value={chinese} onInput={(e) => { this.setState({ chinese: e.target["value"] }) }}></Input>
+                            <Textarea placeholder="选填" value={chinese} onInput={(e) => { this.setState({ chinese: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
                     <View className="form-item">
                         <View className="form-title">备注</View>
-                        <Textarea placeholder="选填" maxlength={800} autoHeight value={comments} onInput={(e) => { this.setState({ comments: e.target["value"] }) }}></Textarea>
+                        <Textarea style={{minHeight:"70px"}} placeholder="选填" maxlength={800} value={comments} onInput={(e) => { this.setState({ comments: e.target["value"] }) }} autoHeight></Textarea>
                     </View>
                     <View className="form-submit-item">
                         <View className="form-submit" onClick={this.onSubmit}>完成</View>

@@ -42,7 +42,6 @@ class App extends Component {
       "pages/me/me",
       "pages/me/feedback",
       "pages/me/about",
-      "pages/me/bug",
       "pages/me/help",
       "pages/user/userWord.create",
       "pages/user/userWord.list"

@@ -1,8 +1,10 @@
+.page-content {
+    padding-top: 178px;
+}
+
 .upload-file {
     padding:20px 0px 20px 87px; 
     color:#3271fd;
-    // border-top: 1px solid #b2b2b2;
-    border-bottom: 1px solid #b2b2b2;
     margin:0px 0px 40px 0px;
 }
 
@@ -30,7 +32,6 @@
     flex-direction: column;
     display: flex;
     padding-left:87px;
-    border-top: 1px solid #b2b2b2;
     border-bottom: 1px solid #b2b2b2;
 }
 
@@ -38,14 +39,9 @@
     flex-direction: column;
     display: flex;
     justify-content:flex-start;
-    border-bottom: 1px solid #b2b2b2;
     padding-top: 20px;
     padding-bottom: 20px;
     font-size: 12pt;
-}
-
-.form-item:last-child {
-    border-bottom:none;
 }
 
 .form-title {
