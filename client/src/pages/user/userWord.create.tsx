@@ -83,6 +83,9 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
+                    <View className="form-submit-item">
+                        <View className="form-submit" onClick={this.onSubmit}>完成</View>
+                    </View>
                     <View className="form-item">
                         <View className="form-title">词汇英文</View>
                         <View className="form-input">
@@ -98,9 +101,6 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
                     <View className="form-item">
                         <View className="form-title">备注</View>
                         <Textarea style={{minHeight:"70px"}} placeholder="选填" maxlength={800} value={comments} onInput={(e) => { this.setState({ comments: e.target["value"] }) }} autoHeight></Textarea>
-                    </View>
-                    <View className="form-submit-item">
-                        <View className="form-submit" onClick={this.onSubmit}>完成</View>
                     </View>
                 </View>
             </View>

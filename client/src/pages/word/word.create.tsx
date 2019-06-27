@@ -146,6 +146,9 @@ export default class WordCreate extends Component<WordProps, WordState> {
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
+                    <View className="form-submit-item">
+                        <View className="form-submit" onClick={this.onSubmit}>完成</View>
+                    </View>
                     <View className="form-item">
                         <View className="form-title">词汇英文</View>
                         <View className="form-input">
@@ -171,21 +174,18 @@ export default class WordCreate extends Component<WordProps, WordState> {
                     <View className="form-item">
                         <View className="form-title">词汇搭配</View>
                         <View className="form-input">
-                            <Textarea style={{minHeight:"75px"}} placeholder="选填" value={collocation} onInput={(e) => { this.setState({ collocation: e.target["value"] }) }} autoHeight></Textarea>
+                            <Textarea style={{ minHeight: "75px" }} placeholder="选填" value={collocation} onInput={(e) => { this.setState({ collocation: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
                     <View className="form-item">
                         <View className="form-title">词汇例句</View>
                         {sentences.map((sentence, index) => {
                             return <View className="form-input" key={"sentence" + index}>
-                                <Textarea style={{minHeight:"75px"}} placeholder="例句中文(选填)" maxlength={200} value={sentence.chinese} onInput={(e) => { this.onChangeSentence(index, { chinese: e.target["value"], english: sentence.english }) }} autoHeight></Textarea>
+                                <Textarea style={{ minHeight: "75px" }} placeholder="例句中文(选填)" maxlength={200} value={sentence.chinese} onInput={(e) => { this.onChangeSentence(index, { chinese: e.target["value"], english: sentence.english }) }} autoHeight></Textarea>
                                 <View style="border-bottom: 1px dashed #b2b2b2;margin:10px 0px 10px 0px;"></View>
-                                <Textarea style={{minHeight:"75px"}} placeholder="例句英文(选填)" maxlength={200} value={sentence.english} onInput={(e) => { this.onChangeSentence(index, { english: e.target["value"], chinese: sentence.chinese }) }} autoHeight></Textarea>
+                                <Textarea style={{ minHeight: "75px" }} placeholder="例句英文(选填)" maxlength={200} value={sentence.english} onInput={(e) => { this.onChangeSentence(index, { english: e.target["value"], chinese: sentence.chinese }) }} autoHeight></Textarea>
                             </View>
                         })}
-                    </View>
-                    <View className="form-submit-item">
-                        <View className="form-submit" onClick={this.onSubmit}>完成</View>
                     </View>
                 </View>
             </View>

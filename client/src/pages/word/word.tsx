@@ -72,7 +72,7 @@ export default class Word extends Component<WordProps, WordState> {
         const { showPageTitle } = this.state;
         const { wordStore: { word, loading } } = this.props;
 
-        return <View className="page" style={{ height: windowHeight - 50 + "px" }}>
+        return <View className="page" style={{ height: windowHeight + "px" }}>
             <NavigationBar title="技术词汇" showPageTitle={showPageTitle}></NavigationBar>
             <Loading loading={loading}></Loading>
             {word ? <View className="page-content">
@@ -118,10 +118,10 @@ export default class Word extends Component<WordProps, WordState> {
                             {
                                 word.sentences.map((sentence, index) => {
                                     return <View key={"sentence-" + index}>
-                                        <View className="flex-custom-sentence-cn">
+                                        <View className="text-newline">
                                             {sentence.chinese}
                                         </View>
-                                        <View className="flex-custom-sentence-en">
+                                        <View className="text-newline">
                                             {sentence.english}
                                         </View>
                                     </View>

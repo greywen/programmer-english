@@ -133,8 +133,11 @@ export default class Me extends Component<MeProps, MeState> {
                                         我的词汇
                                     </View>
                                 </Navigator>
-                                <View className="flex-custom-searchall">
+                                {/* <View className="flex-custom-searchall">
                                     <Navigator hoverClass="none" url="../user/userWord.create"><Text className="icomoonfont icon-plus"></Text></Navigator>
+                                </View> */}
+                                <View className="flex-custom-searchall">
+                                    <Navigator hoverClass="none" url="../user/userWord.create">添加词汇</Navigator>
                                 </View>
                             </View>
                         </ResourceAuthorize>

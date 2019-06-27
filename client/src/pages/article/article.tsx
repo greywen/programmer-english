@@ -59,7 +59,7 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
         const { showPageTitle } = this.state;
         const { articleStore: { loading, showLoadMore, artileList } } = this.props;
 
-        return <View className="page" style={{ minHeight: windowHeight - 50 + "px", backgroundColor: "#f8f8f8" }}>
+        return <View className="page" style={{ minHeight: windowHeight + "px" }}>
             <NavigationBar title="文档阅读" showPageTitle={showPageTitle}></NavigationBar>
             <Loading loading={loading}></Loading>
             <WecharAuthorize authorizationStore={this.props.authorizationStore}>

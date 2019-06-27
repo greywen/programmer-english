@@ -1,6 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import "./userAnswer.scss"
-import { View, Input, Text, Button, Textarea } from "@tarojs/components";
+import { View, Text, Button, Textarea } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar, Loading } from "../../components";
@@ -99,15 +99,14 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
             <NavigationBar title="翻译分析" showPageTitle={false} backUrl="./dashboard" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading || uploadFileLoading}></Loading>
             <View className="page-content">
-                <View className="upload-file">
-                    <View onClick={this.onChooseImage}><Button className="submit-button" size='mini' plain type="primary">从相册上传图片</Button></View>
-                </View>
-
                 <View className="form-content">
+                    <View className="form-submit-item">
+                        <View className="form-submit" onClick={this.onSubmit}><Button className="submit-button" size='mini' plain type="primary">完成</Button></View>
+                    </View>
                     <View className="form-item">
                         <View className="form-title">翻译分析</View>
                         <View className="form-input">
-                            <Textarea style={{minHeight:"75px"}} maxlength={500} placeholder="必填" value={answer} onInput={(e) => { this.setState({ answer: e.target["value"] }) }} autoHeight></Textarea>
+                            <Textarea style={{ minHeight: "75px" }} maxlength={500} placeholder="必填" value={answer} onInput={(e) => { this.setState({ answer: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
                     <View className="form-item">
@@ -116,9 +115,9 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
                             <Textarea placeholder="选填" value={contact} onInput={(e) => { this.setState({ contact: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
-                    <View className="form-submit-item">
-                        <View className="form-submit" onClick={this.onSubmit}><Button className="submit-button" size='mini' plain type="primary">完成</Button></View>
-                    </View>
+                </View>
+                <View className="upload-file">
+                    <View onClick={this.onChooseImage}><Button className="submit-button" size='mini' plain type="primary">从相册上传图片</Button></View>
                 </View>
                 <View className="file-list">
                     {

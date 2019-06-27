@@ -8,13 +8,11 @@ button::after {
 button {
     font-size: 12pt;
 }
-  
-.page {
-    background-color: #efeff4;
-}
 
 .page-content {
     padding-top:20px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .flex-custom-border {
@@ -33,7 +31,7 @@ button {
 .flex-custom-userinfo {
     flex-direction: row;
     display: flex;
-    padding:30px 87px 30px 87px;
+    padding:30px 45px 30px 45px;
     background-color:#fff;
 }
 
@@ -57,7 +55,7 @@ button {
     flex-direction: row;
     display: flex;
     justify-content:space-between;
-    padding: 35px 87px 35px 87px;
+    padding: 35px 45px 35px 45px;
     font-weight: bold;
     background-color:#fff;
 }
