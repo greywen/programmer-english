@@ -29,12 +29,12 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      "pages/word/word",
       "pages/dashboard/dashboard",
       "pages/dashboard/userAnswer",
       "pages/article/article",
       "pages/article/article.detail",
       "pages/word/word.create",
-      "pages/word/word",
       "pages/word/word.list",
       "pages/word/word.detail",
 

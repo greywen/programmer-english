@@ -35,9 +35,9 @@ export default class WecharAuthorize extends Component<WecharAuthorizeProps, {}>
         const { authorizationStore: { isAuthorized } } = this.props;
 
         return (
-            <View>
+            <View style={{ display: "inline" }}>
                 {isAuthorized ?
-                    <View>{this.props.children}</View> :
+                    <View style={{ display: "inline" }}>{this.props.children}</View> :
                     <Button style="background:#fff" openType="getUserInfo" onGetUserInfo={this.onGetUserInfo}>
                         {this.props.children}
                     </Button>

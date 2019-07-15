@@ -16,7 +16,7 @@ export default class ResourceAuthorize extends Component<ResourceAuthorizeProps,
 
     render() {
         return (
-            <View>
+            <View style={{ display: "inline" }}>
                 {this.onAuthorize() ? this.props.children : null}
             </View>
         )
