@@ -64,10 +64,13 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
+                    <View className="form-submit-item">
+                        <View className="form-submit" onClick={this.onFeedback}>完成</View>
+                    </View>
                     <View className="form-item">
                         <View className="form-title">反馈建议</View>
                         <View className="form-input">
-                            <Textarea style={{minHeight:"75px"}} placeholder="必填" value={describe} onInput={(e) => { this.setState({ describe: e.target["value"] }) }} autoHeight></Textarea>
+                            <Textarea style={{ minHeight: "75px" }} placeholder="必填" value={describe} onInput={(e) => { this.setState({ describe: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
                     </View>
                     <View className="form-item">
@@ -75,9 +78,6 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
                         <View className="form-input">
                             <Textarea placeholder="选填" value={contact} onInput={(e) => { this.setState({ contact: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
-                    </View>
-                    <View className="form-submit-item">
-                        <View className="form-submit" onClick={this.onFeedback}>完成</View>
                     </View>
                 </View>
             </View>

@@ -76,7 +76,7 @@ export default class Word extends Component<WordProps, WordState> {
             <NavigationBar title="技术词汇" showPageTitle={showPageTitle}></NavigationBar>
             <Loading loading={loading}></Loading>
             {word ? <View className="page-content">
-                <View className="page-nav">
+                {/* <View className="page-nav">
                     <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                         <ResourceAuthorize resources={[UserResource.WordCollect]}>
                             <View onClick={this.onCollectWord}>
@@ -88,20 +88,18 @@ export default class Word extends Component<WordProps, WordState> {
                             </View>
                         </ResourceAuthorize>
                     </WecharAuthorize>
-                </View>
+                </View> */}
                 <View className="flex-custom">
                     <View className="flex-custom-item">
                         <View className="flex-custom-item-word" onClick={() => { readingText(word.english) }}>
                             {word.english}
                         </View>
-                        <View className="flex-custom-item-title">读音释义</View>
                         {
                             word.phoneticUS ?
                                 <View className="flex-custom-item-phonetic">
-                                    <View>{word.phoneticEN}</View>
-                                    <View onClick={() => { readingText(word.english) }}>
-                                        {word.phoneticUS}<Text className="icomoonfont icon-sound"></Text>
-                                    </View>
+                                    <View className="text-ellipsis">{word.phoneticEN}</View>
+                                    <View className="text-ellipsis" onClick={() => { readingText(word.english) }}>{word.phoneticUS}</View>
+                                    <Text className="icomoonfont icon-sound"></Text>
                                 </View> : null
                         }
                         <View className="flex-custom-item-cn">
