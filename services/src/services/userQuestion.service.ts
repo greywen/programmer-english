@@ -11,13 +11,13 @@ export class UserQuestionService {
     async createUserQuestionAswerAsync(createModel: CreateUserQuestionAnswerModel) {
         let question = await userQuestionRepository.getFirstOrDefaultAsync({ id: createModel.questionId, enable: true });
         if (!question) {
-            return NotFoundException("Word is not found.");
+            return new NotFoundException("Word is not found.");
         }
 
         let userAnswerList = await userQuestionAnswerRepository.getAsync({ userId: createModel.userId, questionId: question.id });
 
         if (userAnswerList.length > 1) {
-            return BadRequestException("Translation analysis has reached the upper limit");
+            return new BadRequestException("Translation analysis has reached the upper limit");
         }
 
         let answerId = await userQuestionAnswerRepository.insertAsync(createModel);

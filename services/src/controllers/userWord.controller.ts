@@ -12,7 +12,6 @@ class UserWordController {
         path: "/createWord",
         unless: true
     })
-    @setUserInformation
     @authorize([UserResource.UserWordCreate])
     async createWord(ctx: CustomKoaContextModel) {
         let createModel = <UserWordCreateModel>ctx.request.body;
@@ -25,7 +24,6 @@ class UserWordController {
         path: "/updateWord",
         unless: true
     })
-    @setUserInformation
     @authorize([UserResource.UserWordCreate])
     async updateWord(ctx: CustomKoaContextModel) {
         let updateModel = <UserWordUpdateModel>ctx.request.body;
@@ -38,7 +36,6 @@ class UserWordController {
         path: "/deleteWord",
         unless: true
     })
-    @setUserInformation
     @authorize([UserResource.UserWordCreate])
     async deleteWord(ctx: CustomKoaContextModel) {
         let wordId = parseNumber(ctx.request.body["wordId"]);
@@ -50,7 +47,6 @@ class UserWordController {
         path: "/getWordList",
         unless: false
     })
-    @setUserInformation
     @authorize([UserResource.UserWordCreate])
     async getWordList(ctx: CustomKoaContextModel) {
         let queryModel = <WordListQueryModel>ctx.query;

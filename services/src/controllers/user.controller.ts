@@ -1,4 +1,4 @@
-import { prefix, router, setUserInformation, authorize } from "../router";
+import { prefix, router, authorize, required } from "../router";
 import userService from "../services/user.service";
 import { getBaiduApiTokenAsync } from "../utils/baiduApiUtils";
 import { CustomKoaContextModel } from "../model/common.model";
@@ -33,9 +33,7 @@ class UserController {
         path: "/createFeedback",
         unless: false
     })
-    // @required()
     @authorize([UserResource.FeedbackCreate])
-    @setUserInformation
     async createFeedback(ctx: CustomKoaContextModel) {
         let feedback = <UserFeedbackModel>ctx.request["body"];
         feedback.userId = ctx.user.id;

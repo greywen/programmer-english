@@ -45,6 +45,7 @@ export class BaseRepository<T> {
         let data = await <SqlResultModel>sqlmap.queryAsync(sqlResult.sql, sqlResult.values);
         return data.affectedRows > 0;
     }
+    
 }
 
 export interface BaseRepositoryModel {

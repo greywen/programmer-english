@@ -27,7 +27,7 @@ export class WordService {
     private async verifyWordAnsyc(wordId: number) {
         let word = await wordRepository.getByIdAsync(wordId);
         if (!word) {
-            return NotFoundException("Word is not found.")
+            return new NotFoundException("Word is not found.")
         }
         return word;
     }
@@ -70,7 +70,7 @@ export class WordService {
     async getWordDetailAsync(queryModel: WordQueryModel) {
         let _word = await wordRepository.getByIdAsync(queryModel.wordId);
         if (!_word) {
-            return NotFoundException("Word is not found.")
+            return new NotFoundException("Word is not found.")
         }
         let wordSentences = await wordRepository.getWordSentencesAsync(_word.id);
         let word = await wordRepository.getWordAsync(queryModel);

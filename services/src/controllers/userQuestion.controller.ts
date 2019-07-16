@@ -26,7 +26,6 @@ class UserQuestionController {
     })
     // @required()
     @authorize([UserResource.QuertionAnswerCreate])
-    @setUserInformation
     async CreateQuertionAswer(ctx: CustomKoaContextModel) {
         let createModel = <CreateUserQuestionAnswerModel>ctx.request["body"];
         createModel.userId = ctx.user.id;

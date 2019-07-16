@@ -49,16 +49,17 @@ export function cache(ops?: IRedisOptions) {
         target[name].splice(target[name].length - 1, 0, Cache);
 
         async function Cache(ctx: CustomKoaContextModel, next: any) {
-            let request = ctx.request;
-            let key = await ctx.redis.generateKeyAsync(request.url);
-            let value = await ctx.redis.getAsync(key);
-            if (value) {
-                ctx.response.status = 200;
-                ctx.response.set('X-Koa-Redis-Cache', 'true');
-                ctx.response.body = value;
-            } else {
-                await next();
-            }
+            // let request = ctx.request;
+            // let key = await ctx.redis.generateKeyAsync(request.url);
+            // let value = await ctx.redis.getAsync(key);
+            // if (value) {
+            //     ctx.response.status = 200;
+            //     ctx.response.set('X-Koa-Redis-Cache', 'true');
+            //     ctx.response.body = value;
+            // } else {
+            //     await next();
+            // }
+            await next();
         }
 
         return value;
@@ -82,6 +83,7 @@ export function required(args: any) {
  * @required({params: 'username'})
  * @required({params: ['username','age']})
  * @required({query: 'username'})
+ * @required({body: ['username','age']})
  */
 function requireDescriptor(target: any, name: string, descriptor: PropertyDescriptor, rules: any) {
     target[name] = sureIsArray(target[name]);
@@ -99,6 +101,12 @@ function requireDescriptor(target: any, name: string, descriptor: PropertyDescri
             rules.params = sureIsArray(rules.params);
             for (let name of rules.params) {
                 if (!ctx.params[name]) ctx.throw(412, `GET Request params: ${name} required`);
+            }
+        }
+        if (rules.body) {
+            rules.body = sureIsArray(rules.body);
+            for (let name of rules.body) {
+                if (!ctx.request.body || !ctx.request.body[name]) ctx.throw(412, `GET Request params: ${name} required`);
             }
         }
         await next();

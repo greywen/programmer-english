@@ -12,14 +12,14 @@ export async function generateTokenAsync(user: JWTTokenModel) {
 
 export async function verifyTokenAsync(token: string): Promise<JWTTokenModel> {
     if (!token) {
-        // TO DO: 401
+        throw new UnauthorizedException("用户未授权");
     }
-    token = token.split(' ')[1];
+    var _token = token.split(' ')[1];
     try {
-        let verify = <IAuthResultModel>await jsonwebtoken.verify(token, config.jwt.secret);
+        let verify = <IAuthResultModel>await jsonwebtoken.verify(_token, config.jwt.secret);
         return verify.user;
     } catch (e) {
-        throw new UnauthorizedException("授权失败.");
+        throw new UnauthorizedException("用户未授权");
     }
 }
 

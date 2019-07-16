@@ -1,6 +1,6 @@
 import * as Koa from "koa";
 
-import { prefix, router, setUserInformation, authorize, cache } from "../router";
+import { prefix, router, setUserInformation, authorize, required } from "../router";
 import { CustomKoaContextModel } from "../model/common.model";
 import wordService from "../services/word.service";
 import { CreateCollectModel } from "../model/word";
@@ -33,7 +33,6 @@ class WordController {
         path: "/getNextWord",
         unless: false
     })
-    @setUserInformation
     async getNextWord(ctx: CustomKoaContextModel) {
         ctx.body = await wordService.getWordAsync({ userId: ctx.user.id, next: true });
     }
@@ -43,7 +42,6 @@ class WordController {
         path: "/collectWord",
         unless: false
     })
-    @setUserInformation
     async collectWord(ctx: CustomKoaContextModel) {
         let params = <CreateCollectModel>ctx.request.body;
         params.userId = ctx.user.id;
@@ -55,7 +53,6 @@ class WordController {
         path: "/getWordList",
         unless: false
     })
-    @setUserInformation
     async getWordList(ctx: CustomKoaContextModel) {
         let queryModel = <WordListQueryModel>ctx.query;
         queryModel.userId = ctx.user.id;
@@ -67,7 +64,6 @@ class WordController {
         path: "/getDisplayWord",
         unless: false
     })
-    @setUserInformation
     async getDisplayWord(ctx: CustomKoaContextModel) {
         ctx.body = await wordService.getUserCollectionWordAsync(ctx.user.id);
     }
@@ -77,14 +73,14 @@ class WordController {
         path: "/getWordDetail",
         unless: false
     })
-    @setUserInformation
+    @required({ query: "wordId" })
     async getWordDetailAsync(ctx: CustomKoaContextModel) {
         let wordId = ctx.query["wordId"];
         if (!wordId) {
             ctx.body = {};
             return;
         }
-        ctx.body = await wordService.getWordDetailAsync({ wordId: wordId, userId: ctx.user.id, next: false });;
+        ctx.body = await wordService.getWordDetailAsync({ wordId: wordId, userId: ctx.user.id, next: false });
     }
 
     @router({

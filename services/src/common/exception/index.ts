@@ -1,34 +1,43 @@
 class BaseException extends Error {
+    status: number;
+    code: number;
     constructor(message: string) {
         super(message);
-        Object.setPrototypeOf(this, BaseException.prototype);
     }
 }
 
 export class UnauthorizedException extends BaseException {
-    constructor(message: string) {
+    constructor(message: string, code?: number) {
         super(message);
+        this.name = "Unauthorized";
+        this.status = 401;
+        this.code = code;
     }
 }
 
-
-export function BadRequestException(message?: string) {
-    return {
-        statusCode: 400,
-        message: message || "Internal Server Error"
+export class BadRequestException extends BaseException {
+    constructor(message: string, code?: number) {
+        super(message);
+        this.name = "BadRequest";
+        this.status = 400;
+        this.code = code;
     }
 }
 
-export function InternalServerException(message?: string) {
-    return {
-        statusCode: 500,
-        message: message || "Internal Server Error"
+export class InternalServerException extends BaseException {
+    constructor(message: string, code?: number) {
+        super(message);
+        this.name = "InternalServerException";
+        this.status = 500;
+        this.code = code;
     }
 }
 
-export function NotFoundException(message: string) {
-    return {
-        statusCode: 404,
-        message: message
+export class NotFoundException extends BaseException {
+    constructor(message: string, code?: number) {
+        super(message);
+        this.name = "NotFound";
+        this.status = 404;
+        this.code = code;
     }
 }

@@ -11,7 +11,7 @@ class ArticleController {
         path: "/getArticleList",
         unless: true
     })
-    @cache()
+    //@cache()
     async getArticleList(ctx: Koa.Context) {
         let queryModel = ctx.query;
         let _body = await articleService.getArticleListAsync(queryModel);
@@ -25,8 +25,7 @@ class ArticleController {
         path: "/getArticleDetail",
         unless: false
     })
-    @setUserInformation
-    @cache()
+    //@cache()
     async getArticleDetail(ctx: CustomKoaContextModel) {
         let articleId = ctx.query["articleId"];
 
