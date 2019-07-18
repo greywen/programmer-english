@@ -37,7 +37,7 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
     onPageScroll = (e) => {
         let scrollTop = e.scrollTop;
         this.setState({
-            showPageTitle: scrollTop < 50
+            showPageTitle: scrollTop < 65
         })
     }
 

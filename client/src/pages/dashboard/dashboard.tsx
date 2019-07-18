@@ -44,7 +44,7 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
     onPageScroll = (e) => {
         let scrollTop = e.scrollTop;
         this.setState({
-            showPageTitle: scrollTop < 50
+            showPageTitle: scrollTop < 65
         })
     }
 

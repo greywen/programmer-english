@@ -5,6 +5,7 @@ import '../../assets/icons.scss'
 import './navigationBar.scss'
 import { NavigatorOpenType } from '../../common/enums';
 import * as globalData from "../../common/globalData";
+import { CTransition } from "../"
 
 interface NavigationBarProps {
     background?: string,
@@ -50,7 +51,7 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
     render() {
         const { background, color, title, backUrl, showPageTitle } = this.props;
         const { paddingTop, statusBarHeight } = this.state;
-        
+
         return (
             <View>
                 <View className="navigation-bar" style={{
@@ -74,9 +75,11 @@ export default class NavigationBar extends Component<NavigationBarProps, Navigat
                 </View >
 
                 {
-                    showPageTitle ? <View style={{ marginTop: statusBarHeight + "px", borderBottom: "1px solid #c7c7ca" }} className="page-header">
-                        <View className="header-title">{title}</View>
-                    </View> : null
+                    <CTransition name="fadeDown" duration={1} visible={!!showPageTitle}>
+                        <View style={{ marginTop: statusBarHeight + "px", borderBottom: "1px solid #c7c7ca" }} className="page-header">
+                            <View className="header-title">{title}</View>
+                        </View>
+                    </CTransition>
                 }
 
             </View>

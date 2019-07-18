@@ -45,7 +45,7 @@ export default class Word extends Component<WordProps, WordState> {
     onPageScroll = (e) => {
         let scrollTop = e.scrollTop;
         this.setState({
-            showPageTitle: scrollTop < 50
+            showPageTitle: scrollTop < 65
         })
     }
 

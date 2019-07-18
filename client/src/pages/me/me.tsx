@@ -47,7 +47,7 @@ export default class Me extends Component<MeProps, MeState> {
     onPageScroll = (e) => {
         let scrollTop = e.scrollTop;
         this.setState({
-            showPageTitle: scrollTop < 50
+            showPageTitle: scrollTop < 65
         })
     }
 
