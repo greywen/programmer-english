@@ -44,7 +44,7 @@ export default class Help extends Component<{}, HelpState> {
         const { windowHeight } = Taro.getSystemInfoSync();
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="请喝饮料" showPageTitle={false} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="请喝饮料"></NavigationBar>
             <View className="page-content">
                 <View className="pay">
                     <Image className="pay-image" onClick={this.onSavePayPhoto} src="../../assets/images/pay.png"></Image>

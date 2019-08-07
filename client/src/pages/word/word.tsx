@@ -8,10 +8,8 @@ import { IWordDataModel } from "../../models/word";
 import { readingText } from "../../utils/baiduUtils";
 import { showMessage } from "../../utils/wechatUtils";
 import { UserResource } from "../../common/enums";
-
-interface WordState {
-    showPageTitle: boolean
-}
+import justNavigationBar from "../../common/decorator/justNavigationBar";
+import justLogin from "../../common/decorator/justLogin";
 
 interface WordProps {
     wordStore: {
@@ -29,24 +27,12 @@ interface WordProps {
 
 @inject("wordStore", "authorizationStore")
 @observer
-export default class Word extends Component<WordProps, WordState> {
-    constructor() {
-        super()
-        this.state = {
-            showPageTitle: true
-        }
-    }
-
+@justLogin()
+@justNavigationBar({ navigationBarTitleText: "技术词汇" })
+export default class Word extends Component<WordProps, {}> {
     async componentWillMount() {
         const { getWordAsync } = this.props.wordStore;
         getWordAsync();
-    }
-
-    onPageScroll = (e) => {
-        let scrollTop = e.scrollTop;
-        this.setState({
-            showPageTitle: scrollTop < 65
-        })
     }
 
     onCollectWord = async () => {
@@ -69,26 +55,15 @@ export default class Word extends Component<WordProps, WordState> {
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { showPageTitle } = this.state;
         const { wordStore: { word, loading } } = this.props;
 
         return <View className="page" style={{ height: windowHeight + "px" }}>
-            <NavigationBar title="技术词汇" showPageTitle={showPageTitle}></NavigationBar>
+            <NavigationBar title="技术词汇"></NavigationBar>
             <Loading loading={loading}></Loading>
             {word ? <View className="page-content">
-                {/* <View className="page-nav">
-                    <WecharAuthorize authorizationStore={this.props.authorizationStore}>
-                        <ResourceAuthorize resources={[UserResource.WordCollect]}>
-                            <View onClick={this.onCollectWord}>
-                                {
-                                    word && word.collectionId ?
-                                        <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart-fill nav-icon"></Text> :
-                                        <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart nav-icon"></Text>
-                                }
-                            </View>
-                        </ResourceAuthorize>
-                    </WecharAuthorize>
-                </View> */}
+                <View className="page-nav">
+
+                </View>
                 <View className="flex-custom">
                     <View className="flex-custom-item">
                         <View className="flex-custom-item-word" onClick={() => { readingText(word.english) }}>
@@ -127,9 +102,30 @@ export default class Word extends Component<WordProps, WordState> {
                             }
 
                         </View>
-                        <WecharAuthorize authorizationStore={this.props.authorizationStore}>
-                            <View className="next-item" onClick={this.onGetNextWord}>下一个词汇</View>
-                        </WecharAuthorize>
+
+
+                        <View className="page-tools">
+                            <View className="page-tools-item"></View>
+                            <View className="page-tools-item page-tools-item-love" onClick={this.onCollectWord}>
+                                <WecharAuthorize authorizationStore={this.props.authorizationStore}>
+                                    <ResourceAuthorize resources={[UserResource.WordCollect]}>
+                                        <View>
+                                            {
+                                                word && word.collectionId ?
+                                                    <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart-fill icon-love"></Text> :
+                                                    <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart icon-love"></Text>
+                                            }
+                                        </View>
+                                    </ResourceAuthorize>
+                                </WecharAuthorize>
+                            </View>
+                            <View className="page-tools-item page-tools-item-next">
+                                <WecharAuthorize authorizationStore={this.props.authorizationStore}>
+                                    <View onClick={this.onGetNextWord}>下一个词汇</View>
+                                </WecharAuthorize>
+                            </View>
+                        </View>
+                        
                         <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                             <View className="page-help">
                                 <Navigator url={`../me/feedback?wordId=${word.id}`}>单词有问题?</Navigator>

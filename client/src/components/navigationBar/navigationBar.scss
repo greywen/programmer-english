@@ -1,65 +1,25 @@
-.navigation-bar {
-    width: 750rpx;
-    color: #ffffff;
-    z-index: 99;
-    text-align: center;
-    transition: 300ms;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-  }
-  
-  .tools {
-    position: absolute;
-    left: 0;
-    top: 0;
-    min-width: 70rpx;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    color:#fff;
-  }
-
-  .icon-tools {
-    display: inline-block;
-    font-family: 'iconfont' !important;
-    font-style: normal;
-    font-weight: bold;
-    font-variant: normal;
-    text-transform: none;
-    text-rendering: auto;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    vertical-align: middle;
-    font-size: 44rpx;
-    padding-left:50rpx;
-    padding-top:10rpx;
-  }
-
-  .tools-icon {
-    vertical-align: middle;
-    font-size: 60rpx;
-    padding-right: 5px;
-  }
-  
-  .title{
-    font-weight: bold;
-  }
-
-  .page-header {
-    position: relative;
-    padding-top: 80px;
-    height: 100px;
-    flex-direction: row;
-    display: flex;
-    background-color: #f6f6f6;
+.page-header {
+  height: 120px;
+  flex-direction: column;
+  display: flex;
+  background-color: #fff;
+  margin-top: 20px;
 }
 
-  .header-title {
-    padding-left:45px;
-    font-size: 25pt;
-    font-weight: 500;
-  }
+.header-title {
+  flex-direction: row;
+  display: flex;
+  padding-left:45px;
+  font-size: 25pt;
+  font-weight: 500;
+}
+
+.page-header-hr {
+  flex-direction: row;
+  display: flex;
+  height: 1px;
+  margin-left: 45px;
+  margin-right: 45px;
+  margin-top: 20px;
+  border-bottom: 2px solid #c7c7ca;
+}

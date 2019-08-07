@@ -4,9 +4,9 @@ import { View, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar, Loading, Swipeout } from "../../components";
-import { NavigatorOpenType } from "../../common/enums";
 import { IWordListDataModel } from "../../models/word";
 import { isNullReturnEmpty } from "../../utils/common";
+import justNavigationBar from "../../common/decorator/justNavigationBar";
 
 interface UserWordListState {
     wordList: IWordListDataModel[],
@@ -26,6 +26,7 @@ interface UserWordListProps {
 }
 @inject("userWordStore")
 @observer
+@justNavigationBar({ navigationBarTitleText: "单词列表" })
 export default class UserWordList extends Component<UserWordListProps, UserWordListState> {
 
     constructor() {
@@ -43,7 +44,7 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
         const { page, pageSize } = this.state;
         var _wordList = await getUserWordListAsync(page, pageSize);
 
-        _wordList = _wordList.map(x=>{
+        _wordList = _wordList.map(x => {
             x.createTime = new Date(x.createTime).toLocaleString();
             return x;
         })
@@ -66,7 +67,7 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
             page: _page
         })
         var _wordList = await getUserWordListAsync(_page, pageSize);
-        _wordList = _wordList.map(x=>{
+        _wordList = _wordList.map(x => {
             x.createTime = new Date(x.createTime).toLocaleString();
             return x;
         })
@@ -110,7 +111,7 @@ export default class UserWordList extends Component<UserWordListProps, UserWordL
         const { userWordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词列表" showPageTitle={false} backUrl="../me/me" openType={NavigatorOpenType.switchTab}></NavigationBar>
+            <NavigationBar title="单词列表"></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="word-list">

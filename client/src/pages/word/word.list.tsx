@@ -4,8 +4,8 @@ import { View, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar, Loading } from "../../components";
-import { NavigatorOpenType } from "../../common/enums";
 import { IWordListDataModel } from "../../models/word";
+import justNavigationBar from "../../common/decorator/justNavigationBar";
 
 interface WordListProps {
     wordStore: {
@@ -25,6 +25,7 @@ interface WordListState {
 
 @inject("wordStore")
 @observer
+@justNavigationBar({ navigationBarTitleText: "单词列表" })
 export default class WordList extends Component<WordListProps, WordListState> {
 
     constructor() {
@@ -92,7 +93,7 @@ export default class WordList extends Component<WordListProps, WordListState> {
         const { wordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词列表" showPageTitle={false} backUrl="../me/me" openType={NavigatorOpenType.switchTab}></NavigationBar>
+            <NavigationBar title="单词列表"></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="word-list">

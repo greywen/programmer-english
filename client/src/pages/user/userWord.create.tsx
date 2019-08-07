@@ -79,13 +79,10 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
         const { userWordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词管理" showPageTitle={false} backUrl="../me/me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="单词管理"></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
-                    <View className="form-submit-item">
-                        <View className="form-submit" onClick={this.onSubmit}>完成</View>
-                    </View>
                     <View className="form-item">
                         <View className="form-title">词汇英文</View>
                         <View className="form-input">
@@ -100,7 +97,12 @@ export default class UserWordCreate extends Component<UserWordProps, UserWordSta
                     </View>
                     <View className="form-item">
                         <View className="form-title">备注</View>
-                        <Textarea style={{minHeight:"70px"}} placeholder="选填" maxlength={800} value={comments} onInput={(e) => { this.setState({ comments: e.target["value"] }) }} autoHeight></Textarea>
+                        <View className="form-input">
+                            <Textarea style={{ minHeight: "70px" }} placeholder="选填" maxlength={800} value={comments} onInput={(e) => { this.setState({ comments: e.target["value"] }) }} autoHeight></Textarea>
+                        </View>
+                    </View>
+                    <View className="form-submit-item">
+                        <View className="form-submit" onClick={this.onSubmit}>完成</View>
                     </View>
                 </View>
             </View>

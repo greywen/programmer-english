@@ -5,10 +5,7 @@ import { observer, inject } from '@tarojs/mobx';
 
 import { NavigationBar, WecharAuthorize, Loading } from "../../components";
 import { ArticleListDataModel } from "../../models/article";
-
-interface ArticleState {
-    showPageTitle: boolean
-}
+import justNavigationBar from "../../common/decorator/justNavigationBar";
 
 interface ArtickeProps {
     articleStore: {
@@ -26,21 +23,8 @@ interface ArtickeProps {
 
 @inject("articleStore")
 @observer
-export default class Document extends Component<ArtickeProps, ArticleState> {
-    constructor() {
-        super()
-        this.state = {
-            showPageTitle: true
-        }
-    }
-
-    onPageScroll = (e) => {
-        let scrollTop = e.scrollTop;
-        this.setState({
-            showPageTitle: scrollTop < 65
-        })
-    }
-
+@justNavigationBar({ navigationBarTitleText: "文档阅读" })
+export default class Document extends Component<ArtickeProps, {}> {
     async componentWillMount() {
         await this.props.articleStore.getArticleListAsync();
     }
@@ -56,11 +40,10 @@ export default class Document extends Component<ArtickeProps, ArticleState> {
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { showPageTitle } = this.state;
         const { articleStore: { loading, showLoadMore, artileList } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="文档阅读" showPageTitle={showPageTitle}></NavigationBar>
+            <NavigationBar title="文档阅读"></NavigationBar>
             <Loading loading={loading}></Loading>
             <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                 <View className="article">

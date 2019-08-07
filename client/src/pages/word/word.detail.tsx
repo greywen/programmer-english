@@ -4,9 +4,9 @@ import { View, Text, Navigator } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx';
 
 import { NavigationBar, Loading } from "../../components";
-import { NavigatorOpenType } from "../../common/enums";
 import { IWordDataModel } from "../../models/word";
 import { readingText } from "../../utils/baiduUtils";
+import justNavigationBar from "../../common/decorator/justNavigationBar";
 
 interface WordDetailProps {
     wordStore: {
@@ -19,6 +19,7 @@ interface WordDetailProps {
 
 @inject("wordStore")
 @observer
+@justNavigationBar({ navigationBarTitleText: "单词详情" })
 export default class WordDetail extends Component<WordDetailProps, {}> {
 
     constructor() {
@@ -33,6 +34,7 @@ export default class WordDetail extends Component<WordDetailProps, {}> {
     onCollectWord = async () => {
         const { collectDetailWordAsync } = this.props.wordStore;
         await collectDetailWordAsync();
+        Taro.vibrateShort();
     }
 
     isNullReturnEmpty(val) {
@@ -44,7 +46,7 @@ export default class WordDetail extends Component<WordDetailProps, {}> {
         const { wordStore: { loading, wordDetail } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词详情" showPageTitle={false} backUrl="./word.list" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="单词详情"></NavigationBar>
             <Loading loading={loading}></Loading>
             {wordDetail ? <View className="page-content">
                 <View className="page-nav">

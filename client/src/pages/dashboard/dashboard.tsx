@@ -3,15 +3,11 @@ import { View, Navigator } from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx'
 
 import "./dashboard.scss"
-import withLogin from "../../common/decorator/withLogin";
+import withLogin from "../../common/decorator/justLogin";
 import { IQuestionDataModel } from "../../models/dashiboard";
 import { HtmlParse } from '../../components/htmlParse/htmlParse';
 import { NavigationBar, Loading, WecharAuthorize, ResourceAuthorize } from '../../components';
 import { UserResource } from '../../common/enums';
-
-interface DashboardState {
-    showPageTitle: boolean
-}
 
 interface DashboardProps {
     dashboardStore: {
@@ -28,14 +24,7 @@ interface DashboardProps {
 @inject("dashboardStore", "authorizationStore")
 @observer
 @withLogin()
-export default class Dashboard extends Component<DashboardProps, DashboardState> {
-    constructor() {
-        super()
-        this.state = {
-            showPageTitle: true
-        }
-    }
-
+export default class Dashboard extends Component<DashboardProps, {}> {
     async componentWillMount() {
         const { getQuestionAsync } = this.props.dashboardStore;
         await getQuestionAsync();
@@ -55,11 +44,10 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { showPageTitle } = this.state;
         const { dashboardStore: { question, loading } } = this.props;
         return (
             <View className="page" style={{ height: windowHeight + "px" }}>
-                <NavigationBar title="推荐" showPageTitle={showPageTitle}></NavigationBar>
+                <NavigationBar title="推荐"></NavigationBar>
                 <Loading loading={loading}></Loading>
                 <View>
                     {

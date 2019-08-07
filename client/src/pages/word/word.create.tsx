@@ -142,13 +142,10 @@ export default class WordCreate extends Component<WordProps, WordState> {
         const { wordStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="单词管理" showPageTitle={false} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="单词管理"></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
-                    <View className="form-submit-item">
-                        <View className="form-submit" onClick={this.onSubmit}>完成</View>
-                    </View>
                     <View className="form-item">
                         <View className="form-title">词汇英文</View>
                         <View className="form-input">
@@ -186,6 +183,9 @@ export default class WordCreate extends Component<WordProps, WordState> {
                                 <Textarea style={{ minHeight: "75px" }} placeholder="例句英文(选填)" maxlength={200} value={sentence.english} onInput={(e) => { this.onChangeSentence(index, { english: e.target["value"], chinese: sentence.chinese }) }} autoHeight></Textarea>
                             </View>
                         })}
+                    </View>
+                    <View className="form-submit-item">
+                        <View className="form-submit" onClick={this.onSubmit}>完成</View>
                     </View>
                 </View>
             </View>

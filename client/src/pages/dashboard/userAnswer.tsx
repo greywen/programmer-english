@@ -4,7 +4,6 @@ import { View, Text, Button, Textarea } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx'
 
 import { NavigationBar, Loading } from "../../components";
-import { NavigatorOpenType } from "../../common/enums";
 import { IQuestionAnswerModel } from "../../models/dashiboard";
 import { uploadFile } from "../../utils/request";
 import { showMessage } from "../../utils/wechatUtils";
@@ -96,13 +95,10 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
         const { dashboardStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="翻译分析" showPageTitle={false} backUrl="./dashboard" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="翻译分析"></NavigationBar>
             <Loading loading={loading || uploadFileLoading}></Loading>
             <View className="page-content">
                 <View className="form-content">
-                    <View className="form-submit-item">
-                        <View className="form-submit" onClick={this.onSubmit}><Button className="submit-button" size='mini' plain type="primary">完成</Button></View>
-                    </View>
                     <View className="form-item">
                         <View className="form-title">翻译分析</View>
                         <View className="form-input">
@@ -114,6 +110,9 @@ export default class UserAnswer extends Component<UserAnswerProps, UserAnswerSta
                         <View className="form-input">
                             <Textarea placeholder="选填" value={contact} onInput={(e) => { this.setState({ contact: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
+                    </View>
+                    <View className="form-submit-item">
+                        <View className="form-submit" onClick={this.onSubmit}><Button className="submit-button" size='mini' plain type="primary">完成</Button></View>
                     </View>
                 </View>
                 <View className="upload-file">

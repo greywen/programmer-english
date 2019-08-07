@@ -3,7 +3,7 @@ import "./article.detail.scss"
 import { View } from "@tarojs/components";
 import { observer, inject } from '@tarojs/mobx';
 
-import { NavigationBar, Loading } from "../../components";
+import { Loading } from "../../components";
 import { NavigatorOpenType } from "../../common/enums";
 import { ArticleDetailDataModel } from "../../models/article";
 import { HtmlParse } from "../../components/htmlParse/htmlParse";
@@ -23,6 +23,10 @@ interface ArticleDetailState {
 @observer
 export default class ArticleDetail extends Component<ArticleDetailProps, ArticleDetailState> {
 
+    config = {
+        navigationBarTitleText: "文章详情"
+    }
+
     async componentDidMount() {
         let articleId = this.$router.params["articleId"];
         let _article = await this.props.articleStore.getArticleDetailAsync(articleId);
@@ -37,7 +41,6 @@ export default class ArticleDetail extends Component<ArticleDetailProps, Article
         const { article } = this.state;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="文章详情" showPageTitle={false} backUrl="./article" openType={NavigatorOpenType.navigateBack}></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 {article ? <HtmlParse data={article.describe}></HtmlParse> : null}

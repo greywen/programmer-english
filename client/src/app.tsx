@@ -52,11 +52,6 @@ class App extends Component {
       backgroundColor: "#f8f8f8",
       list: [
         {
-          pagePath: "pages/dashboard/dashboard", text: "推荐",
-          selectedIconPath: "./assets/images/compass-selected.png",
-          iconPath: "./assets/images/compass.png"
-        },
-        {
           pagePath: "pages/word/word", text: "技术词汇",
           selectedIconPath: "./assets/images/file-word-selected.png",
           iconPath: "./assets/images/file-word.png"
@@ -75,8 +70,9 @@ class App extends Component {
     },
     requiredBackgroundModes: ["audio"],
     window: {
-      navigationBarTextStyle: "white",
-      navigationStyle: "custom",
+      navigationBarTextStyle: "black",
+      navigationStyle: "default",
+      navigationBarBackgroundColor: "#fff",
       enablePullDownRefresh: true
     }
   }

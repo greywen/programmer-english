@@ -8,10 +8,7 @@ import { showMessage } from "../../utils/wechatUtils";
 import { IDisplayWordDataModel } from "../../models/word";
 import { isAuthorized } from "../../utils/loginUtils";
 import { UserResource } from "../../common/enums";
-
-interface MeState {
-    showPageTitle: boolean
-}
+import justNavigationBar from "../../common/decorator/justNavigationBar";
 
 interface MeProps {
     meStore: {
@@ -28,27 +25,13 @@ interface MeProps {
 
 @inject("meStore", "authorizationStore")
 @observer
-export default class Me extends Component<MeProps, MeState> {
-
-    constructor() {
-        super()
-        this.state = {
-            showPageTitle: true
-        }
-    }
-
+@justNavigationBar({ navigationBarTitleText: "我的" })
+export default class Me extends Component<MeProps, {}> {
     async componentDidMount() {
         const { getDisplayWordAsync } = this.props.meStore;
         if (isAuthorized()) {
             await getDisplayWordAsync();
         }
-    }
-
-    onPageScroll = (e) => {
-        let scrollTop = e.scrollTop;
-        this.setState({
-            showPageTitle: scrollTop < 65
-        })
     }
 
     onShowNotOpen = () => {
@@ -76,28 +59,27 @@ export default class Me extends Component<MeProps, MeState> {
 
     render() {
         const { windowHeight } = Taro.getSystemInfoSync();
-        const { showPageTitle } = this.state;
         const { meStore: { loading, word } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="我的" showPageTitle={showPageTitle}></NavigationBar>
-            <View className="flex-custom-border-bottom">
-                <View className="flex-custom-userinfo">
-                    <View>
-                        <OpenData className="flex-custom-avatar" type="userAvatarUrl"></OpenData>
-                    </View>
-                    <View className="flex-custom-welcome">
-                        <View>
-                            <OpenData type="userNickName"></OpenData>
-                        </View>
-                        <View>欢迎回来.</View>
-                    </View>
-                </View>
-            </View>
+            <NavigationBar title="我的"></NavigationBar>
             <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                 <View className="page-content">
+                    <View className="flex-custom-border-bottom">
+                        <View className="flex-custom-userinfo">
+                            <View>
+                                <OpenData className="flex-custom-avatar" type="userAvatarUrl"></OpenData>
+                            </View>
+                            <View className="flex-custom-welcome">
+                                <View>
+                                    <OpenData type="userNickName"></OpenData>
+                                </View>
+                                <View>欢迎回来.</View>
+                            </View>
+                        </View>
+                    </View>
                     <ResourceAuthorize resources={[UserResource.WordCollect]}>
-                        <View className="flex-custom-border-top">
+                        <View>
                             <Navigator url="../word/word.list" className="flex-custom-row">
                                 <View className="flex-custom-text">收藏词汇</View>
                                 <View className="flex-custom-searchall">查看全部</View>
@@ -152,14 +134,14 @@ export default class Me extends Component<MeProps, MeState> {
                         </View>
                     </ResourceAuthorize>
 
-                    <ResourceAuthorize resources={[UserResource.Donate]}>
+                    {/* <ResourceAuthorize resources={[UserResource.Donate]}>
                         <View className="flex-custom-border-top">
                             <Navigator url="./help" className="flex-custom-row">
                                 <View className="flex-custom-text">请喝饮料</View>
                                 <View className="flex-custom-icon"><Text className="icomoonfont icon-right"></Text></View>
                             </Navigator>
                         </View>
-                    </ResourceAuthorize>
+                    </ResourceAuthorize> */}
 
                     <ResourceAuthorize resources={[UserResource.FeedbackCreate]}>
                         <View className="flex-custom-border-top">

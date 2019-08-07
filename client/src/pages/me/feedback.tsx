@@ -60,13 +60,10 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
         const { feedbackStore: { loading } } = this.props;
 
         return <View className="page" style={{ minHeight: windowHeight + "px" }}>
-            <NavigationBar title="建议反馈" showPageTitle={false} backUrl="./me" openType={NavigatorOpenType.navigateBack}></NavigationBar>
+            <NavigationBar title="建议反馈"></NavigationBar>
             <Loading loading={loading}></Loading>
             <View className="page-content">
                 <View className="form-content">
-                    <View className="form-submit-item">
-                        <View className="form-submit" onClick={this.onFeedback}>完成</View>
-                    </View>
                     <View className="form-item">
                         <View className="form-title">反馈建议</View>
                         <View className="form-input">
@@ -78,6 +75,9 @@ export default class Feedback extends Component<FeedbackProps, FeedbackState> {
                         <View className="form-input">
                             <Textarea placeholder="选填" value={contact} onInput={(e) => { this.setState({ contact: e.target["value"] }) }} autoHeight></Textarea>
                         </View>
+                    </View>
+                    <View className="form-submit-item">
+                        <View className="form-submit" onClick={this.onFeedback}>完成</View>
                     </View>
                 </View>
             </View>

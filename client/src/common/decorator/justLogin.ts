@@ -2,9 +2,9 @@ import Taro from "@tarojs/taro";
 
 import { login } from "../../utils/loginUtils";
 
-function withLogin() {
+function justLogin() {
     return function (Component) {
-        return class WithLogin extends Component {
+        return class JustLogin extends Component {
             constructor(props) {
                 super(props);
             }
@@ -31,4 +31,4 @@ function withLogin() {
     }
 }
 
-export default withLogin;
+export default justLogin;
