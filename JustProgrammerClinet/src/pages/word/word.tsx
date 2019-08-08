@@ -105,11 +105,13 @@ export default class Word extends Component<WordProps, {}> {
 
 
                         <View className="page-tools">
-                            <View className="page-tools-item"></View>
-                            <View className="page-tools-item page-tools-item-love" onClick={this.onCollectWord}>
+                            <View className="page-tools-item page-tools-item-next">
+                                <WecharAuthorize authorizationStore={this.props.authorizationStore}>
+                                    <View onClick={this.onGetNextWord}>下一个词汇</View>
+                                </WecharAuthorize>
                                 <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                                     <ResourceAuthorize resources={[UserResource.WordCollect]}>
-                                        <View>
+                                        <View className=" page-tools-item-love" onClick={this.onCollectWord}>
                                             {
                                                 word && word.collectionId ?
                                                     <Text style={{ color: "#3271fd" }} className="icomoonfont icon-heart-fill icon-love"></Text> :
@@ -119,13 +121,8 @@ export default class Word extends Component<WordProps, {}> {
                                     </ResourceAuthorize>
                                 </WecharAuthorize>
                             </View>
-                            <View className="page-tools-item page-tools-item-next">
-                                <WecharAuthorize authorizationStore={this.props.authorizationStore}>
-                                    <View onClick={this.onGetNextWord}>下一个词汇</View>
-                                </WecharAuthorize>
-                            </View>
                         </View>
-                        
+
                         <WecharAuthorize authorizationStore={this.props.authorizationStore}>
                             <View className="page-help">
                                 <Navigator url={`../me/feedback?wordId=${word.id}`}>单词有问题?</Navigator>

@@ -124,8 +124,8 @@
 }
 
 .page-tools-item-love {
-    text-align: right;
-    margin-top: 5px;
+    padding: 5px 30px 0px 20px;
+    text-align: center;
 }
 
 .page-tools-item-love .icon-love {
@@ -133,7 +133,8 @@
 }
 
 .page-tools-item-next {
+    flex-direction: row-reverse !important;
+    display: flex !important;
     color:#3271fd;
     font-size: 12pt;
-    text-align: right;
 }

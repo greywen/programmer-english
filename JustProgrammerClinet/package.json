@@ -1,8 +1,8 @@
 {
-	"name": "coder",
+	"name": "just_programmer_client",
 	"version": "1.0.0",
 	"private": true,
-	"description": "coder .",
+	"description": "",
 	"main": "index.js",
 	"scripts": {
 		"build:weapp": "taro build --type weapp",
