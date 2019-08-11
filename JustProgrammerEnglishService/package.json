@@ -1,5 +1,5 @@
 {
-  "name": "just_programmer_service",
+  "name": "just_programmer_english_service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -26,6 +26,8 @@
     "nodemailer": "^5.1.1",
     "redis": "^2.8.0",
     "request": "^2.88.0",
+    "sequelize": "^5.12.3",
+    "sequelize-typescript": "^0.6.11",
     "sqlmap": "^0.1.7"
   },
   "devDependencies": {
@@ -34,6 +36,7 @@
     "@types/mysql": "2.15.5",
     "@types/nodemailer": "4.6.6",
     "@types/redis": "2.8.6",
+    "@types/sequelize": "^4.28.4",
     "typescript": "^3.3.3"
   }
 }
